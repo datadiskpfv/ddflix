@@ -1,9 +1,10 @@
-package uk.co.datadisk.ddflix.entities;
+package uk.co.datadisk.ddflix.entities.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import uk.co.datadisk.ddflix.entities.AbstractDomainClass;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

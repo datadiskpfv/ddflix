@@ -1,4 +1,4 @@
-package uk.co.datadisk.ddflix.entities;
+package uk.co.datadisk.ddflix.entities.user;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,15 +23,15 @@ public class Country {
   private String country;
 
   @NotNull
-  @Column(name = "iso", unique = true)
+  @Column(name = "iso")
   private String iso;
 
   @NotNull
-  @Column(name = "tld", unique = true)
+  @Column(name = "tld")
   private String tld;
 
   @NotNull
-  @Column(name = "name", unique = true)
+  @Column(name = "name")
   private String name;
 
   @CreationTimestamp
@@ -44,7 +44,7 @@ public class Country {
   @Column(name = "last_updated")
   private Date lastUpdated;
 
-  @OneToMany(mappedBy="city")
+  @OneToMany(mappedBy="country")
   private Set<City> cities = new HashSet<>();
 
   @Override

@@ -1,4 +1,4 @@
-package uk.co.datadisk.ddflix.entities;
+package uk.co.datadisk.ddflix.entities.user;
 
 import lombok.*;
 
@@ -64,5 +64,4 @@ public class User extends UserDetail {
 
     public void addShippingAddress(Address shippingAddress) { this.shippingAddresses.add(shippingAddress);}
     public void removeShippingAddress(Address shippingAddress) { this.shippingAddresses.remove(shippingAddress);}
-
 }

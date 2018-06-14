@@ -1,9 +1,9 @@
-package uk.co.datadisk.ddflix.entities;
+package uk.co.datadisk.ddflix.entities.user;
 
 import lombok.*;
+import uk.co.datadisk.ddflix.entities.AbstractDomainClass;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 

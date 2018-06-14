@@ -1,9 +1,10 @@
-package uk.co.datadisk.ddflix.entities;
+package uk.co.datadisk.ddflix.entities.user;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import uk.co.datadisk.ddflix.entities.AbstractDomainClass;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

@@ -1,6 +1,7 @@
-package uk.co.datadisk.ddflix.entities;
+package uk.co.datadisk.ddflix.entities.user;
 
 import lombok.*;
+import uk.co.datadisk.ddflix.entities.AbstractDomainClass;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
