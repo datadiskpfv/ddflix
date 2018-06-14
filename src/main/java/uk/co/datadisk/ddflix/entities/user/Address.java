@@ -14,6 +14,7 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = {"city", "users"}, callSuper = false)
 @ToString(exclude = {"city", "users"})
 @Entity
+@Builder
 @Table(name = "address")
 public class Address extends AbstractDomainClass {
 
@@ -25,11 +26,9 @@ public class Address extends AbstractDomainClass {
   @Column(name = "line2")
   private String line2;
 
-  @NotNull
   @Column(name = "line3")
   private String line3;
 
-  @NotNull
   @Column(name = "line4")
   private String line4;
 

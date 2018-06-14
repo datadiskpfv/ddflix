@@ -9,7 +9,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.co.datadisk.ddflix.DdflixApplication;
 import uk.co.datadisk.ddflix.entities.user.Country;
-import uk.co.datadisk.ddflix.entities.user.User;
 
 import static org.junit.Assert.*;
 
