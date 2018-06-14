@@ -24,10 +24,10 @@ INSERT INTO  address(id, line1, line2, line3, line4, city_id, postcode, date_cre
   (7, 'Dummy 4', '4 Dummy Road', 'Dummy Estate', '', 7, 'DU123MY', now(), now()),
   (8, 'Dummy 5', '5 Dummy Road', 'Dummy Estate', '', 8, 'DU123MY', now(), now());
 
-INSERT INTO user(id, email, password, default_billing_address, default_shipping_address, date_created, last_updated) VALUES
-  (1, "will.hay@example.com", "password", 1, 1, sysdate(), sysdate()),
-  (2, "graham.moffatt@example.com", "password", 2, 2, sysdate(), sysdate()),
-  (3, "moore.marriott@example.com", "password", 3, 3, sysdate(), sysdate());
+INSERT INTO user(id, email, password, username, default_billing_address, default_shipping_address, date_created, last_updated) VALUES
+  (1, "will.hay@example.com", "password", "Will_1", 1, 1, sysdate(), sysdate()),
+  (2, "graham.moffatt@example.com", "password", "Graham_1", 2, 2, sysdate(), sysdate()),
+  (3, "moore.marriott@example.com", "password", "Moore_1", 3, 3, sysdate(), sysdate());
 
 INSERT INTO user_shipping_address(user_id, address_id) VALUES
   (1,1),
