@@ -22,7 +22,8 @@ INSERT INTO  address(id, line1, line2, line3, line4, city_id, postcode, date_cre
   (5, 'Dummy 2', '2 Dummy Road', 'Dummy Estate', '', 5, 'DU123MY', now(), now()),
   (6, 'Dummy 3', '3 Dummy Road', 'Dummy Estate', '', 6, 'DU123MY', now(), now()),
   (7, 'Dummy 4', '4 Dummy Road', 'Dummy Estate', '', 7, 'DU123MY', now(), now()),
-  (8, 'Dummy 5', '5 Dummy Road', 'Dummy Estate', '', 8, 'DU123MY', now(), now());
+  (8, 'Dummy 5', '5 Dummy Road', 'Dummy Estate', '', 8, 'DU123MY', now(), now()),
+  (9, 'Dummy 5', '5 Dummy Road', 'Dummy Estate', '', 9, 'DU123MY', now(), now());
 
 INSERT INTO user(id, email, password, username, default_billing_address, default_shipping_address, date_created, last_updated) VALUES
   (1, "will.hay@example.com", "password", "Will_1", 1, 1, sysdate(), sysdate()),

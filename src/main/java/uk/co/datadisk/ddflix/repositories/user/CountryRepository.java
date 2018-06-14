@@ -5,5 +5,5 @@ import uk.co.datadisk.ddflix.entities.user.Country;
 
 public interface CountryRepository extends JpaRepository<Country, Long> {
 
-    Country findByCountry(String country);
+    Country findByName(String country);
 }
