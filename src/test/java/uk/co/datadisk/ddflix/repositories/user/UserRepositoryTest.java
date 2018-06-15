@@ -1,14 +1,10 @@
 package uk.co.datadisk.ddflix.repositories.user;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,19 +15,13 @@ import uk.co.datadisk.ddflix.entities.user.Role;
 import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.repositories.film.FilmRepository;
 
-import javax.persistence.EntityManager;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DdflixApplication.class)
 @TestPropertySource("classpath:application-test.properties")
 public class UserRepositoryTest {
-
-    //private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    EntityManager em;
 
     @Autowired
     UserRepository userRepository;
