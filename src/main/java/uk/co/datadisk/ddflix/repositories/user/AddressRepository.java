@@ -4,4 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import uk.co.datadisk.ddflix.entities.user.Address;
 
 public interface AddressRepository extends JpaRepository<Address, Long> {
+
+    Address findByPostcode(String postcode);
 }

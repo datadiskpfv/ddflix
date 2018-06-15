@@ -62,6 +62,9 @@ public class User extends UserDetail {
     )
     private Set<Address> shippingAddresses = new HashSet<>();
 
+    public void addRole(Role role) { this.roles.add(role);}
+    public void removeRole(Role role) { this.roles.remove(role);}
+
     public void addShippingAddress(Address shippingAddress) { this.shippingAddresses.add(shippingAddress);}
     public void removeShippingAddress(Address shippingAddress) { this.shippingAddresses.remove(shippingAddress);}
 }

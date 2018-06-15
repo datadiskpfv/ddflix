@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.co.datadisk.ddflix.DdflixApplication;
 import uk.co.datadisk.ddflix.entities.user.Address;
+import uk.co.datadisk.ddflix.entities.user.Role;
 import uk.co.datadisk.ddflix.entities.user.User;
 
 import static org.junit.Assert.*;
@@ -30,6 +31,9 @@ public class UserRepositoryTest {
 
     @Autowired
     AddressRepository addressRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @Before
     public void setUp() {
@@ -58,4 +62,35 @@ public class UserRepositoryTest {
         assertEquals(4, user2.getShippingAddresses().size());
     }
 
+    @Test
+    @Transactional
+    public void addRole() {
+        Role role = roleRepository.findByName("ADMIN");
+        User user = userRepository.findByEmail("paul.valle@example.com");
+
+        assertEquals(0, user.getRoles().size());
+        user.addRole(role);
+        userRepository.save(user);
+
+        User user2 = userRepository.findByEmail("paul.valle@example.com");
+        assertEquals(1, user2.getRoles().size());
+        assertTrue(user2.getRoles().contains(role));
+    }
+
+    @Test
+    @Transactional
+    //@Rollback(false)
+    public void deleteRole() {
+        Role role = roleRepository.findByName("ADMIN");
+        User user = userRepository.findByEmail("will.hay@example.com");
+
+        assertEquals(2, user.getRoles().size());
+        assertTrue(user.getRoles().contains(role));
+
+        user.removeRole(role);
+        userRepository.save(user);
+
+        User user2 = userRepository.findByEmail("will.hay@example.com");
+        assertEquals(1, user2.getRoles().size());
+    }
 }
