@@ -92,3 +92,8 @@ INSERT INTO film_genre(film_id, genre_id) VALUES
  (7,2),
  (8,2),
  (8,3);
+
+-- USER WISHLIST
+INSERT INTO wishlist(user_id, film_id, wished_on) VALUES
+  (2, 1, SUBDATE(NOW(), 1)),
+  (2, 2, SUBDATE(NOW(), 2));

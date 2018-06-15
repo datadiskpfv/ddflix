@@ -1,11 +1,13 @@
 package uk.co.datadisk.ddflix.entities.user;
 
 import lombok.*;
+import uk.co.datadisk.ddflix.entities.film.Film;
+import uk.co.datadisk.ddflix.entities.film.Wishlist;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -62,9 +64,43 @@ public class User extends UserDetail {
     )
     private Set<Address> shippingAddresses = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("wishedOn ASC")
+    private List<Wishlist> wishlists = new ArrayList<>();
+
     public void addRole(Role role) { this.roles.add(role);}
     public void removeRole(Role role) { this.roles.remove(role);}
 
     public void addShippingAddress(Address shippingAddress) { this.shippingAddresses.add(shippingAddress);}
     public void removeShippingAddress(Address shippingAddress) { this.shippingAddresses.remove(shippingAddress);}
+
+    public void addFilmToWishList(Film film) {
+        if(!checkFilmInWishlist(film)) {
+            wishlists.add(new Wishlist(this, film));
+        } else {
+            System.out.println("You already have " + film.getTitle() + " in your wishlist");
+        }
+    }
+
+    public void removeFilmFromWishlist(Film film) {
+        if(checkFilmInWishlist(film)){
+            wishlists.remove(new Wishlist(this, film));
+        } else {
+            System.out.println("You don't have " + film.getTitle() + " in your wishlist");
+        }
+    }
+
+    public boolean checkFilmInWishlist(Film film) {
+        return wishlists.contains(new Wishlist(this, film));
+    }
+
+    // check the @OrderBy above
+    public List<Wishlist> getSortedWishlistDesc(){
+        return wishlists.stream().sorted(Comparator.comparing(Wishlist::getWishedOn).reversed()).collect(Collectors.toList());
+    }
+
+    // check the @OrderBy above
+    public List<Wishlist> getSortedWishlistAsc(){
+        return wishlists.stream().sorted(Comparator.comparing(Wishlist::getWishedOn)).collect(Collectors.toList());
+    }
 }

@@ -13,9 +13,13 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.co.datadisk.ddflix.DdflixApplication;
+import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.user.Address;
 import uk.co.datadisk.ddflix.entities.user.Role;
 import uk.co.datadisk.ddflix.entities.user.User;
+import uk.co.datadisk.ddflix.repositories.film.FilmRepository;
+
+import javax.persistence.EntityManager;
 
 import static org.junit.Assert.*;
 
@@ -27,6 +31,9 @@ public class UserRepositoryTest {
     //private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
+    EntityManager em;
+
+    @Autowired
     UserRepository userRepository;
 
     @Autowired
@@ -34,6 +41,9 @@ public class UserRepositoryTest {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    FilmRepository filmRepository;
 
     @Before
     public void setUp() {
@@ -92,5 +102,41 @@ public class UserRepositoryTest {
 
         User user2 = userRepository.findByEmail("will.hay@example.com");
         assertEquals(1, user2.getRoles().size());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void addFilmToWishlist() {
+        User user = userRepository.findByEmail("paul.valle@example.com");
+        Film film1 = filmRepository.findByTitle("Alien");
+        Film film2 = filmRepository.findByTitle("Harry Potter");
+
+        assertEquals(0, user.getWishlists().size());
+
+        user.addFilmToWishList(film1);
+
+        try {
+            Thread.sleep(2000);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        user.addFilmToWishList(film2);
+        userRepository.save(user);
+        assertEquals(2, user.getWishlists().size());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void removeFilmFromWishlist() {
+        User user = userRepository.findByEmail("graham.moffatt@example.com");
+        Film film1 = filmRepository.findByTitle("Alien");
+
+        assertEquals(2, user.getWishlists().size());
+
+        user.removeFilmFromWishlist(film1);
+        assertEquals(1, user.getWishlists().size());
     }
 }
