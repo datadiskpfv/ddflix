@@ -21,4 +21,9 @@ public class Classification extends AbstractDomainClass {
 
     @OneToOne(mappedBy = "classification")
     private Film film;
+
+    @Override
+    public String toString(){
+        return rating;
+    }
 }

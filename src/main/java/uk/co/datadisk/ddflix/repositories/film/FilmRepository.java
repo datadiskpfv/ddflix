@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface FilmRepository extends JpaRepository<Film, Long> {
 
+  Film findByTitle(String title);
+
   // oldest films
   List<Film> findFirst20ByOrderByReleaseDateAsc();
 

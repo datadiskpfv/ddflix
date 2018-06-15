@@ -48,7 +48,7 @@ public class AddressRepositoryTest {
     @Transactional
     //@Rollback(false)
     public void checkAddress() {
-        Address address = addressRepository.findById(10L).get();
+        Address address = addressRepository.findByPostcode("NW1 6XE");
         assertEquals("221B Baker Street", address.getLine1());
     }
 

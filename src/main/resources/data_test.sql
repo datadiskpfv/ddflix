@@ -56,7 +56,8 @@ INSERT INTO classification(id, rating, image_name, date_created, last_updated) V
   (2, 'PG', 'PG.png', sysdate(), sysdate()),
   (3, '12', '12.png', sysdate(), sysdate()),
   (4, '15', '15.png', sysdate(), sysdate()),
-  (5, '18', '18.png', sysdate(), sysdate());
+  (5, '18', '18.png', sysdate(), sysdate()),
+  (6, '99', '99.png', sysdate(), sysdate());
 
 INSERT INTO genre(id, name, date_created, last_updated) VALUES
   (1, 'Horror', sysdate(), sysdate()),
@@ -65,7 +66,8 @@ INSERT INTO genre(id, name, date_created, last_updated) VALUES
   (4, 'Romance', sysdate(), sysdate()),
   (5, 'Thriller', sysdate(), sysdate()),
   (6, 'Sci-Fi', sysdate(), sysdate()),
-  (7, 'Western', sysdate(), sysdate());
+  (7, 'Western', sysdate(), sysdate()),
+  (8, 'Junk', sysdate(), sysdate());
 
 INSERT INTO film(id, title, description, release_date, status, cover_image, classification_id, date_created, last_updated) VALUES
   (1, 'Alien', 'Sci-Fi horror movie', STR_TO_DATE('01-10-1981', '%d-%m-%Y'), true, 'alien.jpg', 5, sysdate(), sysdate()),
