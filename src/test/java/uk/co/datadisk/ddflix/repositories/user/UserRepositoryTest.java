@@ -106,7 +106,7 @@ public class UserRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    //@Rollback(false)
     public void addFilmToWishlist() {
         User user = userRepository.findByEmail("paul.valle@example.com");
         Film film1 = filmRepository.findByTitle("Alien");
@@ -129,7 +129,7 @@ public class UserRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    //@Rollback(false)
     public void removeFilmFromWishlist() {
         User user = userRepository.findByEmail("graham.moffatt@example.com");
         Film film1 = filmRepository.findByTitle("Alien");
