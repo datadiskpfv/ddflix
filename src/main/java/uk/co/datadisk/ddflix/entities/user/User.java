@@ -64,6 +64,8 @@ public class User extends UserDetail {
     )
     private Set<Address> shippingAddresses = new HashSet<>();
 
+
+    // By default ASC order will be returned, oldest first
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("wishedOn ASC")
     private List<Wishlist> wishlists = new ArrayList<>();

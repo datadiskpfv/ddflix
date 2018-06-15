@@ -139,6 +139,7 @@ public class UserRepositoryTest {
 
         user.addFilmToWishList(film1);
 
+        // Lets add sometime between the adding of the films
         try {
             Thread.sleep(2000);
         } catch (Exception ex) {
