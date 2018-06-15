@@ -5,11 +5,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.co.datadisk.ddflix.DdflixApplication;
 import uk.co.datadisk.ddflix.entities.film.Film;
+import uk.co.datadisk.ddflix.entities.film.Wishlist;
 import uk.co.datadisk.ddflix.entities.user.Address;
 import uk.co.datadisk.ddflix.entities.user.Role;
 import uk.co.datadisk.ddflix.entities.user.User;
@@ -97,6 +99,37 @@ public class UserRepositoryTest {
     @Test
     @Transactional
     //@Rollback(false)
+    public void addShippingAddress(){
+        User user = userRepository.findByEmail("graham.moffatt@example.com");
+        Address address1 = addressRepository.findByPostcode("DU125MY");
+        Address address2 = addressRepository.findByPostcode("DU126MY");
+
+        assertEquals(1, user.getShippingAddresses().size());
+
+        user.addShippingAddress(address1);
+        user.addShippingAddress(address2);
+
+        assertEquals(3, user.getShippingAddresses().size());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void removeShippingAddress(){
+        User user = userRepository.findByEmail("will.hay@example.com");
+        Address address1 = addressRepository.findByPostcode("DU121MY");
+        Address address2 = addressRepository.findByPostcode("DU122MY");
+        assertEquals(4, user.getShippingAddresses().size());
+
+        user.removeShippingAddress(address1);
+        user.removeShippingAddress(address2);
+
+        assertEquals(2, user.getShippingAddresses().size());
+    }
+
+    @Test
+    @Transactional
+    //@Rollback(false)
     public void addFilmToWishlist() {
         User user = userRepository.findByEmail("paul.valle@example.com");
         Film film1 = filmRepository.findByTitle("Alien");
@@ -124,9 +157,32 @@ public class UserRepositoryTest {
         User user = userRepository.findByEmail("graham.moffatt@example.com");
         Film film1 = filmRepository.findByTitle("Alien");
 
-        assertEquals(2, user.getWishlists().size());
+        assertEquals(4, user.getWishlists().size());
 
         user.removeFilmFromWishlist(film1);
-        assertEquals(1, user.getWishlists().size());
+        assertEquals(3, user.getWishlists().size());
+    }
+
+    @Test
+    @Transactional
+    public void checkWishListOrderAsc(){
+        User user = userRepository.findByEmail("graham.moffatt@example.com");
+        assertEquals(4, user.getWishlists().size());
+
+        // default is ASC using the @OrderBy in entity
+        for(Wishlist wl : user.getWishlists()){
+            System.out.println("Film: " + wl.getFilm().getTitle() +  " wished on: " + wl.getWishedOn());
+        }
+    }
+
+    @Test
+    @Transactional
+    public void checkWishListOrderDesc(){
+        User user = userRepository.findByEmail("graham.moffatt@example.com");
+        assertEquals(4, user.getWishlists().size());
+
+        for(Wishlist wl : user.getSortedWishlistDesc()){
+            System.out.println("Film: " + wl.getFilm().getTitle() +  " wished on: " + wl.getWishedOn());
+        }
     }
 }

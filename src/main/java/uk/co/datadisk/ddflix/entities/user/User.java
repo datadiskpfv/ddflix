@@ -94,13 +94,8 @@ public class User extends UserDetail {
         return wishlists.contains(new Wishlist(this, film));
     }
 
-    // check the @OrderBy above
+    // check the @OrderBy above (default is ASC
     public List<Wishlist> getSortedWishlistDesc(){
         return wishlists.stream().sorted(Comparator.comparing(Wishlist::getWishedOn).reversed()).collect(Collectors.toList());
-    }
-
-    // check the @OrderBy above
-    public List<Wishlist> getSortedWishlistAsc(){
-        return wishlists.stream().sorted(Comparator.comparing(Wishlist::getWishedOn)).collect(Collectors.toList());
     }
 }
