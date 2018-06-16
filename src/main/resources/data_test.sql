@@ -95,17 +95,17 @@ INSERT INTO film_genre(film_id, genre_id) VALUES
 
 -- DISC
 INSERT INTO disc(id, disc_format, in_stock, film_id, date_created, last_updated) VALUES
-  (1, 'Blu-Ray', true, 1, sysdate(), sysdate()),
+  (1, 'Blu-Ray', false, 1, sysdate(), sysdate()),
   (2, 'Blu-Ray', true, 1, sysdate(), sysdate()),
   (3, 'Blu-Ray', true, 2, sysdate(), sysdate()),
   (4, 'Blu-Ray', false, 2, sysdate(), sysdate()),
-  (5, 'DVD', true, 1, sysdate(), sysdate()),
-  (6, 'DVD', true, 2, sysdate(), sysdate()),
+  (5, 'DVD', false, 1, sysdate(), sysdate()),
+  (6, 'DVD', false, 2, sysdate(), sysdate()),
   (7, 'Blu-Ray', true, 3, sysdate(), sysdate()),
   (8, 'DVD', false, 4, sysdate(), sysdate()),
   (9, 'DVD', true, 5, sysdate(), sysdate()),
   (10, 'Blu-Ray', true, 6, sysdate(), sysdate()),
-  (11, 'DVD', true, 7, sysdate(), sysdate()),
+  (11, 'DVD', false, 7, sysdate(), sysdate()),
   (12, 'Blu-Ray', true, 8, sysdate(), sysdate());
 
 -- USER WISHLIST
@@ -114,3 +114,14 @@ INSERT INTO wishlist(user_id, film_id, wished_on) VALUES
   (2, 2, SUBDATE(NOW(), 4)),
   (2, 5, SUBDATE(NOW(), 2)),
   (2, 8, SUBDATE(NOW(), 3));
+
+-- USERS FILMS AT HOME
+INSERT INTO films_at_home(user_id, disc_id, sent_date, returned_date) VALUES
+  (2, 1, SUBDATE(NOW(), 1), null),
+  (2, 5, SUBDATE(NOW(), 1), null),
+  (2, 12, SUBDATE(NOW(), 1), null),
+  (3, 4, SUBDATE(NOW(), 3), null),
+  (3, 6, SUBDATE(NOW(), 3), null),
+  (3, 11, SUBDATE(NOW(), 2), null),
+  (2, 3, SUBDATE(NOW(), 1), now()),
+  (2, 7, SUBDATE(NOW(), 1), now());

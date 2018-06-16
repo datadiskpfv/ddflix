@@ -1,7 +1,9 @@
 package uk.co.datadisk.ddflix.entities.user;
 
 import lombok.*;
+import uk.co.datadisk.ddflix.entities.film.Disc;
 import uk.co.datadisk.ddflix.entities.film.Film;
+import uk.co.datadisk.ddflix.entities.film.FilmsAtHome;
 import uk.co.datadisk.ddflix.entities.film.Wishlist;
 
 import javax.persistence.*;
@@ -64,11 +66,14 @@ public class User extends UserDetail {
     )
     private Set<Address> shippingAddresses = new HashSet<>();
 
-
     // By default ASC order will be returned, oldest first
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("wishedOn ASC")
     private List<Wishlist> wishlists = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("sentDate ASC")
+    private List<FilmsAtHome> filmsAtHomes = new ArrayList<>();
 
     public void addRole(Role role) { this.roles.add(role);}
     public void removeRole(Role role) { this.roles.remove(role);}
