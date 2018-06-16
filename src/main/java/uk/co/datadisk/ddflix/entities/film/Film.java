@@ -48,6 +48,14 @@ public class Film extends AbstractDomainClass {
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Disc> discs = new ArrayList<>();
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinTable(
+            name="film_actor",
+            joinColumns={@JoinColumn(name="film_id")},
+            inverseJoinColumns = {@JoinColumn(name="actor_id")}
+    )
+    private Set<Actor> actors = new HashSet<>();
+
     public void addGenre(Genre genre){
         this.genres.add(genre);
     }

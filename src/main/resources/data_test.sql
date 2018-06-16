@@ -2,7 +2,8 @@
 INSERT INTO country(id, iso, tld, name, date_created, last_updated) VALUES
 	('GI', 'GI', '.gi', 'Gibraltar', now(), now()),
 	('GK', 'GK', '.gk', 'Guernsey', now(), now()),
-	('UK', 'GB', '.uk', 'United Kingdom', now(), now());
+	('UK', 'GB', '.uk', 'United Kingdom', now(), now()),
+	('US', 'US', '.us', 'United States of America', now(), now());
 
 INSERT INTO city(id, city, country_id, date_created, last_updated) VALUES
   (1, 'Milton Keynes', 'UK', now(), now()),
@@ -128,3 +129,20 @@ INSERT INTO films_at_home(user_id, disc_id, sent_date, returned_date) VALUES
   (2, 3, SUBDATE(NOW(), 1), now()),
   (2, 7, SUBDATE(NOW(), 1), now()),
   (1, 13, SUBDATE(NOW(), 1), null);
+
+-- ACTORS
+INSERT INTO actor(id, first_name, last_name, dob, gender, country, date_created, last_updated) VALUES
+  (1, 'Tom', 'Skerritt', STR_TO_DATE('16-06-2018', '%d-%m-%Y'), 'MALE', 'US', sysdate(), sysdate()),
+  (2, 'Sigourney', 'Weaver', STR_TO_DATE('16-06-2018', '%d-%m-%Y'), 'FEMALE', 'US', sysdate(), sysdate()),
+  (3, 'John', 'Hurt', STR_TO_DATE('16-06-2018', '%d-%m-%Y'), 'MALE', 'UK', sysdate(), sysdate()),
+  (4, 'Ian', 'Holm', STR_TO_DATE('16-06-2018', '%d-%m-%Y'), 'MALE', 'UK', sysdate(), sysdate()),
+  (5, 'Veronica', 'Cartwright', STR_TO_DATE('16-06-2018', '%d-%m-%Y'), 'FEMALE', 'US', sysdate(), sysdate()),
+  (6, 'Yaphet', 'Kotto', STR_TO_DATE('16-06-2018', '%d-%m-%Y'), 'MALE', 'US', sysdate(), sysdate());
+
+INSERT INTO film_actor(film_id, actor_id) VALUES
+  (1, 1),
+  (1, 2),
+  (1, 3),
+  (1, 4),
+  (1, 5),
+  (1, 6);
