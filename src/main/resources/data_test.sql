@@ -146,3 +146,15 @@ INSERT INTO film_actor(film_id, actor_id) VALUES
   (1, 4),
   (1, 5),
   (1, 6);
+
+INSERT INTO actor_image(id,image_name, date_created, last_updated) VALUES
+  (1, 'tomA', sysdate(), sysdate()),
+  (2, 'tomB', sysdate(), sysdate()),
+  (3, 'sigourneyA', sysdate(), sysdate()),
+  (4, 'sigourneyB', sysdate(), sysdate());
+
+INSERT INTO actor_images(actor_id, image_id) VALUES
+  (1, 1),
+  (1, 2),
+  (2, 3),
+  (2, 4);

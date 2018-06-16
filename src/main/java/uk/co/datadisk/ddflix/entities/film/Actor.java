@@ -14,8 +14,8 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"birthCountry", "films"}, callSuper = false)
-@ToString(exclude = {"birthCountry", "films"})
+@EqualsAndHashCode(exclude = {"birthCountry", "films", "actorImages"}, callSuper = false)
+@ToString(exclude = {"birthCountry", "films", "actorImages"})
 @Entity
 public class Actor extends AbstractDomainClass {
 
@@ -42,4 +42,19 @@ public class Actor extends AbstractDomainClass {
 
     @ManyToMany(mappedBy = "actors")
     private Set<Film> films = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name="actor_images",
+            joinColumns={@JoinColumn(name="actor_id")},
+            inverseJoinColumns = {@JoinColumn(name="image_id")}
+    )
+    private Set<ActorImage> actorImages = new HashSet<>();
+
+    public void addActorImage(ActorImage actorImage){
+        this.actorImages.add(actorImage);
+    }
+    public void removeActorImage(ActorImage actorImage) {
+        this.actorImages.remove(actorImage);
+    }
 }
