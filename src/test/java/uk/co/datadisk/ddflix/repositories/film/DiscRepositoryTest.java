@@ -8,10 +8,13 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.co.datadisk.ddflix.DdflixApplication;
+import uk.co.datadisk.ddflix.entities.film.Disc;
 import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.film.FilmsAtHome;
 import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.repositories.user.UserRepository;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -42,9 +45,18 @@ public class DiscRepositoryTest {
 
     @Test
     @Transactional
-    public void filmsAtHome(){
-        Film film1 = filmRepository.findById(1L).get();
-        System.out.println(film1.getDiscs());
+    public void availableFilmDiscs(){
+        Film film = filmRepository.findById(1L).get();
+        List<Disc> availableDiscs = discRepository.findAvailableDiscsByFilmAndInStockTrue(film);
+        System.out.println("Available Alien Discs: " + availableDiscs);
+
+        List<Disc> availableDiscsBluRay = discRepository.findAvailableDiscsByFilmAndInStockTrueAAndDiscFormat(film, "Blu-Ray");
+        System.out.println("Available Blu-Ray Alien Discs: " + availableDiscsBluRay);
+
+        List<Disc> availableDiscsDvd = discRepository.findAvailableDiscsByFilmAndInStockTrueAAndDiscFormat(film, "DVD");
+        System.out.println("Available DVD Alien Discs: " + availableDiscsDvd);
+
+
     }
 
 }
