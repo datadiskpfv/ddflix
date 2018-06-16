@@ -50,13 +50,45 @@ public class DiscRepositoryTest {
         List<Disc> availableDiscs = discRepository.findAvailableDiscsByFilmAndInStockTrue(film);
         System.out.println("Available Alien Discs: " + availableDiscs);
 
-        List<Disc> availableDiscsBluRay = discRepository.findAvailableDiscsByFilmAndInStockTrueAAndDiscFormat(film, "Blu-Ray");
+        List<Disc> availableDiscsBluRay = discRepository.findAvailableDiscsByFilmAndInStockTrueAndDiscFormat(film, "Blu-Ray");
         System.out.println("Available Blu-Ray Alien Discs: " + availableDiscsBluRay);
 
-        List<Disc> availableDiscsDvd = discRepository.findAvailableDiscsByFilmAndInStockTrueAAndDiscFormat(film, "DVD");
+        for(Disc disc : availableDiscsBluRay){
+            System.out.println("Disc in Stock (Blu-Ray): " + disc.getFilm().getTitle() + " ID: " + disc.getId());
+        }
+
+        List<Disc> availableDiscsDvd = discRepository.findAvailableDiscsByFilmAndInStockTrueAndDiscFormat(film, "DVD");
         System.out.println("Available DVD Alien Discs: " + availableDiscsDvd);
 
-
+        for(Disc disc : availableDiscsDvd){
+            System.out.println("Disc in Stock (DVD): " + disc.getFilm().getTitle() + " ID: " + disc.getId());
+        }
     }
 
+    @Test
+    @Transactional
+    public void atHomeFilmDiscs(){
+        Film film = filmRepository.findById(1L).get();
+        User user = userRepository.findById(2L).get();
+
+        List<Disc> atHomeDiscsBluRay = discRepository.findAvailableDiscsByFilmAndInStockFalseAndDiscFormat(film, "Blu-Ray");
+        System.out.println("Available Blu-Ray Alien Discs: " + atHomeDiscsBluRay);
+        System.out.println("Blu-Ray Alien Discs at Users Homes: " + atHomeDiscsBluRay.size());
+
+        for(Disc disc : atHomeDiscsBluRay){
+            System.out.println("Disc at homes (Blu-Ray): " + disc.getFilm().getTitle() + " ID: " + disc.getId());
+            for(FilmsAtHome fah : disc.getFilmsAtHomes()){
+                System.out.println("User " + fah.getUser().getEmail() + " has " + disc.getFilm().getTitle() + " (Blu-Ray) at home.");
+            }
+        }
+
+        List<Disc> atHomeDiscsDvd = discRepository.findAvailableDiscsByFilmAndInStockFalseAndDiscFormat(film, "DVD");
+        System.out.println("DVD Alien Discs at Users Homes: " + atHomeDiscsDvd.size());
+        for(Disc disc : atHomeDiscsDvd){
+            System.out.println("Disc at homes (DVD): " + disc.getFilm().getTitle() + " ID: " + disc.getId());
+            for(FilmsAtHome fah : disc.getFilmsAtHomes()){
+                System.out.println("User " + fah.getUser().getEmail() + " has " + disc.getFilm().getTitle() + " (DVD) at home.");
+            }
+        }
+    }
 }

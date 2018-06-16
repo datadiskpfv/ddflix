@@ -1,9 +1,12 @@
 package uk.co.datadisk.ddflix.entities.film;
 
 import lombok.*;
+import org.hibernate.annotations.Where;
 import uk.co.datadisk.ddflix.entities.AbstractDomainClass;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,4 +25,10 @@ public class Disc extends AbstractDomainClass {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("filmId")
     private Film film;
+
+    // added a where clause as I don't want the returned discs/films
+    @OneToMany(mappedBy = "disc", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Where(clause = "returned_date IS NULL")
+    @OrderBy("sent_date ASC")
+    private List<FilmsAtHome> filmsAtHomes = new ArrayList<>();
 }
