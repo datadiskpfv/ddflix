@@ -5,9 +5,7 @@ import uk.co.datadisk.ddflix.entities.AbstractDomainClass;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -46,6 +44,9 @@ public class Film extends AbstractDomainClass {
             inverseJoinColumns = {@JoinColumn(name="genre_id")}
     )
     private Set<Genre> genres = new HashSet<>();
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Disc> discs = new ArrayList<>();
 
     public void addGenre(Genre genre){
         this.genres.add(genre);

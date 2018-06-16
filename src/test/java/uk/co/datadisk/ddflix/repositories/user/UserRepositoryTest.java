@@ -114,7 +114,7 @@ public class UserRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    //@Rollback(false)
     public void removeShippingAddress(){
         User user = userRepository.findByEmail("will.hay@example.com");
         Address address1 = addressRepository.findByPostcode("DU121MY");
