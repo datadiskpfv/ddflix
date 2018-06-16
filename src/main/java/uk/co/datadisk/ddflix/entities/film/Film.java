@@ -67,6 +67,6 @@ public class Film extends AbstractDomainClass {
         this.actors.add(actor);
     }
     public void removeActor(Actor actor) {
-        this.actors.remove(actors);
+        this.actors.remove(actor);
     }
 }

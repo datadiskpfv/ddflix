@@ -61,22 +61,33 @@ public class ActorRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    //@Rollback(false)
     public void deleteActor() {
         Actor actor1 = actorRepository.findByFirstNameAndLastName("Veronica", "Cartwright");
         assertNotNull(actor1);
 
+        // We need to delete the actor from all films
         for(Film film : actor1.getFilms()){
             System.out.println("Film: " + film.getTitle());
             film.removeActor(actor1);
             System.out.println("Film :" + film.getActors());
         }
+        actorRepository.delete(actor1);
+
+        Actor actor2 = actorRepository.findByFirstNameAndLastName("Veronica", "Cartwright");
+        assertNull(actor2);
     }
 
     @Test
     @Transactional
     //@Rollback(false)
     public void updateActor() {
+        Country uk = countryRepository.findByName("United Kingdom");
+        Actor actor1 = actorRepository.findByFirstNameAndLastName("Yaphet", "Kotto");
+        actor1.setBirthCountry(uk);
+
+        Actor actor2 = actorRepository.findByFirstNameAndLastName("Yaphet", "Kotto");
+        assertEquals("United Kingdom", actor2.getBirthCountry().getName());
     }
 
 }
