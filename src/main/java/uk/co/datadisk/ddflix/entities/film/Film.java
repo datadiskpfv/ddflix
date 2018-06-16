@@ -10,8 +10,8 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"classification","genres"})
-@ToString(exclude = {"classification","genres"})
+@EqualsAndHashCode(exclude = {"classification","genres", "discs"}, callSuper = false)
+@ToString(exclude = {"classification","genres","discs"})
 @Entity
 public class Film extends AbstractDomainClass {
 

@@ -72,8 +72,9 @@ public class User extends UserDetail {
     @OrderBy("wishedOn ASC")
     private List<Wishlist> wishlists = new ArrayList<>();
 
+    // added a where clause as I don't want the returned discs/films
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Where(clause = "returned_date IS NOT NULL")
+    @Where(clause = "returned_date IS NULL")
     @OrderBy("sent_date ASC")
     private List<FilmsAtHome> filmsAtHomes = new ArrayList<>();
 

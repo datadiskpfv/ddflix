@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "film", callSuper = false)
 @ToString
 @Entity
 public class Disc extends AbstractDomainClass {

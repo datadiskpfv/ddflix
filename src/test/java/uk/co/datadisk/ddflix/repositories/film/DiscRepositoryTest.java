@@ -8,6 +8,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.co.datadisk.ddflix.DdflixApplication;
+import uk.co.datadisk.ddflix.entities.film.Film;
+import uk.co.datadisk.ddflix.entities.film.FilmsAtHome;
 import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.repositories.user.UserRepository;
 
@@ -30,8 +32,19 @@ public class DiscRepositoryTest {
     @Test
     @Transactional
     public void userFilmsAtHome(){
-        User user = userRepository.findByEmail("graham.moffatt@example.com");
-        System.out.println("Films at home: " + user.getFilmsAtHomes().size());
+        User user1 = userRepository.findByEmail("graham.moffatt@example.com");
+        assertEquals(3, user1.getFilmsAtHomes().size());
+
+        User user2 = userRepository.findByEmail("moore.marriott@example.com");
+        assertEquals(2, user2.getFilmsAtHomes().size());
+
+    }
+
+    @Test
+    @Transactional
+    public void filmsAtHome(){
+        Film film1 = filmRepository.findById(1L).get();
+        System.out.println(film1.getDiscs());
     }
 
 }
