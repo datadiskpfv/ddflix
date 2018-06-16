@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.co.datadisk.ddflix.DdflixApplication;
 import uk.co.datadisk.ddflix.entities.film.Actor;
+import uk.co.datadisk.ddflix.entities.film.ActorImage;
 import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.film.Gender;
 import uk.co.datadisk.ddflix.entities.user.Country;
@@ -32,6 +33,9 @@ public class ActorRepositoryTest {
 
     @Autowired
     FilmRepository filmRepository;
+
+    @Autowired
+    ActorImageRepository actorImageRepository;
 
     @Test
     @Transactional
@@ -90,4 +94,35 @@ public class ActorRepositoryTest {
         assertEquals("United Kingdom", actor2.getBirthCountry().getName());
     }
 
+    @Test
+    @Transactional
+    //@Rollback(false)
+    public void addActorImage() {
+        Actor actor = actorRepository.findByFirstNameAndLastName("Veronica", "Cartwright");
+
+        ActorImage actorImageA = new ActorImage();
+        actorImageA.setImageName("VeronicaA");
+
+        ActorImage actorImageB = new ActorImage();
+        actorImageB.setImageName("VeronicaB");
+
+        actor.addActorImage(actorImageA);
+        actor.addActorImage(actorImageB);
+
+        Actor actor2 = actorRepository.findByFirstNameAndLastName("Veronica", "Cartwright");
+        assertEquals(2, actor2.getActorImages().size());
+    }
+
+    @Test
+    @Transactional
+    //@Rollback(false)
+    public void removeActorImage() {
+        Actor actor = actorRepository.findByFirstNameAndLastName("Sigourney", "Weaver");
+        ActorImage actorImage = actorImageRepository.findById(3L).get();
+
+        assertEquals(2, actor.getActorImages().size());
+
+        actor.removeActorImage(actorImage);
+        assertEquals(1, actor.getActorImages().size());
+    }
 }
