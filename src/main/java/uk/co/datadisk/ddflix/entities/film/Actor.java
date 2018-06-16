@@ -14,18 +14,18 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"birthCountry"}, callSuper = false)
-@ToString
+@EqualsAndHashCode(exclude = {"birthCountry", "films"}, callSuper = false)
+@ToString(exclude = {"birthCountry", "films"})
 @Entity
 public class Actor extends AbstractDomainClass {
 
     @NotNull
     @Column(name = "first_name")
-    private String first_name;
+    private String firstName;
 
     @NotNull
     @Column(name = "last_name")
-    private String last_name;
+    private String lastName;
 
     @Column(name = "dob")
     @Temporal(TemporalType.DATE)

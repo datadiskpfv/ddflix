@@ -10,8 +10,8 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"classification","genres", "discs"}, callSuper = false)
-@ToString(exclude = {"classification","genres","discs"})
+@EqualsAndHashCode(exclude = {"classification","genres", "discs", "actors"}, callSuper = false)
+@ToString(exclude = {"classification","genres","discs", "actors"})
 @Entity
 public class Film extends AbstractDomainClass {
 
@@ -48,7 +48,7 @@ public class Film extends AbstractDomainClass {
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Disc> discs = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name="film_actor",
             joinColumns={@JoinColumn(name="film_id")},
@@ -61,5 +61,12 @@ public class Film extends AbstractDomainClass {
     }
     public void removeGenre(Genre genre) {
         this.genres.remove(genre);
+    }
+
+    public void addActor(Actor actor){
+        this.actors.add(actor);
+    }
+    public void removeActor(Actor actor) {
+        this.actors.remove(actors);
     }
 }
