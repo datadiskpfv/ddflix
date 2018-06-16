@@ -1,6 +1,7 @@
 package uk.co.datadisk.ddflix.entities.user;
 
 import lombok.*;
+import org.hibernate.annotations.Where;
 import uk.co.datadisk.ddflix.entities.film.Disc;
 import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.film.FilmsAtHome;
@@ -72,7 +73,8 @@ public class User extends UserDetail {
     private List<Wishlist> wishlists = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("sentDate ASC")
+    @Where(clause = "returned_date IS NOT NULL")
+    @OrderBy("sent_date ASC")
     private List<FilmsAtHome> filmsAtHomes = new ArrayList<>();
 
     public void addRole(Role role) { this.roles.add(role);}
