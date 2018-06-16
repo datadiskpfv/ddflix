@@ -47,7 +47,7 @@ public class ActorRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    //@Rollback(false)
     public void createActor() {
         Country usa = countryRepository.findByName("United States of America");
 

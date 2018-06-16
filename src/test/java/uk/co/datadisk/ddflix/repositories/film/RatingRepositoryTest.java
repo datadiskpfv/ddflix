@@ -36,7 +36,7 @@ public class RatingRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    //@Rollback(false)
     public void createRating(){
       User user = userRepository.findByEmail("graham.moffatt@example.com");
       Film film = filmRepository.findByTitle("Star Wars");
@@ -45,7 +45,7 @@ public class RatingRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    //@Rollback(false)
     public void deleteRating(){
         User user = userRepository.findByEmail("graham.moffatt@example.com");
         Film film = filmRepository.findByTitle("Alien");
@@ -54,7 +54,7 @@ public class RatingRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    //@Rollback(false)
     public void updateRating(){
         User user = userRepository.findByEmail("graham.moffatt@example.com");
         Film film = filmRepository.findByTitle("Alien");

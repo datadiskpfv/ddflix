@@ -58,14 +58,14 @@ public class AddressRepositoryTest {
     public void createFullAddressIncludingCityAndCountry() {
 
         // create new city and Country
-        Country usa = new Country();
-        usa.setCountry("US");
-        usa.setName("United States Of America");
-        usa.setIso("US");
-        usa.setTld(".us");
+        Country france = new Country();
+        france.setCountry("FR");
+        france.setName("France");
+        france.setIso("FR");
+        france.setTld(".fr");
 
         City new_york = new City();
-        new_york.setCountry(usa);
+        new_york.setCountry(france);
         new_york.setCity("New York");
 
         Address empire_state_building = Address.builder()
