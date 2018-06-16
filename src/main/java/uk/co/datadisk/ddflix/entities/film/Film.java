@@ -10,8 +10,8 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"classification","genres", "discs", "actors"}, callSuper = false)
-@ToString(exclude = {"classification","genres","discs", "actors"})
+@EqualsAndHashCode(exclude = {"classification","genres", "discs", "actors", "ratings", "reviews"}, callSuper = false)
+@ToString(exclude = {"classification","genres","discs", "actors", "ratings", "reviews"})
 @Entity
 public class Film extends AbstractDomainClass {
 
@@ -55,6 +55,12 @@ public class Film extends AbstractDomainClass {
             inverseJoinColumns = {@JoinColumn(name="actor_id")}
     )
     private Set<Actor> actors = new HashSet<>();
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Rating> ratings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 
     public void addGenre(Genre genre){
         this.genres.add(genre);

@@ -2,10 +2,7 @@ package uk.co.datadisk.ddflix.entities.user;
 
 import lombok.*;
 import org.hibernate.annotations.Where;
-import uk.co.datadisk.ddflix.entities.film.Disc;
-import uk.co.datadisk.ddflix.entities.film.Film;
-import uk.co.datadisk.ddflix.entities.film.FilmsAtHome;
-import uk.co.datadisk.ddflix.entities.film.Wishlist;
+import uk.co.datadisk.ddflix.entities.film.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,8 +12,8 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"roles", "passwordResetToken"}, callSuper = false)
-@ToString(exclude = {"roles", "passwordResetToken"})
+@EqualsAndHashCode(exclude = {"roles", "passwordResetToken", "ratings", "reviews"}, callSuper = false)
+@ToString(exclude = {"roles", "passwordResetToken", "ratings", "reviews"})
 @Entity
 public class User extends UserDetail {
 
@@ -78,6 +75,12 @@ public class User extends UserDetail {
     @OrderBy("sent_date ASC")
     private List<FilmsAtHome> filmsAtHomes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Rating> ratings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
+
     public void addRole(Role role) { this.roles.add(role);}
     public void removeRole(Role role) { this.roles.remove(role);}
 
@@ -102,6 +105,26 @@ public class User extends UserDetail {
 
     public boolean checkFilmInWishlist(Film film) {
         return wishlists.contains(new Wishlist(this, film));
+    }
+
+    public void addRating(Film film, Integer rating) {
+        if(!checkRating(film)) {
+            ratings.add(new Rating(this, film, rating));
+        } else {
+            System.out.println("You already have a rating for " + film.getTitle());
+        }
+    }
+
+    public void removeRating(Film film) {
+        if(checkRating(film)){
+            ratings.remove(new Rating(this, film));
+        } else {
+            System.out.println("You don't have a rating for " + film.getTitle());
+        }
+    }
+
+    public boolean checkRating(Film film) {
+        return ratings.contains(new Rating(this, film));
     }
 
     // check the @OrderBy above (default is ASC

@@ -158,3 +158,11 @@ INSERT INTO actor_images(actor_id, image_id) VALUES
   (1, 2),
   (2, 3),
   (2, 4);
+
+-- RATINGS
+INSERT INTO rating(user_id, film_id, rating) VALUES
+  (2, 1, 5),
+  (3, 1, 4),
+  (2, 3, 4),
+  (2, 8, 5),
+  (3, 7, 1);
