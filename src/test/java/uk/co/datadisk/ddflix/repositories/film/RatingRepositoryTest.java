@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.co.datadisk.ddflix.DdflixApplication;
 import uk.co.datadisk.ddflix.entities.film.Film;
-import uk.co.datadisk.ddflix.entities.film.Rating;
 import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.repositories.user.UserRepository;
 
@@ -59,6 +58,7 @@ public class RatingRepositoryTest {
     public void updateRating(){
         User user = userRepository.findByEmail("graham.moffatt@example.com");
         Film film = filmRepository.findByTitle("Alien");
+        assertEquals(5, ratingRepository.findByUserAndFilm(user, film).getRating().longValue());
 
         if(user.checkRating(film)) {
           user.removeRating(film);
@@ -66,5 +66,7 @@ public class RatingRepositoryTest {
           em.refresh(user);
         }
         user.addRating(film, 1);
+        assertNotNull(ratingRepository.findByUserAndFilm(user, film));
+        assertEquals(1, ratingRepository.findByUserAndFilm(user, film).getRating().longValue());
     }
 }
