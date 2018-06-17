@@ -91,4 +91,18 @@ public class Film extends AbstractDomainClass {
     public void removeActor(Actor actor) {
         this.actors.remove(actor);
     }
+
+    public void addLanguage(Language language){
+        this.languages.add(language);
+    }
+    public void removeLanguage(Language language){
+        this.languages.remove(language);
+    }
+
+    public void addSubtitle(Language language){
+        this.subtitles.add(language);
+    }
+    public void removeSubtitle(Language language){
+        this.subtitles.remove(language);
+    }
 }
