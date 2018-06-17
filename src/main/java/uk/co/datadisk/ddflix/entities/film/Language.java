@@ -1,9 +1,6 @@
 package uk.co.datadisk.ddflix.entities.film;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import uk.co.datadisk.ddflix.entities.AbstractDomainClass;
 
 import javax.persistence.Column;
@@ -13,14 +10,17 @@ import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
+@RequiredArgsConstructor
 @EqualsAndHashCode(exclude = {"filmLanguages", "filmSubtitles"}, callSuper = false)
+@ToString(exclude = {"filmLanguages", "filmSubtitles"})
+
 @Entity
 @Table(name = "language")
 public class Language extends AbstractDomainClass {
 
+    @NonNull
     @Column(name = "language")
     private String language;
 
@@ -29,4 +29,6 @@ public class Language extends AbstractDomainClass {
 
     @ManyToMany(mappedBy = "subtitles")
     private Set<Film> filmSubtitles = new HashSet<>();
+
+
 }
