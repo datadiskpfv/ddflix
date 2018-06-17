@@ -180,7 +180,8 @@ INSERT INTO language(id, language, date_created, last_updated) VALUES
   (1, 'English', sysdate(), sysdate()),
   (2, 'French', sysdate(), sysdate()),
   (3, 'German', sysdate(), sysdate()),
-  (4, 'Spanish', sysdate(), sysdate());
+  (4, 'Spanish', sysdate(), sysdate()),
+  (5, 'Danish', sysdate(), sysdate());
 
 INSERT INTO film_languages(film_id, language_id) VALUES
   (1, 1),
