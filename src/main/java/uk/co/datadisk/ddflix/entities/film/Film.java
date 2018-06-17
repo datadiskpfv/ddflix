@@ -10,8 +10,8 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"classification","genres", "discs", "actors", "ratings", "reviews"}, callSuper = false)
-@ToString(exclude = {"classification","genres","discs", "actors", "ratings", "reviews"})
+@EqualsAndHashCode(exclude = {"classification","genres", "discs", "actors", "ratings", "reviews", "languages", "subtitles"}, callSuper = false)
+@ToString(exclude = {"classification","genres","discs", "actors", "ratings", "reviews", "languages", "subtitles"})
 @Entity
 public class Film extends AbstractDomainClass {
 
@@ -44,6 +44,22 @@ public class Film extends AbstractDomainClass {
             inverseJoinColumns = {@JoinColumn(name="genre_id")}
     )
     private Set<Genre> genres = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="film_languages",
+            joinColumns = {@JoinColumn(name="film_id")},
+            inverseJoinColumns = {@JoinColumn(name="language_id")}
+    )
+    private Set<Language> languages = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="film_subtitles",
+            joinColumns = {@JoinColumn(name="film_id")},
+            inverseJoinColumns = {@JoinColumn(name="language_id")}
+    )
+    private Set<Language> subtitles = new HashSet<>();
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Disc> discs = new ArrayList<>();

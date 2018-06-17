@@ -174,3 +174,26 @@ INSERT INTO review(user_id, film_id, review) VALUES
   (2, 8, 'A must see for all Harry Potter fans'),
   (3, 1, 'Wow what a movie a must see'),
   (3, 7, 'Too gorey for me');
+
+-- LANGUAGES AND SUBTITLES
+INSERT INTO language(id, language, date_created, last_updated) VALUES
+  (1, 'English', sysdate(), sysdate()),
+  (2, 'French', sysdate(), sysdate()),
+  (3, 'German', sysdate(), sysdate()),
+  (4, 'Spanish', sysdate(), sysdate());
+
+INSERT INTO film_languages(film_id, language_id) VALUES
+  (1, 1),
+  (1, 2),
+  (2, 1),
+  (2, 3),
+  (3, 1),
+  (3, 4);
+
+INSERT INTO film_subtitles(film_id, language_id) VALUES
+  (1, 1),
+  (1, 2),
+  (2, 1),
+  (2, 3),
+  (3, 1),
+  (3, 4);

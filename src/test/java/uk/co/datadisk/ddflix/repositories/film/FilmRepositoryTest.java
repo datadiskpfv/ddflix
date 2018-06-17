@@ -43,7 +43,7 @@ public class FilmRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    //@Rollback(false)
     public void createFilm() {
         Classification classification = classificationRepository.findByRating("18");
         Genre genre = genreRepository.findByName("Horror");
