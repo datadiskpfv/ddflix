@@ -127,6 +127,26 @@ public class User extends UserDetail {
         return ratings.contains(new Rating(this, film));
     }
 
+    public void addReview(Film film, String review) {
+        if(!checkReview(film)) {
+            reviews.add(new Review(this, film, review));
+        } else {
+            System.out.println("You already have a review for " + film.getTitle());
+        }
+    }
+
+    public void removeReview(Film film) {
+        if(checkReview(film)){
+            reviews.remove(new Review(this, film));
+        } else {
+            System.out.println("You don't have a review for " + film.getTitle());
+        }
+    }
+
+    public boolean checkReview(Film film) {
+        return reviews.contains(new Review(this, film));
+    }
+
     // check the @OrderBy above (default is ASC
     public List<Wishlist> getSortedWishlistDesc(){
         return wishlists.stream().sorted(Comparator.comparing(Wishlist::getWishedOn).reversed()).collect(Collectors.toList());

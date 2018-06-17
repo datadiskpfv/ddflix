@@ -36,4 +36,12 @@ public class Review {
         this.film = film;
         this.id = new ReviewId(user.getId(), film.getId());
     }
+
+    // used to create rating
+    public Review(User user, Film film, String review) {
+        this.user = user;
+        this.film = film;
+        this.id = new ReviewId(user.getId(), film.getId());
+        this.review = review;
+    }
 }
