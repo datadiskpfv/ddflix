@@ -46,7 +46,7 @@ public class Actor extends AbstractDomainClass {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
-            name="actor_images",
+            name="actor_image",
             joinColumns={@JoinColumn(name="actor_id")},
             inverseJoinColumns = {@JoinColumn(name="image_id")}
     )
