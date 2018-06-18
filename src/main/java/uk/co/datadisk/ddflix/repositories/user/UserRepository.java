@@ -9,6 +9,7 @@ import java.util.Collection;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
+    User findByUsername(String username);
 
     @Modifying  // this will effectively drop all non-flushed changes still pending in the EntityManager
     void deleteUsersByIdIn(Collection<Long> userIds);
