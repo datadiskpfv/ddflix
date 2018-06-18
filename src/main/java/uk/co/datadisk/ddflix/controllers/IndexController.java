@@ -6,7 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import uk.co.datadisk.ddflix.dto.models.UserRegisterDTO;
-import uk.co.datadisk.ddflix.entities.Role;
+import uk.co.datadisk.ddflix.entities.user.Role;
 import uk.co.datadisk.ddflix.services.RoleService;
 import uk.co.datadisk.ddflix.services.UserService;
 

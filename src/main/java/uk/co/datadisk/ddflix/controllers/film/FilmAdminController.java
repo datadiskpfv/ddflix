@@ -132,10 +132,10 @@ public class FilmAdminController {
             film.setCoverImage(filename);
         } else if(action.equals("background1")){
             System.out.println("Background One Image: " + file);
-            film.setBgImage1(filename);
+            //film.setBgImage1(filename);
         } else if(action.equals("background2")){
             System.out.println("Background Two Image: " + file);
-            film.setBgImage2(filename);
+            //film.setBgImage2(filename);
         }
 
         filmService.saveFilm(film);

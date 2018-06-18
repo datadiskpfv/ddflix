@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uk.co.datadisk.ddflix.dto.models.AddressDTO;
-import uk.co.datadisk.ddflix.entities.User;
+import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.services.AddressService;
 import uk.co.datadisk.ddflix.services.UserService;
 
@@ -58,7 +58,7 @@ public class ShippingAddressController extends CommonController {
             model.addAttribute("listOfShippingAddresses", false);
         } else if (action.equals("save")) {
 
-            if(user.getUserShippingAddresses().size() >= 3 && addressDTO.getId() == null) {
+            if(user.getShippingAddresses().size() >= 3 && addressDTO.getId() == null) {
                 model.addAttribute("maxAddressCount", true);
                 //loadModel(model, user);
                 return "/user/userProfile";
@@ -69,7 +69,7 @@ public class ShippingAddressController extends CommonController {
             addressService.saveAddress(addressDTO);
 
             // We have to refresh the User entity in the session to pickup the changes
-            userService.refreshUserEntity(user);
+            //userService.refreshUserEntity(user);
 
             model.addAttribute("AddressSaved", true);
 
@@ -100,7 +100,7 @@ public class ShippingAddressController extends CommonController {
 
         User user = userService.findUser(userId);
         System.out.println("editShippingAddress method shippingId: " + shippingId);
-        AddressDTO addressDTO = addressService.getShippingAddressDTO(shippingId);
+        AddressDTO addressDTO = addressService.getAddressDTO(shippingId);
         System.out.println("editShippingAddress method shipping address DTO ID: " + addressDTO.getId());
 
         loadModel(model, user);

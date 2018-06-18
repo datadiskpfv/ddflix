@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uk.co.datadisk.ddflix.dto.models.UserPaymentDTO;
-import uk.co.datadisk.ddflix.entities.User;
+import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.services.UserPaymentService;
 import uk.co.datadisk.ddflix.services.UserService;
 
@@ -62,7 +62,7 @@ public class PaymentsController extends CommonController {
             userPaymentService.savePayment(userPaymentDTO);
 
             // We have to refresh the User entity in the session to pickup the changes
-            userService.refreshUserEntity(user);
+            //userService.refreshUserEntity(user);
 
             loadModel(model, user);
             model.addAttribute("paymentSaved", true);

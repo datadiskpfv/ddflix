@@ -4,7 +4,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import uk.co.datadisk.ddflix.dto.models.film.FilmFormDTO;
-import uk.co.datadisk.ddflix.entities.User;
+import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.services.UserService;
 import uk.co.datadisk.ddflix.services.film.FilmService;
@@ -55,8 +54,8 @@ public class FilmUserController {
         Film film = filmService.getOne(filmId);
         User user = userService.findUser(userId);
 
-        if(user.getWishlist().size() < WISHLIST_LIMIT){
-            user.addToWishlist(film);
+        if(user.getWishlists().size() < WISHLIST_LIMIT){
+            user.addFilmToWishList(film);
             userService.saveUser(user);
         } else {
             System.out.println("Wish List is FULL!!!!! user " + user.getEmail());
@@ -64,7 +63,7 @@ public class FilmUserController {
         }
 
         model.addAttribute("limit", WISHLIST_LIMIT);
-        model.addAttribute("wishlist", user.getWishlist());
+        model.addAttribute("wishlist", user.getWishlists());
         return "/film/film/wishlist";
     }
 
@@ -73,12 +72,12 @@ public class FilmUserController {
         User user = userService.findUser(userId);
 
         // web page changes when there are no films in wishlist or any films at home
-        if( user.getWishlist().size() > 0) {
-            model.addAttribute("wishlist", user.getWishlist());
+        if( user.getWishlists().size() > 0) {
+            model.addAttribute("wishlist", user.getWishlists());
         }
 
-        if(user.getFilmsAtHome().size() > 0) {
-            model.addAttribute("filmsAtHome", user.getFilmsAtHome());
+        if(user.getFilmsAtHomes().size() > 0) {
+            model.addAttribute("filmsAtHome", user.getFilmsAtHomes());
         }
 
         return "/film/film/wishlist";
@@ -102,7 +101,7 @@ public class FilmUserController {
         Film film = filmService.getOne(filmId);
         User user = userService.findUser(userId);
 
-        user.removeFromWishlist(film);
+        user.removeFilmFromWishlist(film);
         userService.saveUser(user);
 
         return "redirect:/film/film/" + userId + "/wishlist";
