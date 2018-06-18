@@ -11,6 +11,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(exclude = {"film"})
 @ToString(exclude = {"film"})
 @Entity
+@Table(name ="classifications")
 public class Classification extends AbstractDomainClass {
 
     @Column(name = "rating", unique = true)

@@ -17,7 +17,7 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = {"birthCountry", "films", "actorImages"}, callSuper = false)
 @ToString(exclude = {"birthCountry", "films", "actorImages"})
 @Entity
-@Table(name = "users")
+@Table(name = "actors")
 public class Actor extends AbstractDomainClass {
 
     @NotNull
