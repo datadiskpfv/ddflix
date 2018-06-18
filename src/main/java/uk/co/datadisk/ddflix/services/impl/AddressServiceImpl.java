@@ -39,23 +39,23 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void setDefault(Long addressId, Long userId) {
-        List<Address> addressList = addressRepository.findAllAddressesByUser_Id(userId);
-
-        for (Address address : addressList) {
-            if (address.getId() == addressId) {
-                System.out.println("Default credit card #" + address.getId());
-                //address.setDefaultAddress(true);
-            } else {
-                System.out.println("Remove default credit card #" + address.getId());
-                //address.setDefaultAddress(false);
-            }
-            addressRepository.save(address);
-        }
+//        List<Address> addressList = addressRepository.findAllAddressesByUser_Id(userId);
+//
+//        for (Address address : addressList) {
+//            if (address.getId() == addressId) {
+//                System.out.println("Default credit card #" + address.getId());
+//                //address.setDefaultAddress(true);
+//            } else {
+//                System.out.println("Remove default credit card #" + address.getId());
+//                //address.setDefaultAddress(false);
+//            }
+//            addressRepository.save(address);
+//        }
     }
 
     @Override
     public int getNumberOfAddresses(Long id) {
-        return addressRepository.findAllAddressesByUser_Id(id).size();
+        return 1; //addressRepository.findAllAddressesByUser_Id(id).size();
     }
 
     @Override

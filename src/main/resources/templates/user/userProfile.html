@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/mainScripts"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>User Profile</title>
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+
+        <div class="row" style="margin-top: 60px;">
+            <div class="col-xs-10 col-xs-offset-1">
+
+                <!--/*@thymesVar id="classActivePayments" type="java.lang.String"*/-->
+                <!--/*@thymesVar id="classActiveInvoices" type="java.lang.String"*/-->
+                <!--/*@thymesVar id="classActiveAddresses" type="java.lang.String"*/-->
+
+                <!--/*@thymesVar id="creditCardSaved" type="java.lang.String"*/-->
+                <div th:if="${creditCardSaved}" class="alert alert-success">
+                    <p class="alert alert-success">The Credit Card has been successfully saved</p>
+                </div>
+
+                <!--/*@thymesVar id="AddressSaved" type="java.lang.String"*/-->
+                <div th:if="${AddressSaved}" class="alert alert-success">
+                    <p class="alert alert-success">The Shipping Address has been successfully saved</p>
+                </div>
+
+                <!--/*@thymesVar id="maxAddressCount" type="java.lang.String"*/-->
+                <div th:if="${maxAddressCount}" class="alert alert-danger">
+                    <p class="alert alert-danger">Maximum number of addresses is 3, please delete an old address</p>
+                </div>
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li th:classappend="${classActivePayments}? 'active'"><a
+                            href="#tab-1" data-toggle="tab" ><span style="color: red;">Credit Cards</span></a></li>
+                    <li th:classappend="${classActiveInvoices}? 'active'"><a
+                            href="#tab-2" data-toggle="tab"><span style="color: red;">Invoices</span></a></li>
+                    <li th:classappend="${classActiveAddresses}? 'active'"><a
+                            href="#tab-3" data-toggle="tab"><span style="color: red;">Shipping Address</span></a></li>
+                </ul>
+
+                <!-- Tab panels -->
+                <div class="tab-content">
+
+                  <!--Credit Card-->
+                  <th:block th:replace="user/fragments/paymentTab :: payment"/>
+
+                  <!--Invoices-->
+                  <th:block th:replace="user/fragments/invoicesTab :: invoices"/>
+
+                  <!--ShippingAddress-->
+                  <th:block th:replace="user/fragments/shippingAddressTab :: shippingAddress"/>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- end of container -->
+</div>
+</body>
+</html>

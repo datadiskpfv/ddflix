@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/mainScripts"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin Page</title>
+    <link rel="stylesheet" th:href="@{/css/multi-select.css}">
+</head>
+<body>
+<!--/*@thymesVar id="userEditFormDTO" type="uk.co.datadisk.ddflix.dto.models.UserEditFormDTO"*/-->
+<!--/*@thymesVar id="role" type="uk.co.datadisk.ddflix.entities.Role"*/-->
+<!--/*@thymesVar id="allRoles" type="java.util.ArrayList<Role>"*/-->
+<!--/*@thymesVar id="roles" type="java.util.ArrayList<Role>"*/-->
+
+<div layout:fragment="content" class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h2>Edit User</h2>
+            <br/>
+
+            <form class="form-horizontal" th:object="${userEditFormDTO}" th:action="@{/admin/user/edit(action=save)} " method="post">
+
+                <input hidden="hidden" name="id" th:value="*{id}" />
+
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+                    </ul>
+                </div>
+
+                <div class="form-group" th:class="${#fields.hasErrors('email')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-3 control-label">Email:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{email}" th:errorclass="has-error"/>
+                    </div>
+                </div>
+
+                <div class="form-group" th:class="${#fields.hasErrors('username')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-3 control-label">Username:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{username}" th:errorclass="has-error"/>
+                    </div>
+                </div>
+
+                <!--this is really an readonly field so that I can pass back the dateCreated.-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Date Created:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{dateCreated}" th:errorclass="has-error" readonly="readonly"/>
+                    </div>
+                </div>
+
+                <!--No need to put checked value, thymeleaf works it out itself-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label ">Active/Inactive:</label>
+                    <div class="col-sm-8">
+                        <label><input type="radio" th:field="*{active}" th:value="true"/>Active</label>
+                        <label><input type="radio" th:field="*{active}" th:value="false"/>Inactive <span style="color:lightgrey;"> (User is active or inactive)</span></span></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Enable/Disabled:</label>
+                    <div class="col-sm-8">
+                        <label><input type="radio" th:field="*{enabled}" th:value="true"/>Enabled</label>
+                        <label><input type="radio" th:field="*{enabled}" th:value="false"/>Disabled <span style="color:lightgrey;"> (User is enabled or disabled)</span></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Expired:</label>
+                    <div class="col-sm-8">
+                        <label><input type="radio" th:field="*{expired}" th:value="true"/>Expired</label>
+                        <label><input type="radio" th:field="*{expired}" th:value="false"/>Not Expired <span style="color:lightgrey;"> (User is expired or not expired)</span></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Locked/Unlocked:</label>
+                    <div class="col-sm-8">
+                        <label><input type="radio" th:field="*{locked}" th:value="true"/>Locked</label>
+                        <label><input type="radio" th:field="*{locked}" th:value="false"/>Unlocked <span style="color:lightgrey;"> (User is locked or unlocked)</span></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Roles:</label>
+                    <div class="col-sm-offset-3" style="margin-top: 10px;">
+                    <select class="form-control col-sm-3 col-sm-offset-3" th:field="*{roles}" id="multiSelect" multiple="multiple">
+                        <option th:each="role : ${allRoles}"
+                                th:value="${role.id}"
+                                th:selected="${userEditFormDTO.getRoles().contains(role)}"
+                                th:text="${role.name}">
+                        </option>
+                    </select>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                    <a href="/admin/user/listUsers" class="btn btn-info">Return to User List</a>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <th:block th:replace="common/multiselectScripts :: multiselectScripts"></th:block>
+
+</div>
+</body>
+</html>

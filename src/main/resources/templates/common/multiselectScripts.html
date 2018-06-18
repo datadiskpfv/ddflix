@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<th:block th:fragment="multiselectScripts">
+    <!-- the below will have no surrounding tags -->
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/jquery.multi-select.js}"></script>
+
+    <script th:inline="javascript">
+        $('#multiSelect').multiSelect()
+    </script>
+
+
+</th:block>
+
+</body>
+</html>

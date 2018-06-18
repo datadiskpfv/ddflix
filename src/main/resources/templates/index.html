@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/mainScripts"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+<head>
+    <title>User Registration</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <h2>Index Page</h2>
+        <h5 th:text="${session.email}">User</h5>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <a href="/registration">New User Registration</a>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+            <a id="adminPage" href="/admin">Admin Page</a>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+            <a id="filmListPage" href="/film/film/list">Film List</a>
+        </div>
+    </div>
+    <div class="row" th:if="${#authentication}">
+        <br />User Details: <span th:text="${#authentication.getDetails()}"></span>
+        <!--<br />User Principal: <span th:text="${#authentication.getPrincipal()}"></span>-->
+    </div>
+    <div class="row">
+        <div sec:authorize="isAuthenticated()">
+            if authenticated you should see this, we are using Thymeleaf isAuthenticated()
+        </div>
+
+        <div sec:authorize="hasAuthority('ADMIN')">
+            This content is only shown to ADMINISTRATORS.
+        </div>
+        <div sec:authorize="hasAuthority('USER')">
+            This content is only shown to USERS.
+        </div>
+        <div sec:authorize="hasAuthority('DATALOADER')">
+            This content is only shown to DATALOADERS.
+        </div>
+
+        <div>
+            <h3>Session details</h3>
+            <div th:text="${#session}"> authentication</div>
+            <div th:text="${session}"> authentication</div>
+            <div th:text="${session.roles}"> authentication</div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

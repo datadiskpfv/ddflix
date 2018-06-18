@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/blankDataTable"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Film Wish List</title>
+</head>
+<body>
+<!--/*@thymesVar id="film" type="uk.co.datadisk.ddflix.entities.film.Film"*/-->
+<div layout:fragment="list_content" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+
+            <!--/*@thymesVar id="wishListFull" type="java.util.String"*/-->
+            <div th:if="${wishListFull}" class="alert alert-danger">
+                <ul>
+                    <!--/*@thymesVar id="limit" type="java.util.String"*/-->
+                    <li>Your Wish List is FULL - Maximum <span th:text="${limit}"></span> films</li>
+                </ul>
+            </div>
+
+            <h2>Films At Home</h2>
+            <br/>
+            <!--/*@thymesVar id="filmsAtHome" type="java.util.String"*/-->
+            <div th:if="${filmsAtHome}">
+                <table id="ListTable" class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Film Title</th>
+                        <th>Rating</th>
+                        <th>Options</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-th-each="film : ${filmsAtHome}">
+                        <td th:text="${film.title}"></td>
+                        <td th:text="${film.classification.rating}"></td>
+                        <td>
+                            <a th:href="@{'/film/film/' + ${film.id} + '/infoUser'}" class="btn btn-info btn-xs">Information</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:unless="${filmsAtHome}">
+                <div style="color:red;font-weight:bold;">You have no films at home</div>
+            </div>
+            <br><br>
+            <h2>Film Wish List</h2>
+            <table id="ListTable" class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Film Title</th>
+                    <th>Rating</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-th-each="film : ${wishlist}">
+                    <td th:text="${film.title}"></td>
+                    <td th:text="${film.classification.rating}"></td>
+                    <td>
+                        <a th:href="@{'/film/film/' + ${film.id} + '/infoUser'}" class="btn btn-info btn-xs">Information</a>
+                        <a th:href="@{'/film/film/' + ${film.id} + '/wishlistDelete?userId=' + ${session.id}}" class="btn btn-danger btn-xs">Remove from Wishlist</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a href="/film/film/carousel" class="btn btn-sm btn-info">Return to Carousel</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

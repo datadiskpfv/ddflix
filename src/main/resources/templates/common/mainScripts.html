@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/ddflix.css}">
+</head>
+<body>
+
+<div th:replace="common/pageLayoutFragments :: navbar"/>
+
+<th:block layout:fragment="content"></th:block>
+
+<th:block th:include="common/commonScripts :: commonScripts"></th:block>
+
+</body>
+</html>

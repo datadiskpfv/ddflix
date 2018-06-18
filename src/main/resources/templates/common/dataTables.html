@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/mainBlank" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <!--data table-->
+    <link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet">
+    <link th:href="@{/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div layout:fragment="list_content"></div>
+
+    <th:block th:replace="common/commonScripts :: commonScripts"></th:block>
+
+    <!--data table-->
+    <script th:src="@{/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/js/dataTables.bootstrap.min.js}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#ListTable").dataTable({
+                "lengthMenu": [ [5,10,15,20,-1],[5,10,15,20,'All'] ],
+                "ordering": false,
+                stateSave: true
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

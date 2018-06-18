@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII"/>
+    <title th:text="#{message.uploadProfileImage}">Upload Profile Image</title>
+</head>
+<body>
+<!--/*@thymesVar id="image" type="java.lang.String"*/-->
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form th:action="@{'/user/profile/uploadProfileImage?&id=' + ${session.id}}" method="post" enctype="multipart/form-data">
+                    <div class="panel-body">
+                        <h2 class="form-heading" th:text="#{message.uploadProfileImage}">Upload Profile Image</h2>
+
+                        <div class="form-group ${error != null ? 'has-error' : ''}">
+                            <input id="profileImage" type="file" class="form-control file" name="image"/><br />
+                            <button id="submit" class="btn btn-lg btn-success btn-block" type="submit">Upload Image</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:include="common/passwordScripts :: passwordScripts"></th:block>
+
+</div>
+</body>
+
+</html>

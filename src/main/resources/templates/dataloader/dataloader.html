@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Data Loader Page</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+                <h2>Data Loader Page</h2>
+
+                <form th:action="@{/logout}" method="post" id="logoutForm">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Log Out</button>
+                </form>
+
+            <div sec:authorize="isAuthenticated()">
+               if authenticated you should see this, we are using Thymeleaf isAuthenticated()
+            </div>
+
+            <div sec:authorize="hasAuthority('ADMIN')">
+                This content is only shown to administrators.
+            </div>
+            <div sec:authorize="hasAuthority('USER')">
+                This content is only shown to users.
+            </div>
+
+            <div>
+                <h3>Session details</h3>
+                <div th:text="${#session}"> authentication</div>
+                <div th:text="${session}"> authentication</div>
+                <div th:text="${session.testattribute}"> authentication</div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>

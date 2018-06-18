@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/mainScripts"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Genre List</title>
+</head>
+<body>
+<!--/*@thymesVar id="genre" type="uk.co.datadisk.ddflix.entities.film.Genre"*/-->
+<div layout:fragment="content" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>Genre List</h2>
+            <br/>
+            <table id="ListTable" class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Genre Name</th>
+                    <th>Date Created</th>
+                    <th>Last Updated</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-th-each="genre : ${genres}">
+                    <td th:text="${genre.name}"></td>
+                    <td th:text="${genre.dateCreated}"></td>
+                    <td th:text="${genre.lastUpdated}"></td>
+                    <td>
+                        <a th:href="@{/film/genre/form(action='edit',genreId=${genre.id})}" class="btn btn-primary btn-xs">Edit</a>
+                        <a th:href="@{'/film/genre/' + ${genre.id} + '/delete'}" class="btn btn-danger btn-xs">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a href="/film/genre/list" class="btn btn-sm btn-info">Return to Genre List</a>
+            <a href="/film/genre/form?action=new&genreId=0" class="btn btn-sm btn-primary">Create New Genre</a>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

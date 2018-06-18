@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/formLayout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Film Create/Edit Form</title>
+</head>
+<body>
+<!--/*@thymesVar id="filmFormDTO" type="uk.co.datadisk.ddflix.dto.models.film.FilmFormDTO"*/-->
+<!--/*@thymesVar id="genre" type="uk.co.datadisk.ddflix.entities.film.Genre"*/-->
+<!--/*@thymesVar id="classification" type="uk.co.datadisk.ddflix.entities.film.Classification"*/-->
+<div layout:fragment="content" class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h2>Film Create/Edit Form</h2>
+            <br/>
+
+            <form id="filmForm" class="form-horizontal" th:object="${filmFormDTO}" th:action="@{/film/film/form(action=save)} "
+                  method="post">
+
+                <input hidden="hidden" name="id" th:value="*{id}"/>
+                <input hidden="hidden" name="dateCreated" th:value="*{dateCreated}" />
+                <input hidden="hidden" name="coverImage" th:value="*{coverImage}" />
+                <input hidden="hidden" name="bgImage1" th:value="*{bgImage1}" />
+                <input hidden="hidden" name="bgImage2" th:value="*{bgImage2}" />
+
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+                    </ul>
+                </div>
+
+                <div class="form-group" th:class="${#fields.hasErrors('title')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-3 control-label">Title:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{title}" th:errorclass="has-error" data-validation="length" data-validation-length="1-50"/>
+                    </div>
+                </div>
+
+                <div class="form-group" th:class="${#fields.hasErrors('description')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-3 control-label">Description<br>(<span id="pres-max-length">100</span> characters left):</label>
+                    <div class="col-sm-8">
+                        <textarea id="description" class="form-control" th:field="*{description}" th:errorclass="has-error" data-validation="length" data-validation-length="15-100">Film description</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Classification:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control col-sm-3" th:field="*{classification}" id="classification">
+                            <option th:each="classification : ${allClassifications}"
+                                    th:value="${classification.id}"
+                                    th:text="${classification.rating}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" th:class="${#fields.hasErrors('releaseDate')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-3 control-label">Release Date:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control releaseDate" id="releaseDate" th:field="*{releaseDate}" th:errorclass="has-error" th:placeholder="DD-MMM-YYYY"/>
+                    </div>
+                </div>
+
+                <div class="form-group" th:class="${#fields.hasErrors('bluRayStock')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-3 control-label">Blu-Ray Stock:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{bluRayStock}" th:errorclass="has-error" data-validation="number" data-validation-allowing="range[1;100]"/>
+                    </div>
+                </div>
+
+                <div class="form-group" th:class="${#fields.hasErrors('dvdStock')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-3 control-label">DVD Stock:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{dvdStock}" th:errorclass="has-error" data-validation="number" data-validation-allowing="range[1;100]"/>
+                    </div>
+                </div>
+
+                <div class="form-group" th:class="${#fields.hasErrors('status')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-3 control-label">Status:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" th:field="*{status}">
+                            <option th:value="true" data-th-field="*{status}" th:selected="*{status} == true ? 'select' : ''">true</option>
+                            <option th:value="false" data-th-field="*{status}" th:selected="*{status} == false ? 'select' : ''">false</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Genres:</label>
+                    <div class="col-sm-8" style="margin-top: 10px;">
+                        <select class="form-control col-sm-3 col-sm-offset-3" th:field="*{genres}" id="multiSelect" multiple="multiple">
+                            <option th:each="genre : ${allGenres}"
+                                    th:value="${genre.id}"
+                                    th:selected="${filmFormDTO.getGenres().contains(genre)}"
+                                    th:text="${genre.name}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                    <a href="/film/film/list" class="btn btn-info">Return to Film List</a>
+                    <button type="submit" id="submitButton" class="btn btn-success">Save Film</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

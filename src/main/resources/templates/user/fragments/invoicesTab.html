@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<th:block th:fragment="invoices">
+        <!--/*@thymesVar id="shippingAddressDTO" type="uk.co.datadisk.ddflix.dto.models.ShippingAddressDTO"*/-->
+        <!--/*@thymesVar id="shippingAddress" type="uk.co.datadisk.ddflix.entities.ShippingAddress"*/-->
+        <!--/*@thymesVar id="listOfShippingAddresses" type="java.lang.String"*/-->
+        <!--/*@thymesVar id="addNewShippingAddress" type="java.lang.String"*/-->
+        <!--/*@thymesVar id="classActiveInvoices" type="java.lang.String"*/-->
+        <!--/*@thymesVar id="updateShippingAddressInfo" type="java.lang.String"*/-->
+        <!--/*@thymesVar id="userShippingAddressList" type="java.util.ArrayList"*/-->
+
+        <!-- Shipping Address Information -->
+        <div class="tab-pane fade" id="tab-2" th:classappend="${classActiveInvoices}? 'in active'">
+            <div class="panel-group">
+                <div class="panel panel-default" style="border: none;">
+                    <div class="panel-body"
+                         style="background-color: #ededed; margin-top: 20px;">
+
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active"><a
+                                    th:href="@{'/user/profile/' + ${session.id} + '/listOfShippingAddresses'}"
+                                    th:style="${listOfShippingAddresses}? 'color:red'">List of Invoices</a>
+                            </li>
+                        </ol>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/dataTables"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>User List</title>
+
+</head>
+<body>
+<!--/*@thymesVar id="user" type="uk.co.datadisk.ddflix.entities.User"*/-->
+<div layout:fragment="list_content" class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+
+            <h2>User List</h2><br />
+
+            <table id="ListTable" class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th><input th:id="selectAllUsers" type="checkbox" /></th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Active</th>
+                    <th>Enabled</th>
+                    <th>Expired</th>
+                    <th>Locked</th>
+                    <th>Roles</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-th-each="user : ${users}">
+                    <td>
+                        <input hidden="hidden" name="id" th:value="${user.id}" />
+                        <input th:id="'selected'+${user.id}" class="checkboxUser" type="checkbox" />
+                    </td>
+                    <td><a th:href="@{/admin/user/userInfo(id=${user.id})}"><span th:text="${user.email}"></span></a></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.isActive()}"></td>
+                    <td th:text="${user.isEnabled()}"></td>
+                    <td th:text="${user.isExpired()}"></td>
+                    <td th:text="${user.isLocked()}"></td>
+                    <td th:text="${user.getRoles()}"></td>
+                    <td>
+                        <input hidden="hidden" name="id" th:value="${user.id}" />
+                        <button th:id="${user.id}" class="btn btn-info btn-xs display-user" type="submit" value="display" >
+                            <span class="fa fa-times"></span>Display</button>
+                        <button th:id="${user.id}" class="btn btn-primary btn-xs edit-user" type="submit" value="edit" >
+                            <span class="fa fa-times"></span>Edit</button>
+                        <button th:id="${user.id}" class="btn btn-danger btn-xs delete-user" type="submit" value="delete" >
+                            <span class="fa fa-times"></span>Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

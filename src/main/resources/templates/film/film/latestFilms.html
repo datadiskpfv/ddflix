@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/mainScripts"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Film Information</title>
+</head>
+<body>
+<!--/*@thymesVar id="filmFormDTO" type="uk.co.datadisk.ddflix.dto.models.film.FilmFormDTO"*/-->
+<!--/*@thymesVar id="genre" type="uk.co.datadisk.ddflix.entities.filmFormDTO.Genre"*/-->
+
+<div layout:fragment="content" class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h2>Film Information</h2>
+            <br/>
+
+            <div class="row">
+                <div class="col-xs-5">
+
+                    <a href="/film/film/list" class="btn btn-info">Return to Film List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/multi-select.css}">
+    <link rel="stylesheet" th:href="@{/css/ddflix.css}">
+</head>
+<body>
+
+<div th:replace="common/pageLayoutFragments :: navbar"/>
+
+<th:block layout:fragment="content"></th:block>
+
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/jquery.form-validator.js}"></script>
+<script th:src="@{/js/jquery.multi-select.js}"></script>
+<script th:src="@{/js/dropzone.js}"></script>
+
+<script>
+    $.validate({
+        modules: 'location, date, security, file',
+        onModulesLoaded: function () {
+            // used if we have a country select field
+            $('#country').suggestCountry();
+        }
+    });
+
+    // Restrict presentation length (used if we have textarea's)
+    $('#description').restrictLength($('#pres-max-length'));
+
+    // used for multiple selects (if required)
+    $('#multiSelect').multiSelect();
+
+    Dropzone.options.dropzone_upload = {
+        paramName: "backgroundImages", // The name that will be used to transfer the file
+        uploadMultiple: true,
+        maxFilesize: 1, // MB
+        accept: function(file, done) {
+             done();
+        }
+    };
+</script>
+
+</body>
+</html>

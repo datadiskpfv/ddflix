@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/mainScripts"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Classification List</title>
+</head>
+<body>
+<!--/*@thymesVar id="classification" type="uk.co.datadisk.ddflix.entities.film.Classification"*/-->
+<div layout:fragment="content" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>Classification List</h2>
+            <br/>
+            <table id="ListTable" class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Classification Rating</th>
+                    <th>Classification Image</th>
+                    <th>Date Created</th>
+                    <th>Last Updated</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-th-each="classification : ${classifications}">
+                    <td th:text="${classification.rating}"></td>
+                    <td><img height="40" width="40" th:src="@{'/images/classification/' + ${classification.getImage_name()}}"></td>
+                    <td th:text="${classification.dateCreated}"></td>
+                    <td th:text="${classification.lastUpdated}"></td>
+                    <td>
+                        <a th:href="@{/film/classification/form(action='edit',classificationId=${classification.id})}" class="btn btn-primary btn-xs">Edit</a>
+                        <a th:href="@{'/film/classification/' + ${classification.id} + '/delete'}" class="btn btn-danger btn-xs">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a href="/film/classification/list" class="btn btn-sm btn-info">Return to Classification List</a>
+            <a href="/film/classification/form?action=new&classificationId=0" class="btn btn-sm btn-primary">Create New Classification</a>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

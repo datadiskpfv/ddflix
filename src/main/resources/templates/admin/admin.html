@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/mainScripts"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin Page</title>
+</head>
+<body>
+<div layout:fragment="content" style="margin-top: 20px">
+    <div>
+        <h2>Administration Page</h2>
+        <br/>
+        <a href="/admin/user/listUsers">List Users</a><br/>
+        <a href="/film/genre/list">List Genres</a><br/>
+        <a href="/film/classification/list">List Classification</a><br/>
+        <a href="/film/film/list">List Film</a><br/>
+        <a href="/film/film/uploader">Upload Films</a><br/>
+        <a href="/film/film/latestFilms">Latest Films</a><br/>
+        <a id="filmCarousel" href="/film/film/carousel">Film Carousel</a><br/>
+        <br/><br/>
+    </div>
+</div>
+
+</body>
+</html>

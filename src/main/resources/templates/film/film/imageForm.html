@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/formLayout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII"/>
+    <title th:text="#{message.uploadFilmImages}">Upload Film Images</title>
+    <link rel="stylesheet" th:href="@{/css/dropzone.css}">
+</head>
+<body>
+<!--/*@thymesVar id="spreadsheet" type="java.lang.String"*/-->
+<!--/*@thymesVar id="filmFormDTO" type="uk.co.datadisk.ddflix.dto.models.film.FilmFormDTO"*/-->
+<div layout:fragment="content" class="container-fluid" style="margin-top: 20px">
+    <h2 class="form-heading">Upload Film Images for <span th:text="${filmFormDTO.title}">???</span></h2>
+
+    <h3>Cover Image File</h3>
+    <div class="col-md-2" >
+        <img width=100 height=100 th:src="@{'/images/film/' + ${firstLetter} + '/' + ${filmFormDTO.getCoverImage()}}">
+    </div>
+    <div id="dropzone1" class="col-md-10">
+        <form th:action="@{'/film/film/' + ${filmFormDTO.id} + '/imagesUpload?action=cover'}"
+              class="dropzone needsclick" id="dropzone-upload" method="post" enctype="multipart/form-data">
+
+            <div class=" dz-message needsclick">
+                Drop Cover Image file here<br/>
+                <span class="note needsclick">Image files will automatically be uploaded</span>
+            </div>
+
+        </form>
+        <br>
+    </div>
+
+    <h3>Background One Image File</h3>
+    <div class="col-md-2">
+        <img width=100 height=100 th:src="@{'/images/film/' + ${firstLetter} + '/' + ${filmFormDTO.getBgImage1()}}">
+    </div>
+    <div id="dropzone2" class="col-md-10">
+        <form th:action="@{'/film/film/' + ${filmFormDTO.id} + '/imagesUpload?action=background1'}"
+              class="dropzone needsclick" id="dropzone-upload" method="post" enctype="multipart/form-data">
+
+            <div class="dz-message needsclick">
+                Drop Background One Image file here<br/>
+                <span class="note needsclick">Image files will automatically be uploaded</span>
+            </div>
+
+        </form>
+        <br>
+    </div>
+
+    <h3>Background Two Image File</h3>
+    <div class="col-md-2">
+        <img width=100 height=100 th:src="@{'/images/film/' + ${firstLetter} + '/' + ${filmFormDTO.getBgImage2()}}">
+    </div>
+    <div id="dropzone2" class="col-md-10">
+        <form th:action="@{'/film/film/' + ${filmFormDTO.id} + '/imagesUpload?action=background2'}"
+              class="dropzone needsclick" id="dropzone-upload" method="post" enctype="multipart/form-data">
+
+            <div class="dz-message needsclick">
+                Drop Background Two Image file here<br/>
+                <span class="note needsclick">Image files will automatically be uploaded</span>
+            </div>
+
+        </form>
+        <br>
+    </div>
+</div>
+
+
+</div>
+</body>
+
+</html>

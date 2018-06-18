@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/mainBlank"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" media="screen">
+    <link rel="stylesheet" th:href="@{/css/flickity.css}" media="screen">
+    <link rel="stylesheet" th:href="@{/css/ddflix.css}" media="screen">
+</head>
+<body style="background-color: #0c0c0c">
+<!--/*@thymesVar id="film" type="uk.co.datadisk.ddflix.entities.film.Film"*/-->
+<div layout:fragment="content" >
+
+    <div><h5 class="red-label-title">Latest Films</h5></div>
+    <div class="carousel">
+    <!--/*@thymesVar id="latestFilms" type="java.util.Set"*/-->
+    <div th:each="film : ${latestFilms}">
+        <div id="slider" class="carousel-cell"><a class="dd-modal" th:href="@{'/film/film/' + ${film.id} + '/infoUser'}"><img class="car_image" th:src="@{'/images/film/' + ${#strings.substring(film.title,0,1)}  + '/' + ${film.coverImage}}"></a></div>
+    </div>
+    </div>
+
+    <div><h5 class="red-label-title">Action Films</h5></div>
+    <div class="carousel">
+        <!--/*@thymesVar id="actionFilms" type="java.util.Set"*/-->
+        <div th:each="film : ${actionFilms}">
+            <div class="carousel-cell"><a class="dd-modal" th:href="@{'/film/film/' + ${film.id} + '/infoUser'}"><img class="car_image" th:src="@{'/images/film/' + ${#strings.substring(film.title,0,1)}  + '/' + ${film.coverImage}}"></a></div>
+        </div>
+    </div>
+
+    <div><h5 class="red-label-title">Horror Films</h5></div>
+    <div class="carousel">
+        <!--/*@thymesVar id="horrorFilms" type="java.util.Set"*/-->
+        <div th:each="film : ${horrorFilms}">
+            <div class="carousel-cell"><a class="dd-modal" th:href="@{'/film/film/' + ${film.id} + '/infoUser'}"><img class="car_image" th:src="@{'/images/film/' + ${#strings.substring(film.title,0,1)}  + '/' + ${film.coverImage}}"></a></div>
+        </div>
+    </div>
+
+    <div><h5 class="red-label-title">Comedy Films</h5></div>
+    <div class="carousel">
+        <!--/*@thymesVar id="comedyFilms" type="java.util.Set"*/-->
+        <div th:each="film : ${comedyFilms}">
+            <div class="carousel-cell"><a class="dd-modal" th:href="@{'/film/film/' + ${film.id} + '/infoUser'}"><img class="car_image" th:src="@{'/images/film/' + ${#strings.substring(film.title,0,1)}  + '/' + ${film.coverImage}}"></a></div>
+        </div>
+    </div>
+
+    <div><h5 class="red-label-title">Oldest Films</h5></div>
+    <div class="carousel">
+        <!--/*@thymesVar id="oldestFilms" type="java.util.Set"*/-->
+        <div th:each="film : ${oldestFilms}">
+            <div class="carousel-cell"><a class="dd-modal" th:href="@{'/film/film/' + ${film.id} + '/infoUser'}"><img class="car_image" th:src="@{'/images/film/' + ${#strings.substring(film.title,0,1)}  + '/' + ${film.coverImage}}"></a></div>
+        </div>
+    </div>
+
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p>Loading...</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/flickity.pkgd.min.js}"></script>
+
+<script>
+    $(document).ready(function() {
+
+        const galleries = document.querySelectorAll('.carousel');
+
+        Array.prototype.forEach.call(galleries, (gallery) => {
+            const slides = gallery.querySelectorAll('.car_image')
+            if(slides.length > 1){
+                const gallerySlider = new Flickity( gallery, {
+                    cellAlign: 'left',
+                        contain: true,
+                        freeScroll: true,
+                        pageDots: false,
+                        wrapAround: true,
+                        prevNextButtons: false,
+                        freeScrollFriction: 0.02
+                })
+            }
+        })
+
+    });
+
+</script>
+</div>
+
+</body>
+</html>

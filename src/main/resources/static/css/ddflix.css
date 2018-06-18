@@ -1,0 +1,30 @@
+/* used by jquery validation */
+.error {
+    color: red;
+    background-color: #acf;
+}
+
+.userInfoTable td:first-child {
+    background-color: lightgray;
+}
+
+.main-carousel {
+    height: 260px;
+}
+.carousel {
+    margin-bottom: 10px;
+}
+
+.car_image {
+    height: 180px;
+    width: 216px;
+}
+
+.red-label, #red-label {
+    color: red;
+}
+
+.red-label-title {
+    color: red;
+    padding-left: 10px;
+}

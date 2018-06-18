@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<head>
+</head>
+
+<body>
+<!--/*@thymesVar id="email" type="java.lang.String"*/-->
+<!--/*@thymesVar id="id" type="java.lang.String"*/-->
+	<div th:fragment="navbar">
+		<!--<div class="page-top"-->
+			<!--style="width: 100%; height: 20px; background-color: #f46b42;"></div>-->
+		<!-- Static navbar -->
+		<nav class="navbar navbar-default navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" th:href="@{/}"><span class="red-label">DDFlix</span></a>
+				</div>
+				<div id="navbar">
+					<ul class="nav navbar-nav navbar-left">
+						<li class="dropdown" sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/admin/}"
+							class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="red-label">Administration Tasks</span><span
+								class="caret" style="color: red; font-weight: bold;"></span></a>
+							<ul class="dropdown-menu">
+								<li><a th:href="@{/admin/userTasks}">User Tasks</a></li>
+								<li><a th:href="@{/admin/filmTasks}">Film Tasks</a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-left">
+						<form sec:authorize="hasAuthority('USER')" class="navbar-form" th:action="@{/searchFilm}" method="post">
+							<div class="form-group">
+								<input type="text" name="keyword" size="50" class="form-control" placeholder="Film title, actor name, genre" />
+							</div>
+							<button type="submit" class="btn btn-default">Search</button>
+						</form>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}"><span class="red-label">ADMIN</span></a></li>
+
+                        <li class="dropdown">
+                            <a th:href="@{/index}" class="dropdown-toggle" id="red-label" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false" th:text="${session.email}"><span class="red-label">Profile Tasks </span></a>
+                            <ul class="dropdown-menu">
+                                <li><a th:href="@{'/user/profile/changePassword?action=view&id=' + ${session.id}}">Change Password</a></li>
+                                <li><a th:href="@{'/user/profile/uploadProfileImage?action=view&id=' + ${session.id}}">Upload Profile Image</a></li>
+								<li><a th:href="@{'/user/profile?id=' + ${session.id}}">User Profile</a></li>
+								<li><a th:href="@{'/film/film/' + ${session.id} + '/wishlist'}">Film Wish List</a></li>
+                            </ul>
+                        </li>
+
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/logout}"><span class="red-label">LOGOUT</span></a></li>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+			<!--/.container-fluid -->
+		</nav>
+	</div>
+
+	<div th:fragment="footer">
+		<br />
+		<br />
+		<footer>
+			<div class="row">
+				<div class="col-xs-3 footerleft">
+					<div class="logofooter">
+						<a th:href="@{/}"><img class="img-responsive"
+							src="/image/logo.png" style="width: 200px;" /></a>
+					</div>
+					<p>
+						Le's Independent Book Store. <br />Serving our customers with the
+						best.
+					</p>
+				</div>
+				<div class="col-xs-3 paddingtop-bottom">
+					<h6 class="heading7">CONTACT</h6>
+					<ul class="post">
+						<p>
+							<i class="fa fa-map-pin"></i> 123 XXX Ave<br /> Boston MA, USA
+							02112
+						</p>
+						<p>
+							<i class="fa fa-phone"></i> Phone (USA) : +1 999 999 9999
+						</p>
+						<p>
+							<i class="fa fa-envelope"></i> E-mail : info@lebookstore.com
+						</p>
+					</ul>
+				</div>
+				<div class="col-xs-3 paddingtop-bottom">
+					<h6 class="heading7">LINKS</h6>
+					<ul class="footer-ul">
+						<li><a href="#"> Privacy Policy</a></li>
+						<li><a href="#"> Terms &#38; Conditions</a></li>
+						<li><a href="#"> Frequently Ask Questions</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-3 paddingtop-bottom">
+					<h6 class="heading7">STORE HOURS</h6>
+					<div class="post">
+						<p>Monday - Saturday: 9am - 11pm</p>
+						<p>Sunday: 10am - 10pm</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<div class="copyright">
+			<div class="col-md-6">
+				<p>© 2017 - All Rights Reserved</p>
+			</div>
+			<div class="col-md-6">
+				<ul class="bottom_ul">
+					<li><a href="#">About us</a></li>
+					<li><a href="#">Blog</a></li>
+					<li><a href="#">Faq's</a></li>
+					<li><a href="#">Contact us</a></li>
+					<li><a href="#">Site Map</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
