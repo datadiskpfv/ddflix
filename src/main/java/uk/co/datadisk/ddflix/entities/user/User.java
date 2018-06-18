@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode(exclude = {"roles", "passwordResetToken", "ratings", "reviews"}, callSuper = false)
 @ToString(exclude = {"roles", "passwordResetToken", "ratings", "reviews"})
 @Entity
+@Table(name = "users")
 public class User extends UserDetail {
 
     @Builder

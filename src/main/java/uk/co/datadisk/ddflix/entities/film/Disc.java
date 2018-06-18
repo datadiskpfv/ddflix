@@ -14,6 +14,7 @@ import java.util.List;
 @EqualsAndHashCode(exclude = "film", callSuper = false)
 @ToString
 @Entity
+@Table(name = "discs")
 public class Disc extends AbstractDomainClass {
 
     @Column(name="disc_format")

@@ -15,9 +15,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 @EqualsAndHashCode(exclude = {"filmLanguages", "filmSubtitles"}, callSuper = false)
 @ToString(exclude = {"filmLanguages", "filmSubtitles"})
-
 @Entity
-@Table(name = "language")
+@Table(name = "languages")
 public class Language extends AbstractDomainClass {
 
     @NonNull

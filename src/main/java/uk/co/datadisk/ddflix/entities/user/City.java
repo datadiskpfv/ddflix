@@ -16,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"addresses", "country"}, callSuper = false)
 @Entity
-@Table(name = "city")
+@Table(name = "cities")
 public class City extends AbstractDomainClass {
 
   @NotNull

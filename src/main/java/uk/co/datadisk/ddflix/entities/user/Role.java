@@ -13,6 +13,7 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = "users", callSuper = false)
 @ToString(exclude = "users")
 @Entity
+@Table(name = "roles")
 public class Role extends AbstractDomainClass {
 
     @Column(name = "name", unique = true)

@@ -14,7 +14,7 @@ import java.util.Date;
 @Setter
 @EqualsAndHashCode(exclude = {"id", "rating"})
 @Entity
-@Table(name = "rating")
+@Table(name = "ratings")
 public class Rating {
 
     @EmbeddedId

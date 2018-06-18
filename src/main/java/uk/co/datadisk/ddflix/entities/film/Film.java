@@ -13,6 +13,7 @@ import java.util.*;
 @EqualsAndHashCode(exclude = {"classification","genres", "discs", "actors", "ratings", "reviews", "languages", "subtitles"}, callSuper = false)
 @ToString(exclude = {"classification","genres","discs", "actors", "ratings", "reviews", "languages", "subtitles"})
 @Entity
+@Table(name = "films")
 public class Film extends AbstractDomainClass {
 
     @NotNull

@@ -15,7 +15,7 @@ import java.util.Set;
 @ToString(exclude = {"city", "users"})
 @Entity
 @Builder
-@Table(name = "address")
+@Table(name = "addresses")
 public class Address extends AbstractDomainClass {
 
   @NotNull

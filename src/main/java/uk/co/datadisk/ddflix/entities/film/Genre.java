@@ -5,6 +5,7 @@ import uk.co.datadisk.ddflix.entities.AbstractDomainClass;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
@@ -12,6 +13,7 @@ import javax.persistence.Entity;
 @EqualsAndHashCode
 @ToString
 @Entity
+@Table(name = "genres")
 public class Genre extends AbstractDomainClass {
 
     @Column(name = "name", unique = true)

@@ -14,7 +14,7 @@ import java.util.Date;
 @Setter
 @EqualsAndHashCode(exclude = {"id", "wishedOn"})
 @Entity
-@Table(name = "wishlist")
+@Table(name = "wishlists")
 public class Wishlist {
 
     @EmbeddedId
