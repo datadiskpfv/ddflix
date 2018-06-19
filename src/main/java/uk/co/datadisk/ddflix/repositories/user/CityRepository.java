@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 import uk.co.datadisk.ddflix.entities.user.City;
 
+import java.util.List;
+
 public interface CityRepository extends JpaRepository<City, Long> {
 
     City findByCity(String city);
+    List<City> findAllByOrderByCityAsc();
 
 //    @Modifying
 //    @Transactional

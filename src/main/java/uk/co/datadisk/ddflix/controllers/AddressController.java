@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import uk.co.datadisk.ddflix.dto.models.AddressDTO;
 import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.services.AddressService;
+import uk.co.datadisk.ddflix.services.CityService;
 import uk.co.datadisk.ddflix.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +23,12 @@ public class AddressController extends CommonController {
 
     private final UserService userService;
     private final AddressService addressService;
+    private final CityService cityService;
 
-    public AddressController(UserService userService, AddressService addressService) {
+    public AddressController(UserService userService, AddressService addressService, CityService cityService) {
         this.userService = userService;
         this.addressService = addressService;
+        this.cityService = cityService;
     }
 
     // Combines viewing and saving of a default credit card (GET and POST), check the request method
@@ -54,6 +57,7 @@ public class AddressController extends CommonController {
         if(action.equals("view")){
             //loadModel(model, user);
             model.addAttribute("AddressDTO", addressDTO);
+            model.addAttribute("listOfCities", cityService.findAllCities());
             model.addAttribute("addNewAddress", true);
             model.addAttribute("listOfAddresses", false);
         } else if (action.equals("save")) {
