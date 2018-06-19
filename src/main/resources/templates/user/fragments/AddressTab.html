@@ -110,10 +110,10 @@
                                      th:class="${#fields.hasErrors('city')} ? 'form-group has-error' : 'form-group'">
                                     <label class="control-label">City</label>
                                     <div>
-                                        <select class="form-control" id="city" name="city">
+                                        <select class="form-control" id="cityId" name="cityId">
                                             <option value="">Select City.....</option>
                                             <option th:each="city : ${listOfCities}"
-                                                    th:value="${city.city}"
+                                                    th:value="${city.id}"
                                                     th:text="${city.city}"></option>
                                         </select>
                                     </div>
