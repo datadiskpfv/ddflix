@@ -41,4 +41,14 @@ public class Address extends AbstractDomainClass {
 
   @ManyToMany(mappedBy = "Addresses")
   private Set<User> users = new HashSet<>();
+
+  @Override
+  public String toString() {
+    return this.line1 + ", " +
+            this.line2 + ", " +
+            this.line3 + ", " +
+            this.city.getCity() + ", " +
+            this.city.getCountry().getCountry() + ", " +
+            this.postcode;
+  }
 }

@@ -1,25 +1,31 @@
 package uk.co.datadisk.ddflix.services.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uk.co.datadisk.ddflix.dto.mapper.AddressMapper;
 import uk.co.datadisk.ddflix.dto.models.AddressDTO;
 import uk.co.datadisk.ddflix.entities.user.Address;
 import uk.co.datadisk.ddflix.entities.user.City;
+import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.repositories.user.AddressRepository;
 import uk.co.datadisk.ddflix.repositories.user.CityRepository;
+import uk.co.datadisk.ddflix.repositories.user.UserRepository;
 import uk.co.datadisk.ddflix.services.AddressService;
 
 @Service
+@Transactional
 public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
     private final AddressMapper addressMapper;
     private final CityRepository cityRepository;
+    private final UserRepository userRepository;
 
-    public AddressServiceImpl(AddressRepository addressRepository, AddressMapper addressMapper, CityRepository cityRepository) {
+    public AddressServiceImpl(AddressRepository addressRepository, AddressMapper addressMapper, CityRepository cityRepository, UserRepository userRepository) {
         this.addressRepository = addressRepository;
         this.addressMapper = addressMapper;
         this.cityRepository = cityRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -33,12 +39,14 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void saveAddress(AddressDTO addressDTO, Long cityId) {
+    public void saveAddress(AddressDTO addressDTO, Long cityId, Long userId) {
+        User user = userRepository.findById(userId).get();
         City city = cityRepository.findById(cityId).get();
         Address address = addressMapper.AddressDTOToAddress(addressDTO);
         address.setCity(city);
         System.out.println("saveAddress method shipping address ID: " + address.getId() + "and City ID: " + cityId);
         addressRepository.save(address);
+        user.addAddress(address);
     }
 
     @Override

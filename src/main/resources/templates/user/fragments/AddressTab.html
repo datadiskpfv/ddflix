@@ -9,7 +9,7 @@
         <!-- Shipping Address Information -->
         <div class="tab-pane fade" id="tab-3" th:classappend="${classActiveAddresses}? 'in active'">
             <!--/*@thymesVar id="AddressDTO" type="uk.co.datadisk.ddflix.dto.models.AddressDTO"*/-->
-            <!--/*@thymesVar id="Address" type="uk.co.datadisk.ddflix.entities.user.Address"*/-->
+            <!--/*@thymesVar id="address" type="uk.co.datadisk.ddflix.entities.user.Address"*/-->
             <!--/*@thymesVar id="city" type="uk.co.datadisk.ddflix.entities.user.City"*/-->
             <!--/*@thymesVar id="listOfAddresses" type="java.lang.String"*/-->
             <!--/*@thymesVar id="addNewAddress" type="java.lang.String"*/-->
@@ -42,12 +42,13 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <!--/*@thymesVar id="Address" type="uk.co.datadisk.ddflix.entities.user.Address"*/-->
-                                    <tr th:each="Address : ${userAddressList}">
+                                    <!--/*@thymesVar id="address" type="uk.co.datadisk.ddflix.entities.user.Address"*/-->
+                                    <tr th:each="address : ${userAddressList}">
+                                        <td th:text="${address.toString()}"></td>
                                         <td><a
-                                                th:href="@{'/user/profile/' + ${session.id} + '/editAddress?Id=' + ${Address.id}}"><i
+                                                th:href="@{'/user/profile/' + ${session.id} + '/editAddress?Id=' + ${address.id}}"><i
                                                 class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a
-                                                class="delete-address" th:href="@{'/user/profile/' + ${session.id} + '/removeAddress?Id=' + ${Address.id}}"><i
+                                                class="delete-address" th:href="@{'/user/profile/' + ${session.id} + '/removeAddress?Id=' + ${address.id}}"><i
                                                 class="fa fa-times"></i></a></td>
                                     </tr>
                                     </tbody>

@@ -71,7 +71,7 @@ public class AddressController extends CommonController {
             System.out.println("Saving address ID:" + addressDTO.getId());
             System.out.println("Using City ID:" + cityId);
             addressDTO.setUser(user);
-            addressService.saveAddress(addressDTO, cityId);
+            addressService.saveAddress(addressDTO, cityId, userId);
 
             // We have to refresh the User entity in the session to pickup the changes
             //userService.refreshUserEntity(user);
