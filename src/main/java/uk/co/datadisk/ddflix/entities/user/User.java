@@ -59,11 +59,11 @@ public class User extends UserDetail {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(
-            name="user_shipping_address",
+            name="user_address",
             joinColumns={@JoinColumn(name="user_id")},
             inverseJoinColumns = {@JoinColumn(name="address_id")}
     )
-    private Set<Address> shippingAddresses = new HashSet<>();
+    private Set<Address> Addresses = new HashSet<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserImages userImages;
@@ -91,8 +91,8 @@ public class User extends UserDetail {
     public void addRole(Role role) { this.roles.add(role);}
     public void removeRole(Role role) { this.roles.remove(role);}
 
-    public void addShippingAddress(Address shippingAddress) { this.shippingAddresses.add(shippingAddress);}
-    public void removeShippingAddress(Address shippingAddress) { this.shippingAddresses.remove(shippingAddress);}
+    public void addAddress(Address Address) { this.Addresses.add(Address);}
+    public void removeAddress(Address Address) { this.Addresses.remove(Address);}
 
     public void addFilmToWishList(Film film) {
         if(!checkFilmInWishlist(film)) {

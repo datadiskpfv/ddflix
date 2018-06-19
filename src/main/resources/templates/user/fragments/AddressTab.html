@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<th:block th:fragment="Address">
+
+        <!-- Shipping Address Information -->
+        <div class="tab-pane fade" id="tab-3" th:classappend="${classActiveAddresses}? 'in active'">
+            <!--/*@thymesVar id="AddressDTO" type="uk.co.datadisk.ddflix.dto.models.AddressDTO"*/-->
+            <!--/*@thymesVar id="Address" type="uk.co.datadisk.ddflix.entities.user.Address"*/-->
+            <!--/*@thymesVar id="listOfAddresses" type="java.lang.String"*/-->
+            <!--/*@thymesVar id="addNewAddress" type="java.lang.String"*/-->
+            <!--/*@thymesVar id="classActiveAddresses" type="java.lang.String"*/-->
+            <!--/*@thymesVar id="updateAddressInfo" type="java.lang.String"*/-->
+            <!--/*@thymesVar id="userAddressList" type="java.util.ArrayList"*/-->
+            <div class="panel-group">
+                <div class="panel panel-default" style="border: none;">
+                    <div class="panel-body"
+                         style="background-color: #ededed; margin-top: 20px;">
+
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active"><a
+                                    th:href="@{'/user/profile/' + ${session.id} + '/listOfAddresses'}"
+                                    th:style="${listOfAddresses}? 'color:red'">List of Addresses</a>
+                            </li>
+                            <li class="breadcrumb-item active"><a
+                                    th:href="@{'/user/profile/' + ${session.id} + '/addNewAddress?action=view'}"
+                                    th:style="${addNewAddress}? 'color:red'">Add(Update) Address</a>
+                            </li>
+                        </ol>
+
+                        <div th:if="${listOfAddresses}">
+                            <form th:action="@{'/user/profile/' + ${session.id} + '/listOfAddresses'}" method="post">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Address</th>
+                                        <th>Operations</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!--/*@thymesVar id="Address" type="uk.co.datadisk.ddflix.entities.user.Address"*/-->
+                                    <tr th:each="Address : ${userAddressList}">
+                                        <td><a
+                                                th:href="@{'/user/profile/' + ${session.id} + '/editAddress?Id=' + ${Address.id}}"><i
+                                                class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a
+                                                class="delete-address" th:href="@{'/user/profile/' + ${session.id} + '/removeAddress?Id=' + ${Address.id}}"><i
+                                                class="fa fa-times"></i></a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn btn-primary" type="submit">Set Default</button>
+                            </form>
+                        </div>
+
+                        <!--Add New Address-->
+                        <div th:if="${addNewAddress}">
+                            <form th:object="${AddressDTO}"
+                                  th:action="@{'/user/profile/' + ${session.id} + '/addNewAddress?action=save'}"
+                                  method="post">
+                                <div class="bg-info" th:if="${updateAddressInfo}">User info updated
+                                </div>
+
+                                <input hidden="hidden" th:field="*{id}" th:value="*{id}"/>
+
+                                <div class="form-group"
+                                     th:class="${#fields.hasErrors('line1')} ? 'form-group has-error' : 'form-group'">
+                                    <label class="control-label">Address Line 1</label>
+                                    <div>
+                                        <input type="text" class="form-control" th:field="*{line1}"
+                                               th:errorclass="has-error"
+                                               placeholder="Address Line1" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     th:class="${#fields.hasErrors('line2')} ? 'form-group has-error' : 'form-group'">
+                                    <label class="control-label">Address Line 2</label>
+                                    <div>
+                                        <input type="text" class="form-control" th:field="*{line2}"
+                                               th:errorclass="has-error"
+                                               placeholder="Address Line2" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     th:class="${#fields.hasErrors('line3')} ? 'form-group has-error' : 'form-group'">
+                                    <label class="control-label">Address Line 3</label>
+                                    <div>
+                                        <input type="text" class="form-control" th:field="*{line3}"
+                                               th:errorclass="has-error"
+                                               placeholder="Address Line3" th:required="required"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     th:class="${#fields.hasErrors('line4')} ? 'form-group has-error' : 'form-group'">
+                                    <label class="control-label">Address Line 4</label>
+                                    <div>
+                                        <input type="text" class="form-control" th:field="*{line4}"
+                                               th:errorclass="has-error"
+                                               placeholder="Address Line 4" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     th:class="${#fields.hasErrors('city')} ? 'form-group has-error' : 'form-group'">
+                                    <label class="control-label">Address City</label>
+                                    <div>
+                                        <input type="text" class="form-control" th:field="*{city}"
+                                               th:errorclass="has-error"
+                                               placeholder="City" th:required="required"/>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group"
+                                     th:class="${#fields.hasErrors('country')} ? 'form-group has-error' : 'form-group'">
+                                    <label class="control-label">Address Country</label>
+                                    <div>
+                                        <input type="text" class="form-control" th:field="*{country}"
+                                               th:errorclass="has-error"
+                                               placeholder="Country" th:required="required"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     th:class="${#fields.hasErrors('postcode')} ? 'form-group has-error' : 'form-group'">
+                                    <label class="control-label">Address PostCode</label>
+                                    <div>
+                                        <input type="text" class="form-control" th:field="*{postcode}"
+                                               th:errorclass="has-error"
+                                               placeholder="Postcode" th:required="required"/>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-lg">Save Address</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</th:block>
+
+</body>
+</html>

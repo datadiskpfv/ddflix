@@ -61,7 +61,7 @@ public class UserRepositoryTest {
         assertEquals("Guernsey", user1.getDefaultShippingAddress().getCity().getCountry().getName());
 
         User user2 = userRepository.findByEmail("will.hay@example.com");
-        assertEquals(4, user2.getShippingAddresses().size());
+        assertEquals(4, user2.getAddresses().size());
     }
 
     @Test
@@ -104,12 +104,12 @@ public class UserRepositoryTest {
         Address address1 = addressRepository.findByPostcode("DU125MY");
         Address address2 = addressRepository.findByPostcode("DU126MY");
 
-        assertEquals(1, user.getShippingAddresses().size());
+        assertEquals(1, user.getAddresses().size());
 
-        user.addShippingAddress(address1);
-        user.addShippingAddress(address2);
+        user.addAddress(address1);
+        user.addAddress(address2);
 
-        assertEquals(3, user.getShippingAddresses().size());
+        assertEquals(3, user.getAddresses().size());
     }
 
     @Test
@@ -119,12 +119,12 @@ public class UserRepositoryTest {
         User user = userRepository.findByEmail("will.hay@example.com");
         Address address1 = addressRepository.findByPostcode("DU121MY");
         Address address2 = addressRepository.findByPostcode("DU122MY");
-        assertEquals(4, user.getShippingAddresses().size());
+        assertEquals(4, user.getAddresses().size());
 
-        user.removeShippingAddress(address1);
-        user.removeShippingAddress(address2);
+        user.removeAddress(address1);
+        user.removeAddress(address2);
 
-        assertEquals(2, user.getShippingAddresses().size());
+        assertEquals(2, user.getAddresses().size());
     }
 
     @Test

@@ -18,34 +18,34 @@ import static java.lang.Long.parseLong;
 @Controller
 @RequestMapping("/user")
 @PreAuthorize("hasAuthority('USER')")
-public class ShippingAddressController extends CommonController {
+public class AddressController extends CommonController {
 
     private final UserService userService;
     private final AddressService addressService;
 
-    public ShippingAddressController(UserService userService, AddressService addressService) {
+    public AddressController(UserService userService, AddressService addressService) {
         this.userService = userService;
         this.addressService = addressService;
     }
 
     // Combines viewing and saving of a default credit card (GET and POST), check the request method
     @RequestMapping(value = "/profile/{userId}/listOfShippingAddresses", method = {RequestMethod.GET, RequestMethod.POST})
-    public String listOfShippingAddresses(@ModelAttribute("defaultShippingAddressId") String defaultAddressId, @PathVariable Long userId, Model model, HttpServletRequest request) {
+    public String listOfAddresses(@PathVariable Long userId, Model model, HttpServletRequest request) {
 
         User user = userService.findUser(userId);
         loadModel(model, user);
         model.addAttribute("classActiveAddresses", true);
 
-        if (request.getMethod().equals(RequestMethod.POST.name())){
-            addressService.setDefault(parseLong(defaultAddressId), user.getId());
-        }
+//        if (request.getMethod().equals(RequestMethod.POST.name())){
+//            addressService.setDefault(parseLong(defaultAddressId), user.getId());
+//        }
 
         return "/user/userProfile";
     }
 
     // Combines viewing and saving of a credit card (GET and POST), use a action parameter
-    @RequestMapping(value = "/profile/{userId}/addNewShippingAddress", method = {RequestMethod.GET, RequestMethod.POST})
-    public String addNewShippingAddress(@RequestParam("action") String action, @PathVariable Long userId, Model model, AddressDTO addressDTO) {
+    @RequestMapping(value = "/profile/{userId}/addNewAddress", method = {RequestMethod.GET, RequestMethod.POST})
+    public String addNewAddress(@RequestParam("action") String action, @PathVariable Long userId, Model model, AddressDTO addressDTO) {
 
         User user = userService.findUser(userId);
         model.addAttribute("classActiveAddresses", true);
@@ -53,18 +53,18 @@ public class ShippingAddressController extends CommonController {
 
         if(action.equals("view")){
             //loadModel(model, user);
-            model.addAttribute("shippingAddressDTO", addressDTO);
-            model.addAttribute("addNewShippingAddress", true);
-            model.addAttribute("listOfShippingAddresses", false);
+            model.addAttribute("AddressDTO", addressDTO);
+            model.addAttribute("addNewAddress", true);
+            model.addAttribute("listOfAddresses", false);
         } else if (action.equals("save")) {
 
-            if(user.getShippingAddresses().size() >= 3 && addressDTO.getId() == null) {
+            if(user.getAddresses().size() >= 3 && addressDTO.getId() == null) {
                 model.addAttribute("maxAddressCount", true);
                 //loadModel(model, user);
                 return "/user/userProfile";
             }
 
-            System.out.println("Saving shipping address ID:" + addressDTO.getId());
+            System.out.println("Saving address ID:" + addressDTO.getId());
             addressDTO.setUser(user);
             addressService.saveAddress(addressDTO);
 
@@ -79,14 +79,14 @@ public class ShippingAddressController extends CommonController {
         return "/user/userProfile";
     }
 
-    @GetMapping("/profile/{userId}/removeShippingAddress")
-    public String removeShippingAddress(@RequestParam("shippingId") Long shippingId, @PathVariable Long userId, Model model, Principal principal){
+    @GetMapping("/profile/{userId}/removeAddress")
+    public String removeAddress(@RequestParam("Id") Long Id, @PathVariable Long userId, Model model, Principal principal){
 
         // below is another method of getting the user, i could of course have used the id as well.
-        System.out.println("Shipping ID: " + shippingId);
+        System.out.println("Shipping ID: " + Id);
         System.out.println("user ID: " + userId);
 
-        addressService.removeById(shippingId);
+        addressService.removeById(Id);
 
         User user = userService.findByUsername(principal.getName());
         loadModel(model, user);
@@ -95,20 +95,20 @@ public class ShippingAddressController extends CommonController {
         return "/user/userProfile";
     }
 
-    @GetMapping("/profile/{userId}/editShippingAddress")
-    public String editShippingAddress(@RequestParam("shippingId") Long shippingId, @PathVariable Long userId, Model model){
+    @GetMapping("/profile/{userId}/editAddress")
+    public String editAddress(@RequestParam("Id") Long shippingId, @PathVariable Long userId, Model model){
 
         User user = userService.findUser(userId);
-        System.out.println("editShippingAddress method shippingId: " + shippingId);
+        System.out.println("editAddress method shippingId: " + shippingId);
         AddressDTO addressDTO = addressService.getAddressDTO(shippingId);
-        System.out.println("editShippingAddress method shipping address DTO ID: " + addressDTO.getId());
+        System.out.println("editAddress method shipping address DTO ID: " + addressDTO.getId());
 
         loadModel(model, user);
 
-        model.addAttribute("shippingAddressDTO", addressDTO);
-        model.addAttribute("addNewShippingAddress", true);
+        model.addAttribute("AddressDTO", addressDTO);
+        model.addAttribute("addNewAddress", true);
         model.addAttribute("classActiveAddresses", true);
-        model.addAttribute("listOfShippingAddresses", false);
+        model.addAttribute("listOfAddresses", false);
 
         return "/user/userProfile";
     }

@@ -14,16 +14,14 @@ public class AddressDTO {
     private Long id;
 
     @Size(min = 1, max = 5)
-    private String shippingAddressNumber;
-    private String shippingAddressName;
-    private String shippingAddressStreet1;
-    private String shippingAddressStreet2;
-    private String shippingAddressCity;
-    private String shippingAddressCounty;
-    private String shippingAddressCountry;
-    private boolean defaultAddress;
+    private String line1;
+    private String line2;
+    private String line3;
+    private String line4;
+    private String city;
+    private String country;
 
     @Size(min = 6, max = 7)
-    private String shippingAddressPostcode;
+    private String postcode;
     private User user;
 }

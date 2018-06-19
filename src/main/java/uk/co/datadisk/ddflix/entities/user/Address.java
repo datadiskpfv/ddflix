@@ -40,6 +40,6 @@ public class Address extends AbstractDomainClass {
   @Column(name = "postcode")
   private String postcode;
 
-  @ManyToMany(mappedBy = "shippingAddresses")
+  @ManyToMany(mappedBy = "Addresses")
   private Set<User> users = new HashSet<>();
 }
