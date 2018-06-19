@@ -1,6 +1,7 @@
 package uk.co.datadisk.ddflix.dto.models;
 
 import lombok.*;
+import uk.co.datadisk.ddflix.entities.user.City;
 import uk.co.datadisk.ddflix.entities.user.User;
 
 import javax.validation.constraints.Size;
@@ -18,8 +19,7 @@ public class AddressDTO {
     private String line2;
     private String line3;
     private String line4;
-    private String city;
-    private String country;
+    private City city;
 
     @Size(min = 6, max = 7)
     private String postcode;

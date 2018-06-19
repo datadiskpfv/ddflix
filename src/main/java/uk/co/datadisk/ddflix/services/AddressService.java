@@ -7,7 +7,7 @@ public interface AddressService {
 
     Address findById(Long id);
     void removeById(Long id);
-    void saveAddress(AddressDTO addressDTO);
+    void saveAddress(AddressDTO addressDTO, Long cityId);
     void setDefault(Long userPaymentId, Long userId);
     int getNumberOfAddresses(Long id);
     AddressDTO getAddressDTO(Long id);

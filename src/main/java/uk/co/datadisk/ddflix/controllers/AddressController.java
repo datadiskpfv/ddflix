@@ -48,7 +48,7 @@ public class AddressController extends CommonController {
 
     // Combines viewing and saving of a credit card (GET and POST), use a action parameter
     @RequestMapping(value = "/profile/{userId}/addNewAddress", method = {RequestMethod.GET, RequestMethod.POST})
-    public String addNewAddress(@RequestParam("cityId") String cityId, @RequestParam("action") String action, @PathVariable Long userId, Model model, AddressDTO addressDTO) {
+    public String addNewAddress(@RequestParam("action") String action, @PathVariable Long userId, Model model, AddressDTO addressDTO, Long cityId) {
 
         User user = userService.findUser(userId);
         model.addAttribute("classActiveAddresses", true);
@@ -71,7 +71,7 @@ public class AddressController extends CommonController {
             System.out.println("Saving address ID:" + addressDTO.getId());
             System.out.println("Using City ID:" + cityId);
             addressDTO.setUser(user);
-            addressService.saveAddress(addressDTO);
+            addressService.saveAddress(addressDTO, cityId);
 
             // We have to refresh the User entity in the session to pickup the changes
             //userService.refreshUserEntity(user);

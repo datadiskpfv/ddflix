@@ -4,20 +4,22 @@ import org.springframework.stereotype.Service;
 import uk.co.datadisk.ddflix.dto.mapper.AddressMapper;
 import uk.co.datadisk.ddflix.dto.models.AddressDTO;
 import uk.co.datadisk.ddflix.entities.user.Address;
+import uk.co.datadisk.ddflix.entities.user.City;
 import uk.co.datadisk.ddflix.repositories.user.AddressRepository;
+import uk.co.datadisk.ddflix.repositories.user.CityRepository;
 import uk.co.datadisk.ddflix.services.AddressService;
-
-import java.util.List;
 
 @Service
 public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
     private final AddressMapper addressMapper;
+    private final CityRepository cityRepository;
 
-    public AddressServiceImpl(AddressRepository addressRepository, AddressMapper addressMapper) {
+    public AddressServiceImpl(AddressRepository addressRepository, AddressMapper addressMapper, CityRepository cityRepository) {
         this.addressRepository = addressRepository;
         this.addressMapper = addressMapper;
+        this.cityRepository = cityRepository;
     }
 
     @Override
@@ -31,9 +33,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void saveAddress(AddressDTO addressDTO) {
+    public void saveAddress(AddressDTO addressDTO, Long cityId) {
+        City city = cityRepository.findById(cityId).get();
         Address address = addressMapper.AddressDTOToAddress(addressDTO);
-        System.out.println("saveAddress method shipping address ID: " + address.getId());
+        address.setCity(city);
+        System.out.println("saveAddress method shipping address ID: " + address.getId() + "and City ID: " + cityId);
         addressRepository.save(address);
     }
 

@@ -22,7 +22,6 @@ public class Address extends AbstractDomainClass {
   @Column(name = "line1")
   private String line1;
 
-  @NotNull
   @Column(name = "line2")
   private String line2;
 

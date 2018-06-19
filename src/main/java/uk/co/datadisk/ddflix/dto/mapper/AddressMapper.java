@@ -11,9 +11,9 @@ public interface AddressMapper {
     // INSTANCE is used by the tests
     AddressMapper INSTANCE = Mappers.getMapper(AddressMapper.class);
 
-    // ShippingAddress -> AddressDTO
+    // Address -> AddressDTO
     AddressDTO AddressToAddressDTO(Address Address);
 
-    // AddressDTO -> ShippingAddress
+    // AddressDTO -> Address
     Address AddressDTOToAddress(AddressDTO AddressDTO);
 }
