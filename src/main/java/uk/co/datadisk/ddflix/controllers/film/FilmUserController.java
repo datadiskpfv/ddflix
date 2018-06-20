@@ -55,7 +55,7 @@ public class FilmUserController {
 
         if(user.getWishlists().size() >= WISHLIST_LIMIT){
             System.out.println("Wish List is FULL!!!!! user " + user.getEmail());
-            model.addAttribute("wishListFull", "full");
+            model.addAttribute("wishListFull", true);
         } else {
             userService.addFilmToWishlist(userId, filmId);
         }
