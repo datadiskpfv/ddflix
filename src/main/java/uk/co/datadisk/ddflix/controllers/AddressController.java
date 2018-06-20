@@ -117,12 +117,14 @@ public class AddressController extends CommonController {
     }
 
     @PostMapping("/profile/{userId}/setDefaultAddresses")
-    public String editAddress(@RequestParam("BillingAddressId") Long BillingAddressId,
-                              @RequestParam("ShippingAddressId") Long ShippingAddressId,
+    public String setDefaultAddresses(@RequestParam("billingAddressId") Long billingAddressId,
+                              @RequestParam("shippingAddressId") Long shippingAddressId,
                               @PathVariable Long userId, Model model){
 
-        System.out.println("tBillingAddressId: " + BillingAddressId);
-        System.out.println("ShippingAddressId: " + ShippingAddressId);
+        System.out.println("BillingAddressId: " + billingAddressId);
+        System.out.println("ShippingAddressId: " + shippingAddressId);
+
+        addressService.setDefaultAddresses(userId, shippingAddressId, billingAddressId);
 
         return "redirect:/user/profile/" + userId + "/listOfAddresses";
     }

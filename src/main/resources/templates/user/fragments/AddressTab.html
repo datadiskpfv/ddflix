@@ -47,10 +47,10 @@
                                     <tbody>
                                     <!--/*@thymesVar id="address" type="uk.co.datadisk.ddflix.entities.user.Address"*/-->
                                     <tr th:each="address : ${userAddressList}">
-                                        <td><input type="radio" name="defaultShippingAddressId"
+                                        <td><input type="radio" name="shippingAddressId"
                                                    th:value="${address.id}"
                                                    th:checked="${address.id == user.defaultShippingAddress.id}"/></td>
-                                        <td><input type="radio" name="defaultBillingAddressId"
+                                        <td><input type="radio" name="billingAddressId"
                                                    th:value="${address.id}"
                                                    th:checked="${address.id == user.defaultBillingAddress.id}"/></td>
                                         <td th:text="${address.toString()}"></td>
