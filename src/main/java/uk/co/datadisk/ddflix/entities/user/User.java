@@ -63,6 +63,7 @@ public class User extends UserDetail {
             joinColumns={@JoinColumn(name="user_id")},
             inverseJoinColumns = {@JoinColumn(name="address_id")}
     )
+    @OrderBy("id ASC")
     private Set<Address> Addresses = new HashSet<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)

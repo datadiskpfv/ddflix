@@ -8,7 +8,6 @@
 
     <div class="tab-pane fade" id="tab-1" th:classappend="${classActivePayments}? 'in active'">
         <!--/*@thymesVar id="userPaymentDTO" type="uk.co.datadisk.ddflix.dto.models.UserPaymentDTO"*/-->
-        <!--/*@thymesVar id="userPayment" type="uk.co.datadisk.ddflix.entities.UserPayment"*/-->
         <!-- Payment/Credit Card Information -->
         <!--/*@thymesVar id="listOfPayments" type="java.lang.String"*/-->
         <!--/*@thymesVar id="addNewPayment" type="java.lang.String"*/-->
@@ -37,16 +36,19 @@
                                 <thead>
                                 <tr>
                                     <th>Default</th>
-                                    <th>Credit Card</th>
+                                    <th>Credit Card Name</th>
+                                    <th>Credit Card Number</th>
                                     <th>Operations</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <!--/*@thymesVar id="userPayment" type="uk.co.datadisk.ddflix.entities.user.UserPayment"*/-->
                                 <tr th:each="userPayment : ${userPaymentList}">
                                     <td><input type="radio" name="defaultUserPaymentId"
                                                th:value="${userPayment.id}"
                                                th:checked="${userPayment.defaultPayment}"/></td>
                                     <td th:text="${userPayment.cardName}"></td>
+                                    <td th:text="${userPayment.cardNumber}"></td>
                                     <td><a th:href="@{'/user/profile/' + ${session.id} + '/editPayment?paymentId=' + ${userPayment.id}}">
                                         <i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
                                         <a class="delete-payment" th:href="@{'/user/profile/' + ${session.id} + '/removePayment?paymentId=' + ${userPayment.id}}">

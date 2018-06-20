@@ -38,5 +38,8 @@ public interface UserService {
 
     User findByUsername(String username);
 
+    void addFilmToWishlist(Long userId, Long filmId);
+    void removeFilmFromWishlist(Long userId, Long filmId);
+
     //void refreshUserEntity(User user);
 }

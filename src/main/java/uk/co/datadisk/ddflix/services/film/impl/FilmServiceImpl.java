@@ -52,8 +52,8 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public FilmFormDTO findFilm(Long id) {
-        return filmFormMapper.FilmToFilmFormDTO(filmRepository.getOne(id));
+    public FilmFormDTO findFilmDTO(Long id) {
+        return filmFormMapper.FilmToFilmFormDTO(filmRepository.findById(id).get());
     }
 
     @Override
@@ -62,8 +62,8 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Film getOne(Long id) {
-        return filmRepository.getOne(id);
+    public Film findFilm(Long id) {
+        return filmRepository.findById(id).get();
     }
 
     @Override

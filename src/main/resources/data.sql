@@ -33,3 +33,22 @@ INSERT INTO user_role(user_id, role_id) VALUES
   (2,2),
   (3,2),
   (4,3);
+
+-- FILM, CLASSIFICATION and GENRE TEST DATA
+INSERT INTO classifications(id, rating, image_name, date_created, last_updated) VALUES
+  (1, 'U', 'U.png', sysdate(), sysdate()),
+  (2, 'PG', 'PG.png', sysdate(), sysdate()),
+  (3, '12', '12.png', sysdate(), sysdate()),
+  (4, '15', '15.gif', sysdate(), sysdate()),
+  (5, '18', '18.png', sysdate(), sysdate());
+
+INSERT INTO genres(id, name, date_created, last_updated) VALUES
+  (1, 'Horror', sysdate(), sysdate()),
+  (2, 'Action', sysdate(), sysdate()),
+  (3, 'Children', sysdate(), sysdate()),
+  (4, 'Romance', sysdate(), sysdate()),
+  (5, 'Thriller', sysdate(), sysdate()),
+  (6, 'Sci-Fi', sysdate(), sysdate()),
+  (7, 'Western', sysdate(), sysdate()),
+  (8, 'War', sysdate(), sysdate()),
+  (9, 'Comedy', sysdate(), sysdate());

@@ -1,5 +1,6 @@
 package uk.co.datadisk.ddflix.services.impl;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +9,7 @@ import uk.co.datadisk.ddflix.dto.mapper.UserEditFormMapper;
 import uk.co.datadisk.ddflix.dto.mapper.UserRegisterMapper;
 import uk.co.datadisk.ddflix.dto.models.UserEditFormDTO;
 import uk.co.datadisk.ddflix.dto.models.UserRegisterDTO;
+import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.user.PasswordResetToken;
 import uk.co.datadisk.ddflix.entities.user.Role;
 import uk.co.datadisk.ddflix.entities.user.User;
@@ -18,6 +20,7 @@ import uk.co.datadisk.ddflix.repositories.user.UserRepository;
 import uk.co.datadisk.ddflix.services.ImageService;
 import uk.co.datadisk.ddflix.services.RoleService;
 import uk.co.datadisk.ddflix.services.UserService;
+import uk.co.datadisk.ddflix.services.film.FilmService;
 
 import java.util.List;
 import java.util.UUID;
@@ -33,8 +36,9 @@ public class UserServiceImpl implements UserService {
     private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final RoleService roleService;
     private final ImageService imageService;
+    private final FilmService filmService;
 
-    public UserServiceImpl(UserRepository userRepository, UserRegisterMapper userRegisterMapper, BCryptPasswordEncoder bCryptPasswordEncoder, UserEditFormMapper userEditFormMapper, PasswordResetTokenRepository passwordResetTokenRepository, RoleService roleService, ImageService imageService) {
+    public UserServiceImpl(UserRepository userRepository, UserRegisterMapper userRegisterMapper, BCryptPasswordEncoder bCryptPasswordEncoder, UserEditFormMapper userEditFormMapper, PasswordResetTokenRepository passwordResetTokenRepository, RoleService roleService, ImageService imageService, FilmService filmService) {
         this.userRepository = userRepository;
         this.userRegisterMapper = userRegisterMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -42,6 +46,7 @@ public class UserServiceImpl implements UserService {
         this.passwordResetTokenRepository = passwordResetTokenRepository;
         this.roleService = roleService;
         this.imageService = imageService;
+        this.filmService = filmService;
     }
 
     @Override
@@ -157,6 +162,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public void addFilmToWishlist(Long userId, Long filmId) {
+        Film film = filmService.findFilm(filmId);
+        User user = userRepository.findById(userId).get();
+
+        if(!user.getWishlists().contains(film)){
+            user.addFilmToWishList(film);
+        }
+    }
+
+    @Override
+    public void removeFilmFromWishlist(Long userId, Long filmId) {
+        Film film = filmService.findFilm(filmId);
+        User user = userRepository.findById(userId).get();
+
+        if(user.getWishlists().contains(film)){
+            user.removeFilmFromWishlist(film);
+        }
     }
 
     //@Override

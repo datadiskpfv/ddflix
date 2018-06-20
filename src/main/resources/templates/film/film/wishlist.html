@@ -58,12 +58,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-th-each="film : ${wishlist}">
-                    <td th:text="${film.title}"></td>
-                    <td th:text="${film.classification.rating}"></td>
+                <!--/*@thymesVar id="wishlist" type="uk.co.datadisk.ddflix.entities.film.Wishlist"*/-->
+                <tr data-th-each="wishlist : ${wishlists}">
+                    <td th:text="${wishlist.film.title}"></td>
+                    <td th:text="${wishlist.film.classification.rating}"></td>
                     <td>
-                        <a th:href="@{'/film/film/' + ${film.id} + '/infoUser'}" class="btn btn-info btn-xs">Information</a>
-                        <a th:href="@{'/film/film/' + ${film.id} + '/wishlistDelete?userId=' + ${session.id}}" class="btn btn-danger btn-xs">Remove from Wishlist</a>
+                        <a th:href="@{'/film/film/' + ${wishlist.film.id} + '/infoUser'}" class="btn btn-info btn-xs">Information</a>
+                        <a th:href="@{'/film/film/' + ${wishlist.film.id} + '/wishlistDelete?userId=' + ${session.id}}" class="btn btn-danger btn-xs">Remove from Wishlist</a>
                     </td>
                 </tr>
                 </tbody>

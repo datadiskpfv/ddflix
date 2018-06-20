@@ -14,9 +14,9 @@ public interface FilmService {
     void createFilm(FilmFormDTO filmFormDTO);
     void saveFilm(Film film);
 
-    FilmFormDTO findFilm(Long id);
+    FilmFormDTO findFilmDTO(Long id);
     List<Film> findAll();
-    Film getOne(Long id);
+    Film findFilm(Long id);
 
     List<FilmFormDTO> latestFilms();
     List<FilmFormDTO> oldestFilms();

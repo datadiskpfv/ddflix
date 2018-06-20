@@ -50,7 +50,7 @@ public class FilmAdminController {
 
     @GetMapping("{filmId}/info")
     public String infoFilm(Model model, @PathVariable Long filmId){
-        FilmFormDTO filmFormDTO = filmService.findFilm(filmId);
+        FilmFormDTO filmFormDTO = filmService.findFilmDTO(filmId);
         String firstLetter = filmFormDTO.getTitle().substring(0, 1).toUpperCase();
 
         model.addAttribute("firstLetter", firstLetter);
@@ -65,7 +65,7 @@ public class FilmAdminController {
 
     @GetMapping("{filmId}/imagesUpload")
     public String imagesUpload(Model model, @PathVariable Long filmId){
-        FilmFormDTO filmFormDTO = filmService.findFilm(filmId);
+        FilmFormDTO filmFormDTO = filmService.findFilmDTO(filmId);
         String firstLetter = filmFormDTO.getTitle().substring(0, 1).toUpperCase();
 
         model.addAttribute("firstLetter", firstLetter);
@@ -98,7 +98,7 @@ public class FilmAdminController {
             return "redirect:/film/film/list";
         } else if(action.equals("edit")){
             // get film in a filmFormDTO
-            filmFormDTO = filmService.findFilm(filmId);
+            filmFormDTO = filmService.findFilmDTO(filmId);
         }
 
         model.addAttribute("filmFormDTO", filmFormDTO);
@@ -122,7 +122,7 @@ public class FilmAdminController {
     @PostMapping("{filmId}/imagesUpload")
     public String imagesUploadPost(@RequestParam("action") String action, @PathVariable Long filmId, @RequestParam("file") MultipartFile file){
 
-        Film film = filmService.getOne(filmId);
+        Film film = filmService.findFilm(filmId);
 
         String filename = imageService.storeFilmImages(file, filmId, action);
         System.out.println("Filename: " + filename);

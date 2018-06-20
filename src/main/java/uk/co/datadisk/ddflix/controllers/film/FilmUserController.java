@@ -40,7 +40,7 @@ public class FilmUserController {
     // READ
     @GetMapping("{filmId}/infoUser")
     public String infoUserFilm(Model model, @PathVariable Long filmId){
-        FilmFormDTO filmFormDTO = filmService.findFilm(filmId);
+        FilmFormDTO filmFormDTO = filmService.findFilmDTO(filmId);
         String firstLetter = filmFormDTO.getTitle().substring(0, 1).toUpperCase();
 
         model.addAttribute("firstLetter", firstLetter);
@@ -51,19 +51,17 @@ public class FilmUserController {
     @GetMapping("{filmId}/addToWishlist")
     public String addToWishlist(Model model, @PathVariable Long filmId, @RequestParam("userId") Long userId){
 
-        Film film = filmService.getOne(filmId);
         User user = userService.findUser(userId);
 
-        if(user.getWishlists().size() < WISHLIST_LIMIT){
-            user.addFilmToWishList(film);
-            userService.saveUser(user);
-        } else {
+        if(user.getWishlists().size() >= WISHLIST_LIMIT){
             System.out.println("Wish List is FULL!!!!! user " + user.getEmail());
             model.addAttribute("wishListFull", "full");
+        } else {
+            userService.addFilmToWishlist(userId, filmId);
         }
 
         model.addAttribute("limit", WISHLIST_LIMIT);
-        model.addAttribute("wishlist", user.getWishlists());
+        model.addAttribute("wishlists", user.getWishlists());
         return "/film/film/wishlist";
     }
 
@@ -73,7 +71,7 @@ public class FilmUserController {
 
         // web page changes when there are no films in wishlist or any films at home
         if( user.getWishlists().size() > 0) {
-            model.addAttribute("wishlist", user.getWishlists());
+            model.addAttribute("wishlists", user.getWishlists());
         }
 
         if(user.getFilmsAtHomes().size() > 0) {
@@ -98,7 +96,7 @@ public class FilmUserController {
     @GetMapping("{filmId}/wishlistDelete")
     public String wishlistDelete(@PathVariable Long filmId, @RequestParam("userId") Long userId){
 
-        Film film = filmService.getOne(filmId);
+        Film film = filmService.findFilm(filmId);
         User user = userService.findUser(userId);
 
         user.removeFilmFromWishlist(film);
