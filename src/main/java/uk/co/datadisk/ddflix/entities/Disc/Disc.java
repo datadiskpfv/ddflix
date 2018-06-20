@@ -1,8 +1,10 @@
-package uk.co.datadisk.ddflix.entities.film;
+package uk.co.datadisk.ddflix.entities.Disc;
 
 import lombok.*;
 import org.hibernate.annotations.Where;
 import uk.co.datadisk.ddflix.entities.AbstractDomainClass;
+import uk.co.datadisk.ddflix.entities.film.Film;
+import uk.co.datadisk.ddflix.entities.film.FilmsAtHome;
 
 import javax.persistence.*;
 import java.util.ArrayList;

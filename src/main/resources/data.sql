@@ -52,3 +52,12 @@ INSERT INTO genres(id, name, date_created, last_updated) VALUES
   (7, 'Western', sysdate(), sysdate()),
   (8, 'War', sysdate(), sysdate()),
   (9, 'Comedy', sysdate(), sysdate());
+
+-- DISC
+INSERT INTO discs(id, disc_format, in_stock, film_id, date_created, last_updated) VALUES
+  (1, 'Blu-Ray', true, 1, sysdate(), sysdate()),
+  (2, 'Blu-Ray', true, 1, sysdate(), sysdate()),
+  (3, 'DVD', true, 1, sysdate(), sysdate()),
+  (4, 'DVD', true, 1, sysdate(), sysdate()),
+  (5, 'Blu-Ray', true, 2, sysdate(), sysdate()),
+  (6, 'DVD', true, 2, sysdate(), sysdate());
