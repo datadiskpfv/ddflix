@@ -19,7 +19,7 @@ public class AddressDTO {
     private String line2;
     private String line3;
     private String line4;
-    private City city;
+    private City city = new City();
 
     @Size(min = 6, max = 7)
     private String postcode;

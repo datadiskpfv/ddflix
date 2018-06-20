@@ -10,7 +10,7 @@
         <div class="tab-pane fade" id="tab-3" th:classappend="${classActiveAddresses}? 'in active'">
             <!--/*@thymesVar id="AddressDTO" type="uk.co.datadisk.ddflix.dto.models.AddressDTO"*/-->
             <!--/*@thymesVar id="address" type="uk.co.datadisk.ddflix.entities.user.Address"*/-->
-            <!--/*@thymesVar id="city" type="uk.co.datadisk.ddflix.entities.user.City"*/-->
+            <!--/*@thymesVar id="cityy" type="uk.co.datadisk.ddflix.entities.user.City"*/-->
             <!--/*@thymesVar id="listOfAddresses" type="java.lang.String"*/-->
             <!--/*@thymesVar id="addNewAddress" type="java.lang.String"*/-->
             <!--/*@thymesVar id="classActiveAddresses" type="java.lang.String"*/-->
@@ -28,7 +28,7 @@
                             </li>
                             <li class="breadcrumb-item active"><a
                                     th:href="@{'/user/profile/' + ${session.id} + '/addNewAddress?action=view'}"
-                                    th:style="${addNewAddress}? 'color:red'">Add(Update) Address</a>
+                                    th:style="${addNewAddress}? 'color:red'">Add Address</a>
                             </li>
                         </ol>
 
@@ -113,9 +113,10 @@
                                     <div>
                                         <select class="form-control" id="cityId" name="cityId">
                                             <option value="">Select City.....</option>
-                                            <option th:each="city : ${listOfCities}"
-                                                    th:value="${city.id}"
-                                                    th:text="${city.city}"></option>
+                                            <option th:each="cityy : ${listOfCities}"
+                                                    th:value="${cityy.id}"
+                                                    th:selected="${cityy.id} == (*{city.id} ? *{city.id} : 0)"
+                                                    th:text="${cityy.city}"></option>
                                         </select>
                                     </div>
                                 </div>

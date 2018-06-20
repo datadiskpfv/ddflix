@@ -40,13 +40,19 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void saveAddress(AddressDTO addressDTO, Long cityId, Long userId) {
-        User user = userRepository.findById(userId).get();
         City city = cityRepository.findById(cityId).get();
         Address address = addressMapper.AddressDTOToAddress(addressDTO);
         address.setCity(city);
-        System.out.println("saveAddress method shipping address ID: " + address.getId() + "and City ID: " + cityId);
         addressRepository.save(address);
-        user.addAddress(address);
+        System.out.println("saveAddress method address ID: " + address.getId() + " and City ID: " + cityId);
+
+        // If this is a new address add to users address list
+        if(!addressRepository.findById(address.getId()).isPresent()) {
+            User user = userRepository.findById(userId).get();
+            user.addAddress(address);
+        }
+
+        System.out.println("Debug INFO");
     }
 
     @Override

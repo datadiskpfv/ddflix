@@ -32,7 +32,7 @@ public class AddressController extends CommonController {
     }
 
     // Combines viewing and saving of a default credit card (GET and POST), check the request method
-    @RequestMapping(value = "/profile/{userId}/listOfShippingAddresses", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/profile/{userId}/listOfAddresses", method = {RequestMethod.GET, RequestMethod.POST})
     public String listOfAddresses(@PathVariable Long userId, Model model, HttpServletRequest request) {
 
         User user = userService.findUser(userId);
@@ -101,16 +101,17 @@ public class AddressController extends CommonController {
     }
 
     @GetMapping("/profile/{userId}/editAddress")
-    public String editAddress(@RequestParam("Id") Long shippingId, @PathVariable Long userId, Model model){
+    public String editAddress(@RequestParam("Id") Long Id, @PathVariable Long userId, Model model){
 
         User user = userService.findUser(userId);
-        System.out.println("editAddress method shippingId: " + shippingId);
-        AddressDTO addressDTO = addressService.getAddressDTO(shippingId);
+        System.out.println("editAddress method Id: " + Id);
+        AddressDTO addressDTO = addressService.getAddressDTO(Id);
         System.out.println("editAddress method shipping address DTO ID: " + addressDTO.getId());
 
         loadModel(model, user);
 
         model.addAttribute("AddressDTO", addressDTO);
+        model.addAttribute("listOfCities", cityService.findAllCities());
         model.addAttribute("addNewAddress", true);
         model.addAttribute("classActiveAddresses", true);
         model.addAttribute("listOfAddresses", false);

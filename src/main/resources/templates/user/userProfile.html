@@ -25,7 +25,7 @@
 
                 <!--/*@thymesVar id="AddressSaved" type="java.lang.String"*/-->
                 <div th:if="${AddressSaved}" class="alert alert-success">
-                    <p class="alert alert-success">The Shipping Address has been successfully saved</p>
+                    <p class="alert alert-success">The Address has been successfully saved</p>
                 </div>
 
                 <!--/*@thymesVar id="maxAddressCount" type="java.lang.String"*/-->
@@ -40,7 +40,7 @@
                     <li th:classappend="${classActiveInvoices}? 'active'"><a
                             href="#tab-2" data-toggle="tab"><span style="color: red;">Invoices</span></a></li>
                     <li th:classappend="${classActiveAddresses}? 'active'"><a
-                            href="#tab-3" data-toggle="tab"><span style="color: red;">Shipping Address</span></a></li>
+                            href="#tab-3" data-toggle="tab"><span style="color: red;">Addresses (Shipping/Billing)</span></a></li>
                 </ul>
 
                 <!-- Tab panels -->
