@@ -34,8 +34,10 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void removeById(Long id) {
-        addressRepository.deleteById(id);
+    public void removeById(Long addressId, Long userId) {
+        User user = userRepository.findById(userId).get();
+        user.removeAddress(addressRepository.findById(addressId).get());
+        addressRepository.deleteById(addressId);
     }
 
     @Override
@@ -43,32 +45,25 @@ public class AddressServiceImpl implements AddressService {
         City city = cityRepository.findById(cityId).get();
         Address address = addressMapper.AddressDTOToAddress(addressDTO);
         address.setCity(city);
-        addressRepository.save(address);
-        System.out.println("saveAddress method address ID: " + address.getId() + " and City ID: " + cityId);
 
-        // If this is a new address add to users address list
-        if(!addressRepository.findById(address.getId()).isPresent()) {
+        // If address id is null then its a new address and we need to add to users address list
+        if (address.getId() == null){
+            addressRepository.save(address);
+            System.out.println("New address address ID: " + address.getId() + " and City ID: " + cityId);
+
             User user = userRepository.findById(userId).get();
             user.addAddress(address);
+        } else {
+            addressRepository.save(address);
+            System.out.println("Update address ID: " + address.getId() + " and City ID: " + cityId);
         }
-
-        System.out.println("Debug INFO");
     }
 
     @Override
-    public void setDefault(Long addressId, Long userId) {
-//        List<Address> addressList = addressRepository.findAllAddressesByUser_Id(userId);
-//
-//        for (Address address : addressList) {
-//            if (address.getId() == addressId) {
-//                System.out.println("Default credit card #" + address.getId());
-//                //address.setDefaultAddress(true);
-//            } else {
-//                System.out.println("Remove default credit card #" + address.getId());
-//                //address.setDefaultAddress(false);
-//            }
-//            addressRepository.save(address);
-//        }
+    public void setDefaultAddresses(Long userId, Long shippingAddressId, Long billingAddressId) {
+       User user = userRepository.findById(userId).get();
+       user.setDefaultShippingAddress(addressRepository.findById(shippingAddressId).get());
+       user.setDefaultBillingAddress(addressRepository.findById(billingAddressId).get());
     }
 
     @Override
@@ -78,6 +73,6 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressDTO getAddressDTO(Long id) {
-        return addressMapper.AddressToAddressDTO(addressRepository.getOne(id));
+        return addressMapper.AddressToAddressDTO(addressRepository.findById(id).get());
     }
 }

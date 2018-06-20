@@ -8,6 +8,7 @@
 
         <!-- Shipping Address Information -->
         <div class="tab-pane fade" id="tab-3" th:classappend="${classActiveAddresses}? 'in active'">
+            <!--/*@thymesVar id="user" type="uk.co.datadisk.ddflix.entities.user.User"*/-->
             <!--/*@thymesVar id="AddressDTO" type="uk.co.datadisk.ddflix.dto.models.AddressDTO"*/-->
             <!--/*@thymesVar id="address" type="uk.co.datadisk.ddflix.entities.user.Address"*/-->
             <!--/*@thymesVar id="cityy" type="uk.co.datadisk.ddflix.entities.user.City"*/-->
@@ -33,10 +34,12 @@
                         </ol>
 
                         <div th:if="${listOfAddresses}">
-                            <form th:action="@{'/user/profile/' + ${session.id} + '/listOfAddresses'}" method="post">
+                            <form th:action="@{'/user/profile/' + ${session.id} + '/setDefaultAddresses'}" method="post">
                                 <table class="table">
                                     <thead>
                                     <tr>
+                                        <th>Default Shipping address</th>
+                                        <th>Default Billing address</th>
                                         <th>Address</th>
                                         <th>Operations</th>
                                     </tr>
@@ -44,11 +47,17 @@
                                     <tbody>
                                     <!--/*@thymesVar id="address" type="uk.co.datadisk.ddflix.entities.user.Address"*/-->
                                     <tr th:each="address : ${userAddressList}">
+                                        <td><input type="radio" name="defaultShippingAddressId"
+                                                   th:value="${address.id}"
+                                                   th:checked="${address.id == user.defaultShippingAddress.id}"/></td>
+                                        <td><input type="radio" name="defaultBillingAddressId"
+                                                   th:value="${address.id}"
+                                                   th:checked="${address.id == user.defaultBillingAddress.id}"/></td>
                                         <td th:text="${address.toString()}"></td>
                                         <td><a
-                                                th:href="@{'/user/profile/' + ${session.id} + '/editAddress?Id=' + ${address.id}}"><i
+                                                th:href="@{'/user/profile/' + ${session.id} + '/editAddress?addressId=' + ${address.id}}"><i
                                                 class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a
-                                                class="delete-address" th:href="@{'/user/profile/' + ${session.id} + '/removeAddress?Id=' + ${address.id}}"><i
+                                                class="delete-address" th:href="@{'/user/profile/' + ${session.id} + '/removeAddress?addressId=' + ${address.id}}"><i
                                                 class="fa fa-times"></i></a></td>
                                     </tr>
                                     </tbody>

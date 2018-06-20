@@ -73,9 +73,6 @@ public class AddressController extends CommonController {
             addressDTO.setUser(user);
             addressService.saveAddress(addressDTO, cityId, userId);
 
-            // We have to refresh the User entity in the session to pickup the changes
-            //userService.refreshUserEntity(user);
-
             model.addAttribute("AddressSaved", true);
 
             // I need to reload the model so to update the attached data
@@ -85,13 +82,13 @@ public class AddressController extends CommonController {
     }
 
     @GetMapping("/profile/{userId}/removeAddress")
-    public String removeAddress(@RequestParam("Id") Long Id, @PathVariable Long userId, Model model, Principal principal){
+    public String removeAddress(@RequestParam("addressId") Long addressId, @PathVariable Long userId, Model model, Principal principal){
 
         // below is another method of getting the user, i could of course have used the id as well.
-        System.out.println("Shipping ID: " + Id);
+        System.out.println("Shipping ID: " + addressId);
         System.out.println("user ID: " + userId);
 
-        addressService.removeById(Id);
+        addressService.removeById(addressId, userId);
 
         User user = userService.findByUsername(principal.getName());
         loadModel(model, user);
@@ -101,12 +98,12 @@ public class AddressController extends CommonController {
     }
 
     @GetMapping("/profile/{userId}/editAddress")
-    public String editAddress(@RequestParam("Id") Long Id, @PathVariable Long userId, Model model){
+    public String editAddress(@RequestParam("addressId") Long addressId, @PathVariable Long userId, Model model){
 
         User user = userService.findUser(userId);
-        System.out.println("editAddress method Id: " + Id);
-        AddressDTO addressDTO = addressService.getAddressDTO(Id);
-        System.out.println("editAddress method shipping address DTO ID: " + addressDTO.getId());
+        System.out.println("editAddress method Id: " + addressId);
+        AddressDTO addressDTO = addressService.getAddressDTO(addressId);
+        System.out.println("editAddress method address DTO ID: " + addressDTO.getId());
 
         loadModel(model, user);
 
@@ -117,5 +114,16 @@ public class AddressController extends CommonController {
         model.addAttribute("listOfAddresses", false);
 
         return "/user/userProfile";
+    }
+
+    @PostMapping("/profile/{userId}/setDefaultAddresses")
+    public String editAddress(@RequestParam("BillingAddressId") Long BillingAddressId,
+                              @RequestParam("ShippingAddressId") Long ShippingAddressId,
+                              @PathVariable Long userId, Model model){
+
+        System.out.println("tBillingAddressId: " + BillingAddressId);
+        System.out.println("ShippingAddressId: " + ShippingAddressId);
+
+        return "redirect:/user/profile/" + userId + "/listOfAddresses";
     }
 }
