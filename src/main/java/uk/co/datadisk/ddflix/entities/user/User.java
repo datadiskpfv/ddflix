@@ -37,6 +37,12 @@ public class User extends UserDetail {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "subscription")
+    private Integer subscription;
+
+    @Column(name = "filmsAtHomeAvailable")
+    private Integer filmsAtHomeAvailable;
+
     // Lazy loaded by default
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

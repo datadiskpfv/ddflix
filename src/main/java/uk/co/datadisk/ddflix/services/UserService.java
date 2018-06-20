@@ -41,5 +41,7 @@ public interface UserService {
     void addFilmToWishlist(Long userId, Long filmId);
     void removeFilmFromWishlist(Long userId, Long filmId);
 
+    List<User> findUsersThatNeedFilms();
+
     //void refreshUserEntity(User user);
 }

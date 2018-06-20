@@ -94,4 +94,10 @@ public class AdminController {
         }
         return "/admin/user/userEditForm";
     }
+
+    @GetMapping("/user/sendFilmsToUsersList")
+    public String sendFilmsToUsersList(Model model){
+        model.addAttribute("users", userService.findUsersThatNeedFilms());
+        return "admin/user/sendFilmsToUsersList";
+    }
 }

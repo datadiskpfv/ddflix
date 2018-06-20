@@ -55,6 +55,8 @@ public class UserServiceImpl implements UserService {
         String username = user.getEmail().split("@")[0].replace(".", "");
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setUsername(username);
+        user.setSubscription(3);
+        user.setFilmsAtHomeAvailable(0);
 
         if(user.getRoles().size() == 0){
             Role userRole = roleService.findRole(2L);
@@ -182,6 +184,11 @@ public class UserServiceImpl implements UserService {
         if(user.getWishlists().contains(film)){
             user.removeFilmFromWishlist(film);
         }
+    }
+
+    @Override
+    public List<User> findUsersThatNeedFilms() {
+        return userRepository.findByFilmsAtHomeAvailableGreaterThan(0);
     }
 
     //@Override
