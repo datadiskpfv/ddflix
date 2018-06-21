@@ -2,6 +2,7 @@ package uk.co.datadisk.ddflix.entities.user;
 
 import lombok.*;
 import org.hibernate.annotations.Where;
+import uk.co.datadisk.ddflix.entities.Disc.Disc;
 import uk.co.datadisk.ddflix.entities.film.*;
 
 import javax.persistence.*;
@@ -101,6 +102,8 @@ public class User extends UserDetail {
     public void addAddress(Address Address) { this.Addresses.add(Address);}
     public void removeAddress(Address Address) { this.Addresses.remove(Address);}
 
+
+
     public void addFilmToWishList(Film film) {
         if(!checkFilmInWishlist(film)) {
             wishlists.add(new Wishlist(this, film));
@@ -119,6 +122,10 @@ public class User extends UserDetail {
 
     public boolean checkFilmInWishlist(Film film) {
         return wishlists.contains(new Wishlist(this, film));
+    }
+
+    public void addFilmsToHomes(Disc disc) {
+            filmsAtHomes.add(new FilmsAtHome(this, disc));
     }
 
     public void addRating(Film film, Integer rating) {

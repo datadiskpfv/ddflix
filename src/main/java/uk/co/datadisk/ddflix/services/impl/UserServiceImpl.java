@@ -200,29 +200,5 @@ public class UserServiceImpl implements UserService {
     public void sendFilmsToUser(Long userId) {
         User user = userRepository.findById(userId).get();
         System.out.println("User " + user.getEmail() + " needs films " + user.getFilmsAtHomeAvailable() + " to be sent");
-
-        for (Wishlist wish : user.getWishlists()) {
-            Disc disc;
-            String filmTitle = wish.getFilm().getTitle();
-
-            System.out.println("Searching for available disc for film: " + filmTitle);
-            if(discRepository.findAvailableDiscsByFilmAndInStockTrueAndDiscFormat(wish.getFilm(), "Blu-ray").size() > 0){
-                disc = discRepository.findAvailableDiscsByFilmAndInStockTrueAndDiscFormat(wish.getFilm(), "Blu-ray").get(0);
-
-                // we have found a disc to send
-                System.out.println("Sending disc " + disc.getFilm().getTitle());
-                System.out.println("Change disc to be out of stock");
-                System.out.println("Change user films at home and reduce by one");
-                System.out.println("Add disc to users filmsAtHomes");
-                System.out.println("Remove film from wishlist");
-                continue;
-            } else {
-                System.out.println("Film disc not available " + filmTitle + " on Blu-Ray format");
-            }
-
-            if (user.getFilmsAtHomeAvailable() == 0){
-                break;
-            }
-        }
     }
 }
