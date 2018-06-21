@@ -1,6 +1,5 @@
 package uk.co.datadisk.ddflix.services.impl;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,12 +8,15 @@ import uk.co.datadisk.ddflix.dto.mapper.UserEditFormMapper;
 import uk.co.datadisk.ddflix.dto.mapper.UserRegisterMapper;
 import uk.co.datadisk.ddflix.dto.models.UserEditFormDTO;
 import uk.co.datadisk.ddflix.dto.models.UserRegisterDTO;
+import uk.co.datadisk.ddflix.entities.Disc.Disc;
 import uk.co.datadisk.ddflix.entities.film.Film;
+import uk.co.datadisk.ddflix.entities.film.Wishlist;
 import uk.co.datadisk.ddflix.entities.user.PasswordResetToken;
 import uk.co.datadisk.ddflix.entities.user.Role;
 import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.entities.user.UserImages;
 import uk.co.datadisk.ddflix.exceptions.NotFoundException;
+import uk.co.datadisk.ddflix.repositories.film.DiscRepository;
 import uk.co.datadisk.ddflix.repositories.user.PasswordResetTokenRepository;
 import uk.co.datadisk.ddflix.repositories.user.UserRepository;
 import uk.co.datadisk.ddflix.services.ImageService;
@@ -22,6 +24,7 @@ import uk.co.datadisk.ddflix.services.RoleService;
 import uk.co.datadisk.ddflix.services.UserService;
 import uk.co.datadisk.ddflix.services.film.FilmService;
 
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,8 +40,9 @@ public class UserServiceImpl implements UserService {
     private final RoleService roleService;
     private final ImageService imageService;
     private final FilmService filmService;
+    private final DiscRepository discRepository;
 
-    public UserServiceImpl(UserRepository userRepository, UserRegisterMapper userRegisterMapper, BCryptPasswordEncoder bCryptPasswordEncoder, UserEditFormMapper userEditFormMapper, PasswordResetTokenRepository passwordResetTokenRepository, RoleService roleService, ImageService imageService, FilmService filmService) {
+    public UserServiceImpl(UserRepository userRepository, UserRegisterMapper userRegisterMapper, BCryptPasswordEncoder bCryptPasswordEncoder, UserEditFormMapper userEditFormMapper, PasswordResetTokenRepository passwordResetTokenRepository, RoleService roleService, ImageService imageService, FilmService filmService, DiscRepository discRepository) {
         this.userRepository = userRepository;
         this.userRegisterMapper = userRegisterMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -47,6 +51,7 @@ public class UserServiceImpl implements UserService {
         this.roleService = roleService;
         this.imageService = imageService;
         this.filmService = filmService;
+        this.discRepository = discRepository;
     }
 
     @Override
@@ -191,8 +196,33 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByFilmsAtHomeAvailableGreaterThan(0);
     }
 
-    //@Override
-    // public void refreshUserEntity(User user) {
-    //     userRepository.refresh(user);
-    //}
+    @Override
+    public void sendFilmsToUser(Long userId) {
+        User user = userRepository.findById(userId).get();
+        System.out.println("User " + user.getEmail() + " needs films " + user.getFilmsAtHomeAvailable() + " to be sent");
+
+        for (Wishlist wish : user.getWishlists()) {
+            Disc disc;
+            String filmTitle = wish.getFilm().getTitle();
+
+            System.out.println("Searching for available disc for film: " + filmTitle);
+            if(discRepository.findAvailableDiscsByFilmAndInStockTrueAndDiscFormat(wish.getFilm(), "Blu-ray").size() > 0){
+                disc = discRepository.findAvailableDiscsByFilmAndInStockTrueAndDiscFormat(wish.getFilm(), "Blu-ray").get(0);
+
+                // we have found a disc to send
+                System.out.println("Sending disc " + disc.getFilm().getTitle());
+                System.out.println("Change disc to be out of stock");
+                System.out.println("Change user films at home and reduce by one");
+                System.out.println("Add disc to users filmsAtHomes");
+                System.out.println("Remove film from wishlist");
+                continue;
+            } else {
+                System.out.println("Film disc not available " + filmTitle + " on Blu-Ray format");
+            }
+
+            if (user.getFilmsAtHomeAvailable() == 0){
+                break;
+            }
+        }
+    }
 }

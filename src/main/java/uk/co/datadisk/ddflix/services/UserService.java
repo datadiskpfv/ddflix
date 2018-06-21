@@ -43,5 +43,7 @@ public interface UserService {
 
     List<User> findUsersThatNeedFilms();
 
+    void sendFilmsToUser(Long userId);
+
     //void refreshUserEntity(User user);
 }

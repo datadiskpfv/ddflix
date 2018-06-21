@@ -100,4 +100,10 @@ public class AdminController {
         model.addAttribute("users", userService.findUsersThatNeedFilms());
         return "admin/user/sendFilmsToUsersList";
     }
+
+    @GetMapping("/user/{userId}/sendFilmsToUser")
+    public String sendFilmsToUser(@PathVariable Long userId, Model model){
+        userService.sendFilmsToUser(userId);
+        return "admin/user/sendFilmsToUsersList";
+    }
 }

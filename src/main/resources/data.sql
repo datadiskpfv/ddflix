@@ -19,8 +19,8 @@ INSERT INTO cities(id, city, country_id, date_created, last_updated) VALUES
 -- ADD SOME USERS, ROLES AND ASSIGN ROLES
 INSERT INTO users(id, email, username, password, enabled, subscription, films_at_home_available, date_created, last_updated) VALUES
   (1, 'paul.valle@example.com', 'pvalle', '$2a$10$Pd3q7s56Mxc/LjSNX0CIhuuHSf2pg8B0f2OoYX7kNxYYDJ8xtBsLW', true, 0, 0, sysdate(), sysdate()),
-  (2, 'lorraine.valle@example.com', 'lvalle', '$2a$10$Pd3q7s56Mxc/LjSNX0CIhuuHSf2pg8B0f2OoYX7kNxYYDJ8xtBsLW', true, 3, 0, sysdate(), sysdate()),
-  (3, 'dominic.valle@example.com', 'dvalle', '$2a$10$Pd3q7s56Mxc/LjSNX0CIhuuHSf2pg8B0f2OoYX7kNxYYDJ8xtBsLW', true, 3, 0, sysdate(), sysdate()),
+  (2, 'lorraine.valle@example.com', 'lvalle', '$2a$10$Pd3q7s56Mxc/LjSNX0CIhuuHSf2pg8B0f2OoYX7kNxYYDJ8xtBsLW', true, 3, 3, sysdate(), sysdate()),
+  (3, 'dominic.valle@example.com', 'dvalle', '$2a$10$Pd3q7s56Mxc/LjSNX0CIhuuHSf2pg8B0f2OoYX7kNxYYDJ8xtBsLW', true, 3, 3, sysdate(), sysdate()),
   (4, 'jessica.valle@example.com', 'jvalle', '$2a$10$Pd3q7s56Mxc/LjSNX0CIhuuHSf2pg8B0f2OoYX7kNxYYDJ8xtBsLW', true, 0,0, sysdate(), sysdate());
 
 INSERT INTO roles(id, name, date_created, last_updated) VALUES
