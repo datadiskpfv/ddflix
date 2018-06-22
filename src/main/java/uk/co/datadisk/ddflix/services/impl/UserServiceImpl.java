@@ -222,10 +222,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sendDiscToUser(Long userId, Long filmId) {
-        System.out.println("Reduce user at home limit");
-        System.out.println("Remove film from wishlist");
-        System.out.println("add disc to films at home");
-        System.out.println("change disc in stock to false");
+    public void sendDiscToUser(Long userId, Long discId) {
+        User user = userRepository.findById(userId).orElse(null);
+        Disc disc = discRepository.findById(discId).orElse(null);
+
+        if( user != null && disc != null) {
+            System.out.println("Reduce user films at home limit by one");
+            user.setFilmsAtHomeAvailable(user.getFilmsAtHomeAvailable() - 1);
+
+            System.out.println("Remove film from wishlist");
+            user.removeFilmFromWishlist(disc.getFilm());
+
+            System.out.println("add disc to films at home");
+            user.addFilmsToHomes(disc);
+
+            System.out.println("change disc in stock to false");
+            disc.setInStock(false);
+        }
     }
 }

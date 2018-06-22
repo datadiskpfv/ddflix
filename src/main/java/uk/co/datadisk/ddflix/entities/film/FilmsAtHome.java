@@ -30,7 +30,7 @@ public class FilmsAtHome {
     private Disc disc;
 
     @Column(name = "returned_date", updatable = false)
-    private Date returnedDate = new Date();
+    private Date returnedDate;
 
     public FilmsAtHome(User user, Disc disc) {
         this.user = user;

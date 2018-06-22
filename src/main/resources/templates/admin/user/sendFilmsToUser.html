@@ -43,7 +43,7 @@
                     <td th:text="${disc.id}"></td>
                     <td th:text="${disc.getFilm().getTitle()}"></td>
                     <td th:text="${disc.getDiscFormat()}"></td>
-                    <td><a th:href="@{'/admin/user/' + ${user.id} + '/sendDiscToUser?filmId=' + ${disc.id}}" class="btn btn-xs btn-info">Send Film Disc</a></td>
+                    <td><a th:href="@{'/admin/user/' + ${user.id} + '/sendDiscToUser?discId=' + ${disc.id}}" class="btn btn-xs btn-info">Send Film Disc</a></td>
                 </tr>
                 </tbody>
             </table>

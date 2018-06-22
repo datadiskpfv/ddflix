@@ -45,7 +45,6 @@ public interface UserService {
     List<User> findUsersThatNeedFilms();
 
     List<Disc> availableDiscsToSend(Long userId);
-    void sendDiscToUser(Long userId, Long filmId);
+    void sendDiscToUser(Long userId, Long discId);
 
-    //void refreshUserEntity(User user);
 }
