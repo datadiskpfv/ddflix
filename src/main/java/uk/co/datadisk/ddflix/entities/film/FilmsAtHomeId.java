@@ -24,6 +24,7 @@ public class FilmsAtHomeId implements Serializable {
     @Column(name = "disc_id")
     private Long discId;
 
-    @Column(name = "sent_date")
+    // Once set we should not be able to change it
+    @Column(name = "sent_date", updatable = false)
     private Date sentDate;
 }

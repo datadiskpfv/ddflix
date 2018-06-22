@@ -255,12 +255,11 @@ public class UserServiceImpl implements UserService {
             System.out.println("increase user films at home limit by one");
             user.setFilmsAtHomeAvailable(user.getFilmsAtHomeAvailable() + 1);
 
-            System.out.println("remove disc from films at home");
+            System.out.println("remove disc from films at home by setting returned date");
             filmsAtHome.setReturnedDate(new Date());
 
             System.out.println("change disc in_stock to true");
             disc.setInStock(true);
         }
     }
-
 }
