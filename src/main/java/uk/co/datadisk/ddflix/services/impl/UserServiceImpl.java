@@ -257,7 +257,6 @@ public class UserServiceImpl implements UserService {
 
             System.out.println("remove disc from films at home");
             filmsAtHome.setReturnedDate(new Date());
-            filmsAtHomeRepository.saveAndFlush(filmsAtHome);
 
             System.out.println("change disc in_stock to true");
             disc.setInStock(true);
