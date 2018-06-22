@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import uk.co.datadisk.ddflix.dto.models.UserRegisterDTO;
 import uk.co.datadisk.ddflix.dto.models.UserEditFormDTO;
+import uk.co.datadisk.ddflix.entities.Disc.Disc;
 import uk.co.datadisk.ddflix.entities.user.Role;
 import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.services.RoleService;
@@ -103,7 +104,23 @@ public class AdminController {
 
     @GetMapping("/user/{userId}/sendFilmsToUser")
     public String sendFilmsToUser(@PathVariable Long userId, Model model){
-        userService.sendFilmsToUser(userId);
-        return "admin/user/sendFilmsToUsersList";
+        User user = userService.findUser(userId);
+        List<Disc> availableDiscsToSendList = userService.availableDiscsToSend(userId);
+
+        model.addAttribute("user", user);
+        model.addAttribute("filmDiscsAtHomeCheck", user.getFilmsAtHomes().size());
+        model.addAttribute("availableDiscsListCheck", availableDiscsToSendList.size());
+
+        if( availableDiscsToSendList.size() > 0) {
+            model.addAttribute("availableDiscList", availableDiscsToSendList);
+        }
+
+        return "admin/user/sendFilmsToUser";
+    }
+
+    @GetMapping("/user/{userId}/sendDiscToUser")
+    public String sendDiscToUser(@PathVariable Long userId, @RequestParam("filmId") Long filmId){
+        userService.sendDiscToUser(userId, filmId);
+        return "redirect:/admin/user/" + userId + "/sendFilmsToUser";
     }
 }

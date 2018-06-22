@@ -25,6 +25,7 @@ import uk.co.datadisk.ddflix.services.UserService;
 import uk.co.datadisk.ddflix.services.film.FilmService;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -197,8 +198,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sendFilmsToUser(Long userId) {
+    public List<Disc> availableDiscsToSend(Long userId) {
         User user = userRepository.findById(userId).get();
-        System.out.println("User " + user.getEmail() + " needs films " + user.getFilmsAtHomeAvailable() + " to be sent");
+        List<Disc> availableDiscsToSendList = new ArrayList<>();
+
+        for(Wishlist wl : user.getWishlists()){
+            String filmTitle = wl.getFilm().getTitle();
+
+            System.out.println("Search for available Blu-Ray disc for film: " + filmTitle);
+
+            for (Disc disc: discRepository.findAvailableDiscsByFilmAndInStockTrueAndDiscFormat(wl.getFilm(), "Blu-Ray")) {
+                if(disc != null) {
+                    System.out.println("Adding disc id: " + disc.getId() + " to available Discs film:" + filmTitle);
+                    availableDiscsToSendList.add(disc);
+                } else {
+                    System.out.println("Unable to found Blu-Ray disc for film: " + filmTitle);
+                }
+            }
+        }
+        System.out.println("Numbers of available discs: " + availableDiscsToSendList.size());
+
+        return availableDiscsToSendList;
+    }
+
+    @Override
+    public void sendDiscToUser(Long userId, Long filmId) {
+        System.out.println("Reduce user at home limit");
+        System.out.println("Remove film from wishlist");
+        System.out.println("add disc to films at home");
+        System.out.println("change disc in stock to false");
     }
 }

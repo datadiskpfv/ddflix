@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/blankDataTable"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Films needed by User</title>
+</head>
+<body>
+<div layout:fragment="list_content" class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+        <h3>User:  <span th:text="${user.email}"></span> <span style="margin-left: 100px;">Disc Limit:<span th:text="${user.subscription}"></span></span></h3>
+
+        <div th:if="${filmDiscsAtHomeCheck == 0}">
+            <p style="font-size: 14px; font-weight: bold;color: red">You have no films at home</p>
+        </div>
+
+        <div th:if="${filmDiscsAtHomeCheck > 0}">
+            You should see film Discs At Home table
+        </div>
+
+        <div th:if="${availableDiscsListCheck == 0}">
+            <p style="font-size: 14px; font-weight: bold;color: red">You have no film discs available from your wishlist</p>
+        </div>
+
+        <div th:if="${availableDiscsListCheck > 0}">
+            <table id="ListTable" class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Disc #</th>
+                    <th>Title</th>
+                    <th>Format</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--/*@thymesVar id="disc" type="uk.co.datadisk.ddflix.entities.Disc.Disc"*/-->
+                <tr data-th-each="disc : ${availableDiscList}">
+                    <td>radio</td>
+                    <td th:text="${disc.id}"></td>
+                    <td th:text="${disc.getFilm().getTitle()}"></td>
+                    <td th:text="${disc.getDiscFormat()}"></td>
+                    <td><a th:href="@{'/admin/user/' + ${user.id} + '/sendDiscToUser?filmId=' + ${disc.id}}" class="btn btn-xs btn-info">Send Film Disc</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a th:href="@{'/admin'}" class="btn btn-primary">Return to Admin Page</a>
+        <a th:href="@{'/admin/user/sendFilmsToUsersList'}" class="btn btn-primary">Return to Send Films to Users List</a>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

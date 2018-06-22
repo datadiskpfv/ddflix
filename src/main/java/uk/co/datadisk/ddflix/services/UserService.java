@@ -3,6 +3,7 @@ package uk.co.datadisk.ddflix.services;
 import org.springframework.web.multipart.MultipartFile;
 import uk.co.datadisk.ddflix.dto.models.UserRegisterDTO;
 import uk.co.datadisk.ddflix.dto.models.UserEditFormDTO;
+import uk.co.datadisk.ddflix.entities.Disc.Disc;
 import uk.co.datadisk.ddflix.entities.user.PasswordResetToken;
 import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.entities.film.Film;
@@ -43,7 +44,8 @@ public interface UserService {
 
     List<User> findUsersThatNeedFilms();
 
-    void sendFilmsToUser(Long userId);
+    List<Disc> availableDiscsToSend(Long userId);
+    void sendDiscToUser(Long userId, Long filmId);
 
     //void refreshUserEntity(User user);
 }
