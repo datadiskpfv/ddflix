@@ -127,6 +127,9 @@ public class User extends UserDetail {
     public void addFilmsToHomes(Disc disc) {
             filmsAtHomes.add(new FilmsAtHome(this, disc));
     }
+    public void removeFilmsFromHomes(Disc disc) {
+        filmsAtHomes.remove(new FilmsAtHome(this, disc));
+    }
 
     public void addRating(Film film, Integer rating) {
         if(!checkRating(film)) {

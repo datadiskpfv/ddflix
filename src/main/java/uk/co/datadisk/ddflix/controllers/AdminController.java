@@ -106,9 +106,10 @@ public class AdminController {
     public String sendFilmsToUser(@PathVariable Long userId, Model model){
         User user = userService.findUser(userId);
         List<Disc> availableDiscsToSendList = userService.availableDiscsToSend(userId);
+        Integer filmsDiscsAtHomesAmount = user.getFilmsAtHomes().size();
 
         model.addAttribute("user", user);
-        model.addAttribute("filmDiscsAtHomeCheck", user.getFilmsAtHomes().size());
+        model.addAttribute("filmDiscsAtHomeCheck", filmsDiscsAtHomesAmount);
         model.addAttribute("availableDiscsListCheck", availableDiscsToSendList.size());
 
         System.out.println("user film discs at home: " + user.getFilmsAtHomes().size());
@@ -126,6 +127,16 @@ public class AdminController {
 
         if (user != null && user.getFilmsAtHomeAvailable() > 0){
             userService.sendDiscToUser(userId, discId);
+        }
+        return "redirect:/admin/user/" + userId + "/sendFilmsToUser";
+    }
+
+    @GetMapping("/user/{userId}/returnDiscFromUser")
+    public String returnDiscFromUser(@PathVariable Long userId, @RequestParam("discId") Long discId){
+        User user = userService.findUser(userId);
+
+        if (user != null){
+            userService.returnDiscFromUser(userId, discId);
         }
         return "redirect:/admin/user/" + userId + "/sendFilmsToUser";
     }

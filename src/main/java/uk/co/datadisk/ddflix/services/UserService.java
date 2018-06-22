@@ -47,4 +47,5 @@ public interface UserService {
     List<Disc> availableDiscsToSend(Long userId);
     void sendDiscToUser(Long userId, Long discId);
 
+    void returnDiscFromUser(Long userId, Long discId);
 }

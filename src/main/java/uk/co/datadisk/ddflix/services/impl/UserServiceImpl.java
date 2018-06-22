@@ -10,6 +10,7 @@ import uk.co.datadisk.ddflix.dto.models.UserEditFormDTO;
 import uk.co.datadisk.ddflix.dto.models.UserRegisterDTO;
 import uk.co.datadisk.ddflix.entities.Disc.Disc;
 import uk.co.datadisk.ddflix.entities.film.Film;
+import uk.co.datadisk.ddflix.entities.film.FilmsAtHome;
 import uk.co.datadisk.ddflix.entities.film.Wishlist;
 import uk.co.datadisk.ddflix.entities.user.PasswordResetToken;
 import uk.co.datadisk.ddflix.entities.user.Role;
@@ -17,6 +18,7 @@ import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.entities.user.UserImages;
 import uk.co.datadisk.ddflix.exceptions.NotFoundException;
 import uk.co.datadisk.ddflix.repositories.film.DiscRepository;
+import uk.co.datadisk.ddflix.repositories.film.FilmsAtHomeRepository;
 import uk.co.datadisk.ddflix.repositories.user.PasswordResetTokenRepository;
 import uk.co.datadisk.ddflix.repositories.user.UserRepository;
 import uk.co.datadisk.ddflix.services.ImageService;
@@ -24,8 +26,8 @@ import uk.co.datadisk.ddflix.services.RoleService;
 import uk.co.datadisk.ddflix.services.UserService;
 import uk.co.datadisk.ddflix.services.film.FilmService;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,8 +44,9 @@ public class UserServiceImpl implements UserService {
     private final ImageService imageService;
     private final FilmService filmService;
     private final DiscRepository discRepository;
+    private final FilmsAtHomeRepository filmsAtHomeRepository;
 
-    public UserServiceImpl(UserRepository userRepository, UserRegisterMapper userRegisterMapper, BCryptPasswordEncoder bCryptPasswordEncoder, UserEditFormMapper userEditFormMapper, PasswordResetTokenRepository passwordResetTokenRepository, RoleService roleService, ImageService imageService, FilmService filmService, DiscRepository discRepository) {
+    public UserServiceImpl(UserRepository userRepository, UserRegisterMapper userRegisterMapper, BCryptPasswordEncoder bCryptPasswordEncoder, UserEditFormMapper userEditFormMapper, PasswordResetTokenRepository passwordResetTokenRepository, RoleService roleService, ImageService imageService, FilmService filmService, DiscRepository discRepository, FilmsAtHomeRepository filmsAtHomeRepository) {
         this.userRepository = userRepository;
         this.userRegisterMapper = userRegisterMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -53,6 +56,7 @@ public class UserServiceImpl implements UserService {
         this.imageService = imageService;
         this.filmService = filmService;
         this.discRepository = discRepository;
+        this.filmsAtHomeRepository = filmsAtHomeRepository;
     }
 
     @Override
@@ -236,8 +240,28 @@ public class UserServiceImpl implements UserService {
             System.out.println("add disc to films at home");
             user.addFilmsToHomes(disc);
 
-            System.out.println("change disc in stock to false");
+            System.out.println("change disc in_stock to false");
             disc.setInStock(false);
         }
     }
+
+    @Override
+    public void returnDiscFromUser(Long userId, Long discId) {
+        User user = userRepository.findById(userId).orElse(null);
+        Disc disc = discRepository.findById(discId).orElse(null);
+        FilmsAtHome filmsAtHome = filmsAtHomeRepository.findByUserAndDiscAndReturnedDateIsNull(user, disc);
+
+        if( user != null && disc != null) {
+            System.out.println("increase user films at home limit by one");
+            user.setFilmsAtHomeAvailable(user.getFilmsAtHomeAvailable() + 1);
+
+            System.out.println("remove disc from films at home");
+            filmsAtHome.setReturnedDate(new Date());
+            filmsAtHomeRepository.saveAndFlush(filmsAtHome);
+
+            System.out.println("change disc in_stock to true");
+            disc.setInStock(true);
+        }
+    }
+
 }

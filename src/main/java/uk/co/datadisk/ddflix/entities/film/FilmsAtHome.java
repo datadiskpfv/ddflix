@@ -29,7 +29,7 @@ public class FilmsAtHome {
     @MapsId("discId")
     private Disc disc;
 
-    @Column(name = "returned_date", updatable = false)
+    @Column(name = "returned_date")
     private Date returnedDate;
 
     public FilmsAtHome(User user, Disc disc) {
