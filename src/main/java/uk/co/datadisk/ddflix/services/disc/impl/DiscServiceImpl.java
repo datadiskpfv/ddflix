@@ -37,7 +37,7 @@ public class DiscServiceImpl implements DiscService {
 
     @Override
     public DiscFormDTO discForm(Long id) {
-        Disc disc = discRepository.findById(id).get();
+        Disc disc = discRepository.getOne(id);
         return discFormMapper.DiscToDiscFormDTO(disc);
     }
 

@@ -33,7 +33,7 @@ public class DiscController extends CommonController {
         return "/film/disc/list";
     }
 
-    @RequestMapping(value = "edit", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "form", method = {RequestMethod.GET, RequestMethod.POST})
     public String editUser(@RequestParam("action") String action, @ModelAttribute("discId") String discId, Model model, @Valid @ModelAttribute("discFormDTO") DiscFormDTO discFormDTO, BindingResult result) {
 
         if(discFormDTO.getId() == null) {

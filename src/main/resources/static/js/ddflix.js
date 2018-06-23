@@ -92,7 +92,7 @@ $(document).ready(function () {
 
     $('.edit-disc').on('click', function () {
         var id = $(this).attr('id');
-        var path = '/admin/film/disc/edit' + "?discId=" + id + "&action=view";
+        var path = '/admin/film/disc/form' + "?discId=" + id + "&action=view";
         self.location = "http://localhost:8080" + path;
     });
 });
