@@ -2,7 +2,7 @@ package uk.co.datadisk.ddflix.entities.user;
 
 import lombok.*;
 import org.hibernate.annotations.Where;
-import uk.co.datadisk.ddflix.entities.Disc.Disc;
+import uk.co.datadisk.ddflix.entities.disc.Disc;
 import uk.co.datadisk.ddflix.entities.film.*;
 
 import javax.persistence.*;

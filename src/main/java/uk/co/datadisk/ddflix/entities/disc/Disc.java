@@ -1,4 +1,4 @@
-package uk.co.datadisk.ddflix.entities.Disc;
+package uk.co.datadisk.ddflix.entities.disc;
 
 import lombok.*;
 import org.hibernate.annotations.Where;
@@ -24,6 +24,12 @@ public class Disc extends AbstractDomainClass {
 
     @Column(name="in_stock")
     private boolean inStock;
+
+    @Column(name="faulty")
+    private boolean faulty = false;
+
+    @Column(name="lost")
+    private boolean lost = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("filmId")

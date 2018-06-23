@@ -8,10 +8,11 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.co.datadisk.ddflix.DdflixApplication;
-import uk.co.datadisk.ddflix.entities.Disc.Disc;
+import uk.co.datadisk.ddflix.entities.disc.Disc;
 import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.film.FilmsAtHome;
 import uk.co.datadisk.ddflix.entities.user.User;
+import uk.co.datadisk.ddflix.repositories.disc.DiscRepository;
 import uk.co.datadisk.ddflix.repositories.user.UserRepository;
 
 import java.util.List;
@@ -50,18 +51,18 @@ public class DiscRepositoryTest {
         List<Disc> availableDiscs = discRepository.findAvailableDiscsByFilmAndInStockTrue(film);
         System.out.println("Available Alien Discs: " + availableDiscs);
 
-        List<Disc> availableDiscsBluRay = discRepository.findAvailableDiscsByFilmAndInStockTrueAndDiscFormat(film, "Blu-Ray");
+        List<Disc> availableDiscsBluRay = discRepository.findAvailableDiscsByFilmAndInStockTrueAndFaultyFalseAndLostFalseAndDiscFormat(film, "Blu-Ray");
         System.out.println("Available Blu-Ray Alien Discs: " + availableDiscsBluRay);
 
         for(Disc disc : availableDiscsBluRay){
-            System.out.println("Disc in Stock (Blu-Ray): " + disc.getFilm().getTitle() + " ID: " + disc.getId());
+            System.out.println("disc in Stock (Blu-Ray): " + disc.getFilm().getTitle() + " ID: " + disc.getId());
         }
 
-        List<Disc> availableDiscsDvd = discRepository.findAvailableDiscsByFilmAndInStockTrueAndDiscFormat(film, "DVD");
+        List<Disc> availableDiscsDvd = discRepository.findAvailableDiscsByFilmAndInStockTrueAndFaultyFalseAndLostFalseAndDiscFormat(film, "DVD");
         System.out.println("Available DVD Alien Discs: " + availableDiscsDvd);
 
         for(Disc disc : availableDiscsDvd){
-            System.out.println("Disc in Stock (DVD): " + disc.getFilm().getTitle() + " ID: " + disc.getId());
+            System.out.println("disc in Stock (DVD): " + disc.getFilm().getTitle() + " ID: " + disc.getId());
         }
     }
 
@@ -76,7 +77,7 @@ public class DiscRepositoryTest {
         System.out.println("Blu-Ray Alien Discs at Users Homes: " + atHomeDiscsBluRay.size());
 
         for(Disc disc : atHomeDiscsBluRay){
-            System.out.println("Disc at homes (Blu-Ray): " + disc.getFilm().getTitle() + " ID: " + disc.getId());
+            System.out.println("disc at homes (Blu-Ray): " + disc.getFilm().getTitle() + " ID: " + disc.getId());
             for(FilmsAtHome fah : disc.getFilmsAtHomes()){
                 System.out.println("User " + fah.getUser().getEmail() + " has " + disc.getFilm().getTitle() + " (Blu-Ray) at home.");
             }
@@ -85,7 +86,7 @@ public class DiscRepositoryTest {
         List<Disc> atHomeDiscsDvd = discRepository.findAvailableDiscsByFilmAndInStockFalseAndDiscFormat(film, "DVD");
         System.out.println("DVD Alien Discs at Users Homes: " + atHomeDiscsDvd.size());
         for(Disc disc : atHomeDiscsDvd){
-            System.out.println("Disc at homes (DVD): " + disc.getFilm().getTitle() + " ID: " + disc.getId());
+            System.out.println("disc at homes (DVD): " + disc.getFilm().getTitle() + " ID: " + disc.getId());
             for(FilmsAtHome fah : disc.getFilmsAtHomes()){
                 System.out.println("User " + fah.getUser().getEmail() + " has " + disc.getFilm().getTitle() + " (DVD) at home.");
             }

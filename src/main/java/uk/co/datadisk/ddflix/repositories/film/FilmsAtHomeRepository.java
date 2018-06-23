@@ -1,7 +1,7 @@
 package uk.co.datadisk.ddflix.repositories.film;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import uk.co.datadisk.ddflix.entities.Disc.Disc;
+import uk.co.datadisk.ddflix.entities.disc.Disc;
 import uk.co.datadisk.ddflix.entities.film.FilmsAtHome;
 import uk.co.datadisk.ddflix.entities.user.User;
 

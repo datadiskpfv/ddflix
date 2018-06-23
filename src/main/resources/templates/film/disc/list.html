@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/dataTables"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Film Disc List</title>
+</head>
+<body>
+<!--/*@thymesVar id="disc" type="uk.co.datadisk.ddflix.entities.disc.Disc"*/-->
+<div layout:fragment="list_content" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>Film Disc List</h2>
+            <br/>
+            <table id="ListTable" class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Disc #</th>
+                    <th>Film Title</th>
+                    <th>Disc Format</th>
+                    <th>In Stock</th>
+                    <th>Disc Faulty</th>
+                    <th>Disc Lost</th>
+                    <th>Date Created</th>
+                    <th>Last Updated</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-th-each="disc : ${discList}">
+                    <td th:text="${disc.id}"></td>
+                    <td th:text="${disc.film.title}"></td>
+                    <td th:text="${disc.discFormat}"></td>
+                    <td th:text="${disc.inStock}"></td>
+                    <td th:text="${disc.faulty}"></td>
+                    <td th:text="${disc.lost}"></td>
+                    <td th:text="${#dates.format(disc.dateCreated, 'dd-MM-yyyy HH:mm')}"></td>
+                    <td th:text="${#dates.format(disc.lastUpdated, 'dd-MM-yyyy HH:mm')}"></td>
+                    <td>
+                        <a th:href="@{'/admin/film/disc/' + ${disc.id} + '/info'}" class="btn btn-info btn-xs">Information</a>
+                        <button th:id="${disc.id}" class="btn btn-primary btn-xs edit-disc" type="submit" value="edit" >
+                            <span class="fa fa-times"></span>Edit</button>
+                        <button th:id="${disc.id}" class="btn btn-danger btn-xs delete-disc" type="submit" value="delete" >
+                            <span class="fa fa-times"></span>Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a href="/admin" class="btn btn-sm btn-info">Return to Admin</a>
+            <a href="/film/film/form?action=new&filmId=0" class="btn btn-sm btn-primary">Create New Disc</a>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

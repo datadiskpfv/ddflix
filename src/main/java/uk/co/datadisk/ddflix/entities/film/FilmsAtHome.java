@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import uk.co.datadisk.ddflix.entities.Disc.Disc;
+import uk.co.datadisk.ddflix.entities.disc.Disc;
 import uk.co.datadisk.ddflix.entities.user.User;
 
 import javax.persistence.*;

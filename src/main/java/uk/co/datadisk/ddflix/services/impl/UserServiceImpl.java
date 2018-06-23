@@ -8,7 +8,7 @@ import uk.co.datadisk.ddflix.dto.mapper.UserEditFormMapper;
 import uk.co.datadisk.ddflix.dto.mapper.UserRegisterMapper;
 import uk.co.datadisk.ddflix.dto.models.UserEditFormDTO;
 import uk.co.datadisk.ddflix.dto.models.UserRegisterDTO;
-import uk.co.datadisk.ddflix.entities.Disc.Disc;
+import uk.co.datadisk.ddflix.entities.disc.Disc;
 import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.film.FilmsAtHome;
 import uk.co.datadisk.ddflix.entities.film.Wishlist;
@@ -17,7 +17,7 @@ import uk.co.datadisk.ddflix.entities.user.Role;
 import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.entities.user.UserImages;
 import uk.co.datadisk.ddflix.exceptions.NotFoundException;
-import uk.co.datadisk.ddflix.repositories.film.DiscRepository;
+import uk.co.datadisk.ddflix.repositories.disc.DiscRepository;
 import uk.co.datadisk.ddflix.repositories.film.FilmsAtHomeRepository;
 import uk.co.datadisk.ddflix.repositories.user.PasswordResetTokenRepository;
 import uk.co.datadisk.ddflix.repositories.user.UserRepository;
@@ -211,7 +211,7 @@ public class UserServiceImpl implements UserService {
 
             System.out.println("Search for available Blu-Ray disc for film: " + filmTitle);
 
-            for (Disc disc: discRepository.findAvailableDiscsByFilmAndInStockTrueAndDiscFormat(wl.getFilm(), "Blu-Ray")) {
+            for (Disc disc: discRepository.findAvailableDiscsByFilmAndInStockTrueAndFaultyFalseAndLostFalseAndDiscFormat(wl.getFilm(), "Blu-Ray")) {
                 if(disc != null) {
                     System.out.println("Adding disc id: " + disc.getId() + " to available Discs film:" + filmTitle);
                     availableDiscsToSendList.add(disc);

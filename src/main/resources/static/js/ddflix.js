@@ -65,4 +65,34 @@ $(document).ready(function () {
         var path = '/admin/user/edit' + "?id=" + id + "&action=view";
         self.location = "http://localhost:8080" + path;
     });
+
+    $('.delete-disc').on('click', function () {
+        var path = '/admin/film/disc/delete';
+        var id = $(this).attr('id');
+
+        bootbox.confirm({
+            message: "Are you sure you want to delete this Disc? It can't be undone.",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Confirm'
+                }
+            },
+            callback: function (confirmed) {
+                if (confirmed) {
+                    $.post(path, {'id': id}, function (res) {
+                        location.reload();
+                    });
+                }
+            }
+        });
+    });
+
+    $('.edit-disc').on('click', function () {
+        var id = $(this).attr('id');
+        var path = '/admin/film/disc/edit' + "?discId=" + id + "&action=view";
+        self.location = "http://localhost:8080" + path;
+    });
 });

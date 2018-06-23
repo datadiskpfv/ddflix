@@ -2,7 +2,7 @@ package uk.co.datadisk.ddflix.entities.film;
 
 import lombok.*;
 import uk.co.datadisk.ddflix.entities.AbstractDomainClass;
-import uk.co.datadisk.ddflix.entities.Disc.Disc;
+import uk.co.datadisk.ddflix.entities.disc.Disc;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

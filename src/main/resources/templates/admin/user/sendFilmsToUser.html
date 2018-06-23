@@ -34,7 +34,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <!--/*@thymesVar id="disc" type="uk.co.datadisk.ddflix.entities.Disc.Disc"*/-->
+                    <!--/*@thymesVar id="disc" type="uk.co.datadisk.ddflix.entities.disc.Disc"*/-->
                     <!--/*@thymesVar id="filmsAtHome" type="uk.co.datadisk.ddflix.entities.film.FilmsAtHome"*/-->
                     <tr data-th-each="filmsAtHome : ${user.getFilmsAtHomes()}">
                         <td>radio</td>
@@ -70,7 +70,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <!--/*@thymesVar id="disc" type="uk.co.datadisk.ddflix.entities.Disc.Disc"*/-->
+                    <!--/*@thymesVar id="disc" type="uk.co.datadisk.ddflix.entities.disc.Disc"*/-->
                     <tr data-th-each="disc : ${availableDiscList}">
                         <td>radio</td>
                         <td th:text="${disc.id}"></td>
