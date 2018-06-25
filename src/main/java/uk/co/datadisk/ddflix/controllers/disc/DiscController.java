@@ -47,7 +47,6 @@ public class DiscController extends CommonController {
             model.addAttribute("film_title", discFormDTO.getFilm().getTitle());
             model.addAttribute("discFormDTO", discFormDTO);
         } else if(action.equals("save")){
-
             // lets perform some validation
             discFormDTOValidator.validate(discFormDTO, result);
             if(result.hasErrors()){
