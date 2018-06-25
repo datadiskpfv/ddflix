@@ -113,7 +113,8 @@ public class FilmAdminController {
         Film film = filmService.findFilm(filmId);
         discFormDTO.setFilm(film);
 
-        model.addAttribute("filmId", filmId);
+        //model.addAttribute("filmId", filmId);
+        model.addAttribute("film_title", discFormDTO.getFilm().getTitle());
         model.addAttribute("discFormDTO", discFormDTO);
         return "/film/disc/discEditForm";
     }

@@ -16,11 +16,12 @@
             <h2>Disc Create New or Edit</h2>
             <br/>
 
-            <!--/*@thymesVar id="discFormDTO" type="uk.co.datadisk.ddflix.dto.models.DiscFormDTO"*/-->
+            <!--/*@thymesVar id="discFormDTO" type="uk.co.datadisk.ddflix.dto.models.disc.DiscFormDTO"*/-->
             <form class="form-horizontal" th:object="${discFormDTO}" th:action="@{/admin/film/disc/form(action=save)} " method="post">
 
                 <!--used when editing an existing disc-->
                 <input hidden="hidden" name="id" th:value="*{id}" />
+                <input hidden="hidden" th:field="*{film}" />
 
                 <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
                     <ul>
@@ -29,16 +30,16 @@
                 </div>
 
                 <!--/*@thymesVar id="film" type="uk.co.datadisk.ddflix.entities.film.Film"*/-->
-                <div th:if="*{film} != null">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Film Id:</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" th:field="*{film}" th:errorclass="has-error" readonly="readonly"/>
-                        </div>
+                <div>
+                    <div class="col-sm-3" style="font-weight: bold;">Film Title:</div>
+                    <div class="col-sm-8">
+                        <span th:text="${film_title}">Film Title</span>
                     </div>
                 </div>
+                <br>
 
-                <div class="form-group" th:class="${#fields.hasErrors('discFormat')} ? 'form-group has-error' : 'form-group'">
+                <div class="form-group"
+                     th:class="${#fields.hasErrors('discFormat')} ? 'form-group has-error' : 'form-group'">
                     <label class="col-sm-3 control-label">Disc Format:</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" th:field="*{discFormat}" th:errorclass="has-error"/>

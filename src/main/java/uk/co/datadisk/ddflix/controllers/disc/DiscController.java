@@ -39,31 +39,24 @@ public class DiscController extends CommonController {
     }
 
     @RequestMapping(value = "form", method = {RequestMethod.GET, RequestMethod.POST})
-    public String editUser(@RequestParam("action") String action, @ModelAttribute("discId") String discId, @RequestParam(value = "filmId", required = false) Long filmId, Model model, @Valid @ModelAttribute("discFormDTO") DiscFormDTO discFormDTO, BindingResult result) {
+    public String createFilm(@RequestParam("action") String action, @RequestParam(name = "discId", required = false) String discId, Model model, @Valid DiscFormDTO discFormDTO, BindingResult result){
 
-        // requesting disc edit form passing discId
-        if(!discId.equals("0")) {
-            System.out.println("Editing disc ID: " + discId);
-            // get filled in DTO using discId
+        if(action.equals("edit")){
+            System.out.println("Disc ID: " + discId);
             discFormDTO = discService.discForm(parseLong(discId));
+            model.addAttribute("film_title", discFormDTO.getFilm().getTitle());
             model.addAttribute("discFormDTO", discFormDTO);
-        }
+        } else if(action.equals("save")){
 
-        System.out.println("Disc ID: " + discId);
-        System.out.println("ACTION: " + action);
-
-        if(action.equals("save")) {
-
+            // lets perform some validation
             discFormDTOValidator.validate(discFormDTO, result);
             if(result.hasErrors()){
                 return "/film/disc/discEditForm";
             }
-
-            System.out.println("Disc " + discFormDTO.getId() + " saved.");
-            System.out.println("Disc created: " + discFormDTO.getDateCreated());
             discService.discFormSave(discFormDTO);
             return "redirect:/admin/film/disc/list";
         }
+
         return "/film/disc/discEditForm";
     }
 

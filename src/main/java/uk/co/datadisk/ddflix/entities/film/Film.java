@@ -107,4 +107,11 @@ public class Film extends AbstractDomainClass {
     public void removeSubtitle(Language language){
         this.subtitles.remove(language);
     }
+
+    public void addDisc(Disc disc){
+        this.discs.add(disc);
+    }
+    public void removeDisc(Disc disc){
+        this.discs.remove(disc);
+    }
 }

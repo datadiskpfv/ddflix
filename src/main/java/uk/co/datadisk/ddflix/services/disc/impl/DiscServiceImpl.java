@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import uk.co.datadisk.ddflix.dto.mapper.disc.DiscFormMapper;
 import uk.co.datadisk.ddflix.dto.models.disc.DiscFormDTO;
 import uk.co.datadisk.ddflix.entities.disc.Disc;
+import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.repositories.disc.DiscRepository;
 import uk.co.datadisk.ddflix.services.disc.DiscService;
 
@@ -22,6 +23,7 @@ public class DiscServiceImpl implements DiscService {
 
     @Override
     public Disc saveDisc(Disc disc) {
+
         return discRepository.save(disc);
     }
 
@@ -48,5 +50,13 @@ public class DiscServiceImpl implements DiscService {
         return (discFormMapper.DiscToDiscFormDTO(this.saveDisc(disc)));
     }
 
+    @Override
+    public void addDisc(DiscFormDTO discFormDTO) {
+        //Got to get the users password as it is not in the DTO
+        Disc disc = discFormMapper.DiscFormDTOToDisc(discFormDTO);
+        Film film = discFormDTO.getFilm();
+        film.addDisc(disc);
+        //this.saveDisc(disc);
+    }
 
 }
