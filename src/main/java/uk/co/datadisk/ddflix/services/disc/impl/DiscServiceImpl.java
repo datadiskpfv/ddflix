@@ -49,14 +49,4 @@ public class DiscServiceImpl implements DiscService {
         Disc disc = discFormMapper.DiscFormDTOToDisc(discFormDTO);
         return (discFormMapper.DiscToDiscFormDTO(this.saveDisc(disc)));
     }
-
-    @Override
-    public void addDisc(DiscFormDTO discFormDTO) {
-        //Got to get the users password as it is not in the DTO
-        Disc disc = discFormMapper.DiscFormDTOToDisc(discFormDTO);
-        Film film = discFormDTO.getFilm();
-        film.addDisc(disc);
-        //this.saveDisc(disc);
-    }
-
 }

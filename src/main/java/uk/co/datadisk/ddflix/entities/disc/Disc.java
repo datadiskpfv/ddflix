@@ -32,7 +32,7 @@ public class Disc extends AbstractDomainClass {
     private boolean lost = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("filmId")
+    //@MapsId("filmId")
     private Film film;
 
     // added a where clause as I don't want the returned discs/films

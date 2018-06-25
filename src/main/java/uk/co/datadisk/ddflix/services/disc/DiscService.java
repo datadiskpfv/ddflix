@@ -16,6 +16,4 @@ public interface DiscService {
     DiscFormDTO discForm(Long id);
 
     DiscFormDTO discFormSave(DiscFormDTO discFormDTO);
-
-    void addDisc(DiscFormDTO discFormDTO);
 }
