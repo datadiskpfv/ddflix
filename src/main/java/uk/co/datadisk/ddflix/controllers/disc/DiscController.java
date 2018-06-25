@@ -56,7 +56,6 @@ public class DiscController extends CommonController {
             discService.discFormSave(discFormDTO);
             return "redirect:/admin/film/disc/list";
         }
-
         return "/film/disc/discEditForm";
     }
 
