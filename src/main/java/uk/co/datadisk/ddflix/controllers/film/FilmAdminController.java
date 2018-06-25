@@ -107,18 +107,6 @@ public class FilmAdminController {
         return "/film/film/form";
     }
 
-    @GetMapping("{filmId}/addDisc")
-    public String addDisc(@PathVariable Long filmId, Model model, DiscFormDTO discFormDTO){
-
-        Film film = filmService.findFilm(filmId);
-        discFormDTO.setFilm(film);
-
-        //model.addAttribute("filmId", filmId);
-        model.addAttribute("film_title", discFormDTO.getFilm().getTitle());
-        model.addAttribute("discFormDTO", discFormDTO);
-        return "/film/disc/discEditForm";
-    }
-
     // DELETE
     @GetMapping("{filmId}/delete")
     public String deleteFilm(@PathVariable Long filmId){
@@ -155,5 +143,18 @@ public class FilmAdminController {
         filmService.saveFilm(film);
 
         return "/film/film/list";
+    }
+
+    // CREATE - disc form
+    @GetMapping("{filmId}/addDisc")
+    public String addDisc(@PathVariable Long filmId, Model model, DiscFormDTO discFormDTO){
+
+        Film film = filmService.findFilm(filmId);
+        discFormDTO.setFilm(film);
+
+        //model.addAttribute("filmId", filmId);
+        model.addAttribute("film_title", discFormDTO.getFilm().getTitle());
+        model.addAttribute("discFormDTO", discFormDTO);
+        return "/film/disc/discEditForm";
     }
 }

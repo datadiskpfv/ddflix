@@ -32,12 +32,14 @@ public class DiscController extends CommonController {
     @Autowired
     FilmService filmService;
 
+    // READ
     @GetMapping("list")
     public String discList(Model model) {
         model.addAttribute("discList", discService.findAll());
         return "/film/disc/list";
     }
 
+    // UPDATE and CREATE
     @RequestMapping(value = "form", method = {RequestMethod.GET, RequestMethod.POST})
     public String createFilm(@RequestParam("action") String action, @RequestParam(name = "discId", required = false) String discId, Model model, @Valid DiscFormDTO discFormDTO, BindingResult result){
 
@@ -58,6 +60,7 @@ public class DiscController extends CommonController {
         return "/film/disc/discEditForm";
     }
 
+    // DELETE
     @PostMapping("delete")
     public String deleteDisc(@ModelAttribute("id") String id) {
         discService.deleteDiscById(parseLong(id));
