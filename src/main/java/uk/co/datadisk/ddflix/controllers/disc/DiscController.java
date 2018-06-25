@@ -8,8 +8,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import uk.co.datadisk.ddflix.controllers.CommonController;
 import uk.co.datadisk.ddflix.dto.models.disc.DiscFormDTO;
+import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.repositories.disc.DiscRepository;
 import uk.co.datadisk.ddflix.services.disc.DiscService;
+import uk.co.datadisk.ddflix.services.film.FilmService;
 import uk.co.datadisk.ddflix.validators.DiscFormDTOValidator;
 
 import javax.validation.Valid;
@@ -27,6 +29,9 @@ public class DiscController extends CommonController {
     @Autowired
     DiscFormDTOValidator discFormDTOValidator;
 
+    @Autowired
+    FilmService filmService;
+
     @GetMapping("list")
     public String discList(Model model) {
         model.addAttribute("discList", discService.findAll());
@@ -34,15 +39,17 @@ public class DiscController extends CommonController {
     }
 
     @RequestMapping(value = "form", method = {RequestMethod.GET, RequestMethod.POST})
-    public String editUser(@RequestParam("action") String action, @ModelAttribute("discId") String discId, Model model, @Valid @ModelAttribute("discFormDTO") DiscFormDTO discFormDTO, BindingResult result) {
+    public String editUser(@RequestParam("action") String action, @ModelAttribute("discId") String discId, @RequestParam(value = "filmId", required = false) Long filmId, Model model, @Valid @ModelAttribute("discFormDTO") DiscFormDTO discFormDTO, BindingResult result) {
 
-        if(discFormDTO.getId() == null) {
-            System.out.println("discFormDTO is null");
+        // requesting disc edit form passing discId
+        if(!discId.equals("0")) {
+            System.out.println("Editing disc ID: " + discId);
+            // get filled in DTO using discId
             discFormDTO = discService.discForm(parseLong(discId));
             model.addAttribute("discFormDTO", discFormDTO);
         }
 
-        System.out.println("ID: " + discId);
+        System.out.println("Disc ID: " + discId);
         System.out.println("ACTION: " + action);
 
         if(action.equals("save")) {

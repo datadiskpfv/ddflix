@@ -9,10 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import uk.co.datadisk.ddflix.dto.models.disc.DiscFormDTO;
 import uk.co.datadisk.ddflix.dto.models.film.FilmFormDTO;
 import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.film.Genre;
 import uk.co.datadisk.ddflix.services.ImageService;
+import uk.co.datadisk.ddflix.services.disc.DiscService;
 import uk.co.datadisk.ddflix.services.film.ClassificationService;
 import uk.co.datadisk.ddflix.services.film.FilmService;
 import uk.co.datadisk.ddflix.services.film.GenreService;
@@ -103,6 +105,17 @@ public class FilmAdminController {
 
         model.addAttribute("filmFormDTO", filmFormDTO);
         return "/film/film/form";
+    }
+
+    @GetMapping("{filmId}/addDisc")
+    public String addDisc(@PathVariable Long filmId, Model model, DiscFormDTO discFormDTO){
+
+        Film film = filmService.findFilm(filmId);
+        discFormDTO.setFilm(film);
+
+        model.addAttribute("filmId", filmId);
+        model.addAttribute("discFormDTO", discFormDTO);
+        return "/film/disc/discEditForm";
     }
 
     // DELETE
