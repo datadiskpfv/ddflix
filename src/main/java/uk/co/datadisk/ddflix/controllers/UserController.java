@@ -84,7 +84,7 @@ public class UserController extends CommonController {
     }
 
     @GetMapping("/profile")
-    public String userProfile(@RequestParam("id") final Long id, Model model, ProfileDTO profileDTO) {
+    public String userProfile(@RequestParam("id") final Long id, Model model) {
 
         User user = userService.findUser(id);
         model.addAttribute("classActivePayments", true);

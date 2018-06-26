@@ -22,8 +22,8 @@
                                  th:class="${#fields.hasErrors('preferred_disc_format')} ? 'form-group has-error' : 'form-group'">
                                 <label class="control-label">Preferred Disc Format:</label>
                                 <select class="form-control" th:field="*{preferred_disc_format}">
-                                    <option value="Blu-Ray">Blu-Ray</option>
-                                    <option value="DVD">DVD</option>
+                                    <option value="Blu-Ray" th:selected="${profileDTO.preferred_disc_format} == 'Blu-Ray'">Blu-Ray</option>
+                                    <option value="DVD" th:selected="${profileDTO.preferred_disc_format} == 'DVD'">DVD</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary btn-lg">Save Profile</button>
