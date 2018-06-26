@@ -48,6 +48,7 @@ public class FilmUserController {
         return "/film/film/infoUser";
     }
 
+    // MERGE THE BELOW METHODS
     @GetMapping("{filmId}/addToWishlist")
     public String addToWishlist(Model model, @PathVariable Long filmId, @RequestParam("userId") Long userId){
 
@@ -58,6 +59,10 @@ public class FilmUserController {
             model.addAttribute("wishListFull", true);
         } else {
             userService.addFilmToWishlist(userId, filmId);
+        }
+
+        if(user.getFilmsAtHomes().size() > 0) {
+            model.addAttribute("filmsAtHome", user.getFilmsAtHomes());
         }
 
         model.addAttribute("limit", WISHLIST_LIMIT);

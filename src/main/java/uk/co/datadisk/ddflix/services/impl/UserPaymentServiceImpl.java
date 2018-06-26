@@ -3,9 +3,11 @@ package uk.co.datadisk.ddflix.services.impl;
 import org.springframework.stereotype.Service;
 import uk.co.datadisk.ddflix.dto.mapper.UserPaymentMapper;
 import uk.co.datadisk.ddflix.dto.models.UserPaymentDTO;
+import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.entities.user.UserPayment;
 import uk.co.datadisk.ddflix.repositories.user.UserPaymentRepository;
 import uk.co.datadisk.ddflix.services.UserPaymentService;
+import uk.co.datadisk.ddflix.services.UserService;
 
 import java.util.List;
 
@@ -14,10 +16,12 @@ public class UserPaymentServiceImpl implements UserPaymentService {
 
 	private final UserPaymentRepository userPaymentRepository;
 	private final UserPaymentMapper userPaymentMapper;
+	private final UserService userService;
 
-	public UserPaymentServiceImpl(UserPaymentRepository userPaymentRepository, UserPaymentMapper userPaymentMapper) {
+	public UserPaymentServiceImpl(UserPaymentRepository userPaymentRepository, UserPaymentMapper userPaymentMapper, UserService userService) {
 		this.userPaymentRepository = userPaymentRepository;
 		this.userPaymentMapper = userPaymentMapper;
+		this.userService = userService;
 	}
 
 	public UserPayment findById(Long id) {
@@ -30,7 +34,12 @@ public class UserPaymentServiceImpl implements UserPaymentService {
 
 	@Override
 	public void savePayment(UserPaymentDTO userPaymentDTO) {
+		User user = userService.findByUsername(userPaymentDTO.getUser().getUsername());
 		UserPayment userPayment = userPaymentMapper.UserPaymentDTOToUserPayment(userPaymentDTO);
+
+		if(user.getUserPayments().size() == 0){
+			userPayment.setDefaultPayment(true);
+		}
 		userPaymentRepository.save(userPayment);
 	}
 
