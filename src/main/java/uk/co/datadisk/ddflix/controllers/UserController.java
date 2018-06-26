@@ -88,7 +88,7 @@ public class UserController extends CommonController {
 
         User user = userService.findUser(id);
         model.addAttribute("classActivePayments", true);
-        model.addAttribute("profileDTO", profileDTO);
+        model.addAttribute("profileDTO", userService.getUserProfileDTO(id));
         loadModel(model, user);
 
         return "/user/userProfile";
@@ -137,7 +137,7 @@ public class UserController extends CommonController {
     }
 
     @PostMapping("/profile/{userId}/preferredDiscFormat")
-    public void preferredDiscFormat(@PathVariable Long userId, ProfileDTO profileDTO) throws IOException {
+    public void preferredDiscFormat(@PathVariable Long userId, ProfileDTO profileDTO) {
         userService.updateProfile(userId, profileDTO);
     }
 }
