@@ -79,6 +79,10 @@ public class User extends UserDetail {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserPayment> userPayments;
 
+    @OneToOne
+    @JoinColumn(name = "userProfile")
+    private Profile userProfile;
+
     // By default ASC order will be returned, oldest first
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("wishedOn ASC")

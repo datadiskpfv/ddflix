@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<th:block th:fragment="discFormat">
+
+    <div class="tab-pane fade" id="tab-4">
+        <div class="panel-group">
+            <div class="panel panel-default" style="border: none;">
+                <div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
+
+                    <!--Preferred Disc Format-->
+                    <!--/*@thymesVar id="profileDTO" type="uk.co.datadisk.ddflix.dto.models.ProfileDTO"*/-->
+                    <div>
+                        <form th:object="${profileDTO}"
+                              th:action="@{'/user/profile/' + ${session.id} + '/preferredDiscFormat'}"
+                              method="post">
+
+                            <div class="form-group"
+                                 th:class="${#fields.hasErrors('preferred_disc_format')} ? 'form-group has-error' : 'form-group'">
+                                <label class="control-label">Preferred Disc Format:</label>
+                                <select class="form-control" th:field="*{preferred_disc_format}">
+                                    <option value="Blu-Ray">Blu-Ray</option>
+                                    <option value="DVD">DVD</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">Save Profile</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+</body>
+</html>

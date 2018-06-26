@@ -17,6 +17,7 @@
                 <!--/*@thymesVar id="classActivePayments" type="java.lang.String"*/-->
                 <!--/*@thymesVar id="classActiveInvoices" type="java.lang.String"*/-->
                 <!--/*@thymesVar id="classActiveAddresses" type="java.lang.String"*/-->
+                <!--/*@thymesVar id="classActiveDiscFormat" type="java.lang.String"*/-->
 
                 <!--/*@thymesVar id="creditCardSaved" type="java.lang.String"*/-->
                 <div th:if="${creditCardSaved}" class="alert alert-success">
@@ -41,6 +42,8 @@
                             href="#tab-2" data-toggle="tab"><span style="color: red;">Invoices</span></a></li>
                     <li th:classappend="${classActiveAddresses}? 'active'"><a
                             href="#tab-3" data-toggle="tab"><span style="color: red;">Addresses (Shipping/Billing)</span></a></li>
+                    <li th:classappend="${classActiveDiscFormat}? 'active'"><a
+                            href="#tab-4" data-toggle="tab"><span style="color: red;">Preferred Disc Format</span></a></li>
                 </ul>
 
                 <!-- Tab panels -->
@@ -53,10 +56,12 @@
                   <th:block th:replace="user/fragments/invoicesTab :: invoices"/>
 
                   <!--Address-->
-                  <th:block th:replace="user/fragments/AddressTab :: Address"/>
+                  <th:block th:replace="user/fragments/addressTab :: address"/>
+
+                  <!--Preferred Disc Format-->
+                  <th:block th:replace="user/fragments/discFormatTab :: discFormat"/>
 
                 </div>
-
 
             </div>
         </div>

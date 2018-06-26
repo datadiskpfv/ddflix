@@ -1,6 +1,7 @@
 package uk.co.datadisk.ddflix.controllers;
 
 import org.springframework.ui.Model;
+import uk.co.datadisk.ddflix.dto.models.ProfileDTO;
 import uk.co.datadisk.ddflix.entities.user.User;
 
 public class CommonController {

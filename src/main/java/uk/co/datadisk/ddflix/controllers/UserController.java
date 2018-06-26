@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uk.co.datadisk.ddflix.dto.models.PasswordDto;
+import uk.co.datadisk.ddflix.dto.models.ProfileDTO;
 import uk.co.datadisk.ddflix.entities.user.PasswordResetToken;
 import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.exceptions.UserNotFoundException;
@@ -83,10 +84,11 @@ public class UserController extends CommonController {
     }
 
     @GetMapping("/profile")
-    public String userProfile(@RequestParam("id") final Long id, Model model) {
+    public String userProfile(@RequestParam("id") final Long id, Model model, ProfileDTO profileDTO) {
 
         User user = userService.findUser(id);
         model.addAttribute("classActivePayments", true);
+        model.addAttribute("profileDTO", profileDTO);
         loadModel(model, user);
 
         return "/user/userProfile";
@@ -132,5 +134,10 @@ public class UserController extends CommonController {
             InputStream is = new ByteArrayInputStream(byteArray);
             IOUtils.copy(is, response.getOutputStream());
         }
+    }
+
+    @PostMapping("/profile/{id}/preferredDiscFormat")
+    public void preferredDiscFormat(@PathVariable String id, ProfileDTO profileDTO) throws IOException {
+
     }
 }
