@@ -136,8 +136,8 @@ public class UserController extends CommonController {
         }
     }
 
-    @PostMapping("/profile/{id}/preferredDiscFormat")
-    public void preferredDiscFormat(@PathVariable String id, ProfileDTO profileDTO) throws IOException {
-
+    @PostMapping("/profile/{userId}/preferredDiscFormat")
+    public void preferredDiscFormat(@PathVariable Long userId, ProfileDTO profileDTO) throws IOException {
+        userService.updateProfile(userId, profileDTO);
     }
 }

@@ -4,18 +4,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import uk.co.datadisk.ddflix.dto.mapper.ProfileMapper;
 import uk.co.datadisk.ddflix.dto.mapper.UserEditFormMapper;
 import uk.co.datadisk.ddflix.dto.mapper.UserRegisterMapper;
+import uk.co.datadisk.ddflix.dto.models.ProfileDTO;
 import uk.co.datadisk.ddflix.dto.models.UserEditFormDTO;
 import uk.co.datadisk.ddflix.dto.models.UserRegisterDTO;
 import uk.co.datadisk.ddflix.entities.disc.Disc;
 import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.film.FilmsAtHome;
 import uk.co.datadisk.ddflix.entities.film.Wishlist;
-import uk.co.datadisk.ddflix.entities.user.PasswordResetToken;
-import uk.co.datadisk.ddflix.entities.user.Role;
-import uk.co.datadisk.ddflix.entities.user.User;
-import uk.co.datadisk.ddflix.entities.user.UserImages;
+import uk.co.datadisk.ddflix.entities.user.*;
 import uk.co.datadisk.ddflix.exceptions.NotFoundException;
 import uk.co.datadisk.ddflix.repositories.disc.DiscRepository;
 import uk.co.datadisk.ddflix.repositories.film.FilmsAtHomeRepository;
@@ -45,8 +44,9 @@ public class UserServiceImpl implements UserService {
     private final FilmService filmService;
     private final DiscRepository discRepository;
     private final FilmsAtHomeRepository filmsAtHomeRepository;
+    private final ProfileMapper profileMapper;
 
-    public UserServiceImpl(UserRepository userRepository, UserRegisterMapper userRegisterMapper, BCryptPasswordEncoder bCryptPasswordEncoder, UserEditFormMapper userEditFormMapper, PasswordResetTokenRepository passwordResetTokenRepository, RoleService roleService, ImageService imageService, FilmService filmService, DiscRepository discRepository, FilmsAtHomeRepository filmsAtHomeRepository) {
+    public UserServiceImpl(UserRepository userRepository, UserRegisterMapper userRegisterMapper, BCryptPasswordEncoder bCryptPasswordEncoder, UserEditFormMapper userEditFormMapper, PasswordResetTokenRepository passwordResetTokenRepository, RoleService roleService, ImageService imageService, FilmService filmService, DiscRepository discRepository, FilmsAtHomeRepository filmsAtHomeRepository, ProfileMapper profileMapper) {
         this.userRepository = userRepository;
         this.userRegisterMapper = userRegisterMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService {
         this.filmService = filmService;
         this.discRepository = discRepository;
         this.filmsAtHomeRepository = filmsAtHomeRepository;
+        this.profileMapper = profileMapper;
     }
 
     @Override
@@ -99,6 +100,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
+        Profile profile = new Profile();
+        profile.setPreferred_disc_format("Blu-Ray");
+        user.setUserProfile(profile);
         return userRepository.save(user);
     }
 
@@ -261,5 +265,20 @@ public class UserServiceImpl implements UserService {
             System.out.println("change disc in_stock to true");
             disc.setInStock(true);
         }
+    }
+
+    @Override
+    public void updateProfile(Long userId, ProfileDTO profileDTO) {
+        User user = userRepository.findById(userId).orElse(null);
+
+        if (user != null) {
+            user.setUserProfile(profileMapper.ProfileDTOToProfile(profileDTO));
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public ProfileDTO getUserProfileDTO(long userId) {
+        return profileMapper.ProfileToProfileDTO(userRepository.findById(userId).get().getUserProfile());
     }
 }

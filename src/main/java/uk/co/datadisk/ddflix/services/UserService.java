@@ -1,6 +1,7 @@
 package uk.co.datadisk.ddflix.services;
 
 import org.springframework.web.multipart.MultipartFile;
+import uk.co.datadisk.ddflix.dto.models.ProfileDTO;
 import uk.co.datadisk.ddflix.dto.models.UserRegisterDTO;
 import uk.co.datadisk.ddflix.dto.models.UserEditFormDTO;
 import uk.co.datadisk.ddflix.entities.disc.Disc;
@@ -47,4 +48,7 @@ public interface UserService {
     void sendDiscToUser(Long userId, Long discId);
 
     void returnDiscFromUser(Long userId, Long discId);
+
+    void updateProfile(Long userId, ProfileDTO profileDTO);
+    ProfileDTO getUserProfileDTO(long userId);
 }

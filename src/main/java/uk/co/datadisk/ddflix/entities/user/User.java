@@ -79,8 +79,7 @@ public class User extends UserDetail {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserPayment> userPayments;
 
-    @OneToOne
-    @JoinColumn(name = "userProfile")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Profile userProfile;
 
     // By default ASC order will be returned, oldest first
@@ -105,8 +104,6 @@ public class User extends UserDetail {
 
     public void addAddress(Address Address) { this.Addresses.add(Address);}
     public void removeAddress(Address Address) { this.Addresses.remove(Address);}
-
-
 
     public void addFilmToWishList(Film film) {
         if(!checkFilmInWishlist(film)) {
