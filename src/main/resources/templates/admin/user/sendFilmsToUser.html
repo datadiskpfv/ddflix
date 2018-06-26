@@ -53,9 +53,8 @@
 
             <h3 style="font-weight:bold;font-size: 14px;color: blue;text-decoration: underline;"> Film Disc's that can be sent</h3>
 
-            <div th:if="${user.getFilmsAtHomes().size() == 0}">
-                <p style="font-size: 14px; font-weight: bold;color: red">You have no film discs available from your
-                    wishlist</p>
+            <div th:if="${availableDiscsListCheck == 0}">
+                <p style="font-size: 14px; font-weight: bold;color: red">You have no film discs available from your wishlist</p>
             </div>
 
             <div th:if="${availableDiscsListCheck > 0}">
@@ -76,8 +75,13 @@
                         <td th:text="${disc.id}"></td>
                         <td th:text="${disc.getFilm().getTitle()}"></td>
                         <td th:text="${disc.getDiscFormat()}"></td>
-                        <td><a th:href="@{'/admin/user/' + ${user.id} + '/sendDiscToUser?discId=' + ${disc.id}}"
+                        <th:block th:if="${filmLimit}">
+                            <td><span style="font-weight: bold;color: red;">Film Limit Reached</span></td>
+                        </th:block>
+                        <th:block th:unless="${filmLimit}">
+                            <td><a th:href="@{'/admin/user/' + ${user.id} + '/sendDiscToUser?discId=' + ${disc.id}}"
                                class="btn btn-xs btn-info">Send Film Disc</a></td>
+                        </th:block>
                     </tr>
                     </tbody>
                 </table>

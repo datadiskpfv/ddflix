@@ -39,7 +39,6 @@
                     <td th:text="${#dates.format(disc.dateCreated, 'dd-MM-yyyy HH:mm')}"></td>
                     <td th:text="${#dates.format(disc.lastUpdated, 'dd-MM-yyyy HH:mm')}"></td>
                     <td>
-                        <a th:href="@{'/admin/film/disc/' + ${disc.id} + '/info'}" class="btn btn-info btn-xs">Information</a>
                         <button th:id="${disc.id}" class="btn btn-primary btn-xs edit-disc" type="submit" value="edit" >
                             <span class="fa fa-times"></span>Edit</button>
                         <button th:id="${disc.id}" class="btn btn-danger btn-xs delete-disc" type="submit" value="delete" >

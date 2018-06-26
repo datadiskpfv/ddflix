@@ -110,6 +110,11 @@ public class AdminController {
         model.addAttribute("user", user);
         model.addAttribute("filmDiscsAtHomeCheck", filmsDiscsAtHomesAmount);
         model.addAttribute("availableDiscsListCheck", availableDiscsToSendList.size());
+        model.addAttribute("filmLimit", false);
+
+        if(user.getFilmsAtHomeAvailable() != user.getSubscription()){
+            model.addAttribute("filmLimit", true);
+        }
 
         System.out.println("user film discs at home: " + user.getFilmsAtHomes().size());
 

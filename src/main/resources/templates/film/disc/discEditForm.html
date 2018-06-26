@@ -11,9 +11,9 @@
 <body>
 <div layout:fragment="content" class="container-fluid" style="margin-top: 20px">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-10 col-md-offset-1">
 
-            <h2>Disc Create New or Edit</h2>
+            <h2>Disc (new or edit)</h2>
             <br/>
 
             <!--/*@thymesVar id="discFormDTO" type="uk.co.datadisk.ddflix.dto.models.disc.DiscFormDTO"*/-->
@@ -30,18 +30,17 @@
                 </div>
 
                 <!--/*@thymesVar id="film" type="uk.co.datadisk.ddflix.entities.film.Film"*/-->
-                <div>
-                    <div class="col-sm-3" style="font-weight: bold;">Film Title:</div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Film Title:</label>
                     <div class="col-sm-8">
-                        <span th:text="${film_title}">Film Title</span>
+                        <span th:text="${film_title}" style="top: 3px;font-weight: bold;color: blue;font-size: 22px;">Film Title</span>
                     </div>
                 </div>
-                <br>
 
                 <div class="form-group"
                      th:class="${#fields.hasErrors('discFormat')} ? 'form-group has-error' : 'form-group'">
                     <label class="col-sm-3 control-label">Disc Format:</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-4">
                         <input type="text" class="form-control" th:field="*{discFormat}" th:errorclass="has-error"/>
                     </div>
                 </div>
@@ -73,7 +72,7 @@
                 <!--this is really an readonly field so that I can pass back the dateCreated.-->
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Date Created:</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-2">
                         <input type="text" class="form-control" th:field="*{dateCreated}" th:errorclass="has-error" readonly="readonly"/>
                     </div>
                 </div>
