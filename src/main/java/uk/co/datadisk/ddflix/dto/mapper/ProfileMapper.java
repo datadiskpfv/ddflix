@@ -1,6 +1,7 @@
 package uk.co.datadisk.ddflix.dto.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import uk.co.datadisk.ddflix.dto.models.ProfileDTO;
 import uk.co.datadisk.ddflix.entities.user.Profile;

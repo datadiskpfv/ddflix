@@ -12,7 +12,10 @@
 <div layout:fragment="list_content" class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <h3>User: <span th:text="${user.email}"></span> <span style="margin-left: 100px;">Disc Limit:<span th:text="${user.subscription}"></span></span></h3>
+            <h3>User: <span th:text="${user.email}" style="color: red;"></span>
+                <span style="margin-left: 100px;">Disc Limit: <span th:text="${user.subscription}" style="color: red;"></span></span>
+                <span style="margin-left: 100px;">Preferred Disc Format: <span th:text="${user.getUserProfile().getPreferred_disc_format()}" style="color: red;"></span></span>
+            </h3>
             <br>
 
             <h3 style="font-weight:bold;font-size: 14px;color: blue;text-decoration: underline;"> Films Disc's at Home</h3>

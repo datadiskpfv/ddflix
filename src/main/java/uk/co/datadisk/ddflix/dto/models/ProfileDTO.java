@@ -17,4 +17,6 @@ public class ProfileDTO {
 
     private Long id;
     private String preferred_disc_format;
+
+    private User user;
 }

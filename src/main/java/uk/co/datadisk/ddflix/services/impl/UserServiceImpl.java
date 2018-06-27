@@ -209,18 +209,19 @@ public class UserServiceImpl implements UserService {
     public List<Disc> availableDiscsToSend(Long userId) {
         User user = userRepository.findById(userId).get();
         List<Disc> availableDiscsToSendList = new ArrayList<>();
+        String discFormat = user.getUserProfile().getPreferred_disc_format();
 
         for(Wishlist wl : user.getWishlists()){
             String filmTitle = wl.getFilm().getTitle();
 
-            System.out.println("Search for available Blu-Ray disc for film: " + filmTitle);
+            System.out.println("Search for available " + discFormat + " disc for film: " + filmTitle);
 
-            for (Disc disc: discRepository.findAvailableDiscsByFilmAndInStockTrueAndFaultyFalseAndLostFalseAndDiscFormat(wl.getFilm(), "Blu-Ray")) {
+            for (Disc disc: discRepository.findAvailableDiscsByFilmAndInStockTrueAndFaultyFalseAndLostFalseAndDiscFormat(wl.getFilm(), discFormat)) {
                 if(disc != null) {
                     System.out.println("Adding disc id: " + disc.getId() + " to available Discs film:" + filmTitle);
                     availableDiscsToSendList.add(disc);
                 } else {
-                    System.out.println("Unable to found Blu-Ray disc for film: " + filmTitle);
+                    System.out.println("Unable to found " + discFormat + " disc for film: " + filmTitle);
                 }
             }
         }
@@ -279,6 +280,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ProfileDTO getUserProfileDTO(long userId) {
-        return profileMapper.ProfileToProfileDTO(userRepository.findById(userId).get().getUserProfile());
+        Profile profile = userRepository.findById(userId).get().getUserProfile();
+        ProfileDTO profileDTO = profileMapper.ProfileToProfileDTO(profile);
+
+        return profileDTO;
     }
 }

@@ -18,6 +18,8 @@
                               th:action="@{'/user/profile/' + ${session.id} + '/preferredDiscFormat'}"
                               method="post">
 
+                            <input hidden="hidden" th:field="*{id}" th:value="*{id}"/>
+
                             <div class="form-group"
                                  th:class="${#fields.hasErrors('preferred_disc_format')} ? 'form-group has-error' : 'form-group'">
                                 <label class="control-label">Preferred Disc Format:</label>

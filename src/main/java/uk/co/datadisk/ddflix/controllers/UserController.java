@@ -137,7 +137,8 @@ public class UserController extends CommonController {
     }
 
     @PostMapping("/profile/{userId}/preferredDiscFormat")
-    public void preferredDiscFormat(@PathVariable Long userId, ProfileDTO profileDTO) {
+    public String preferredDiscFormat(@PathVariable Long userId, ProfileDTO profileDTO) {
         userService.updateProfile(userId, profileDTO);
+        return "redirect:/user/profile?id=" + userId;
     }
 }

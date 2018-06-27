@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"roles", "passwordResetToken", "ratings", "reviews"}, callSuper = false)
-@ToString(exclude = {"roles", "passwordResetToken", "ratings", "reviews"})
+@EqualsAndHashCode(exclude = {"roles", "passwordResetToken", "ratings", "reviews","userProfile"}, callSuper = false)
+@ToString(exclude = {"roles", "passwordResetToken", "ratings", "reviews", "userProfile"})
 @Entity
 @Table(name = "users")
 public class User extends UserDetail {
