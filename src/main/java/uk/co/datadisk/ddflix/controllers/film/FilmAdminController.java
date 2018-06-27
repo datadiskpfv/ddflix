@@ -61,8 +61,8 @@ public class FilmAdminController {
 
         model.addAttribute("firstLetter", firstLetter);
         model.addAttribute("filmFormDTO", filmFormDTO);
-        model.addAttribute("blurayDiscStock", discService.findAllDiscsOfFilm(film, "Blu-Ray"));
-        model.addAttribute("dvdDiscStock", discService.findAllDiscsOfFilm(film, "DVD"));
+        model.addAttribute("blurayDiscStock", discService.findAllDiscsOfFilm(film, "Blu-Ray").size());
+        model.addAttribute("dvdDiscStock", discService.findAllDiscsOfFilm(film, "DVD").size());
         return "/film/film/info";
     }
 
