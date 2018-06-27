@@ -48,6 +48,13 @@ public class FilmUserController {
         return "/film/film/infoUser";
     }
 
+    @GetMapping("filmList")
+    public String filmList(Model model){
+        model.addAttribute("allFilmsList", filmService.findAll());
+        model.addAttribute("allFilmsListSize", filmService.findAll().size() - 1);
+        return "/film/film/filmList";
+    }
+
     // MERGE THE BELOW METHODS
     @GetMapping("{filmId}/addToWishlist")
     public String addToWishlist(Model model, @PathVariable Long filmId, @RequestParam("userId") Long userId){

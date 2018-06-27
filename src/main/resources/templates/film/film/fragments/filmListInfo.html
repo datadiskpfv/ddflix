@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<th:block th:fragment="filmListInfo (film)">
+
+    <!--/*@thymesVar id="film" type="uk.co.datadisk.ddflix.entities.film.Film"*/-->
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                picture
+            </div>
+            <div class="panel-footer">
+                <div class="show-title">
+                    <h5 th:text="${film.title}">Title</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/dataTables"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Film List</title>
+</head>
+<body>
+<!--/*@thymesVar id="film" type="uk.co.datadisk.ddflix.entities.film.Film"*/-->
+<div layout:fragment="list_content" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-3 col-md-offset-2">l
+            <h2>Film List</h2>
+            <br/>
+            <table id="ListTable" class="table table-bordered table-hover table-striped">
+                <tbody>
+                <!--<tr data-th-each="film : ${allFilmsList}">-->
+                    <!--<td><th:block th:replace="film/film/fragments/filmListInfo :: filmListInfo (${film})"/></td>-->
+                    <!--&lt;!&ndash;<td>Title: <span th:text="${film.title}"></span></td>&ndash;&gt;-->
+                <!--</tr>-->
+                <div>List Size: <span th:text="${allFilmsListSize}"></span> </div>
+
+                <th:block th:each="i: ${#numbers.sequence(0, allFilmsListSize, 3)}">
+                    <tr>
+                        <!--<td th:text="${allFilmsList[i].title}"></td>-->
+                        <!--<td><div th:if="${allFilmsList[i + 1] != null}" th:text="${allFilmsList[i + 1].title}" th:remove="tag"></div></td>-->
+                        <!--<td><div th:if="${allFilmsList[i + 2] != null}" th:text="${allFilmsList[i + 2].title}" th:remove="tag"></div></td>-->
+
+                        <td><div th:if="${i < allFilmsListSize}" th:text="${i}"></div></td>
+                        <td><div th:if="${(i + 1) < allFilmsListSize}" th:text="${i + 1}"></div></td>
+                        <td><div th:if="${(i + 2) < allFilmsListSize}" th:text="${i + 2}"></div></td>
+                    </tr>
+                </th:block>
+
+                </tbody>
+            </table>
+
+            <a href="/film/film/carousel" class="btn btn-sm btn-info">Return to carousel</a>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -28,12 +28,15 @@
 						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-left">
-						<form sec:authorize="hasAuthority('USER')" class="navbar-form" th:action="@{/searchFilm}" method="post">
+						<form sec:authorize="hasAuthority('USER')" class="navbar-form" th:action="@{/film/film/search}" method="post">
 							<div class="form-group">
 								<input type="text" name="keyword" size="50" class="form-control" placeholder="Film title, actor name, genre" />
 							</div>
 							<button type="submit" class="btn btn-default">Search</button>
 						</form>
+					</ul>
+					<ul>
+						<a th:href="@{/film/film/filmList}" class="btn btn-default">All Films List</a>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}"><span class="red-label">ADMIN</span></a></li>
