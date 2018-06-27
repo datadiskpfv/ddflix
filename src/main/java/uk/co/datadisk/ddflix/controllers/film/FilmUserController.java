@@ -51,7 +51,6 @@ public class FilmUserController {
     @GetMapping("filmList")
     public String filmList(Model model){
         model.addAttribute("allFilmsList", filmService.findAll());
-        model.addAttribute("allFilmsListSize", filmService.findAll().size() - 1);
         return "/film/film/filmList";
     }
 
