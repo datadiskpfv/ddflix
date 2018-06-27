@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface DiscRepository extends JpaRepository<Disc, Long> {
 
-    // Available discs
+    // Available discs in stock
     List<Disc> findAvailableDiscsByFilmAndInStockTrue(Film film);
 
-    // Discs at users uomes
+    // Discs at users homes
     List<Disc> findAvailableDiscsByFilmAndInStockFalse(Film film);
 
     // Available specific format discs
@@ -19,4 +19,7 @@ public interface DiscRepository extends JpaRepository<Disc, Long> {
 
     // Specific format discs at users homes
     List<Disc> findAvailableDiscsByFilmAndInStockFalseAndDiscFormat(Film film, String format);
+
+    // All disc for a specific film and disc format
+    List<Disc> findAllAvailableDiscsByFilmAndDiscFormat(Film film, String format);
 }

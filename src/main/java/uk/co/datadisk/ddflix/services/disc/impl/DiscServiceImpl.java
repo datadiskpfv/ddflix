@@ -33,6 +33,11 @@ public class DiscServiceImpl implements DiscService {
     }
 
     @Override
+    public List<Disc> findAllDiscsOfFilm(Film film, String format) {
+        return discRepository.findAllAvailableDiscsByFilmAndDiscFormat(film, format);
+    }
+
+    @Override
     public void deleteDiscById(Long discId) {
         discRepository.deleteById(discId);
     }

@@ -43,6 +43,9 @@ public class FilmAdminController {
     @NonNull
     private final ImageService imageService;
 
+    @NonNull
+    private final DiscService discService;
+
     // READ
     @GetMapping("list")
     public String listFilm(Model model){
@@ -52,11 +55,14 @@ public class FilmAdminController {
 
     @GetMapping("{filmId}/info")
     public String infoFilm(Model model, @PathVariable Long filmId){
+        Film film = filmService.findFilm(filmId);
         FilmFormDTO filmFormDTO = filmService.findFilmDTO(filmId);
         String firstLetter = filmFormDTO.getTitle().substring(0, 1).toUpperCase();
 
         model.addAttribute("firstLetter", firstLetter);
         model.addAttribute("filmFormDTO", filmFormDTO);
+        model.addAttribute("blurayDiscStock", discService.findAllDiscsOfFilm(film, "Blu-Ray"));
+        model.addAttribute("dvdDiscStock", discService.findAllDiscsOfFilm(film, "DVD"));
         return "/film/film/info";
     }
 
