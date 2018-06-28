@@ -4,6 +4,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,8 +50,9 @@ public class FilmUserController {
     }
 
     @GetMapping("filmList")
-    public String filmList(Model model){
-        model.addAttribute("allFilmsList", filmService.findAll());
+    public String filmList(Model model, Pageable pageable){
+        System.out.println("Pageable: " + pageable.toString());
+        model.addAttribute("allFilmsList", filmService.findAll(pageable));
         return "/film/film/filmList";
     }
 

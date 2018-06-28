@@ -3,6 +3,8 @@ package uk.co.datadisk.ddflix.services.film.impl;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import uk.co.datadisk.ddflix.dto.mapper.film.FilmFormMapper;
@@ -59,6 +61,11 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public List<Film> findAll() {
         return filmRepository.findAll();
+    }
+
+    @Override
+    public Page<Film> findAll(Pageable page) {
+        return filmRepository.findAll(page);
     }
 
     @Override

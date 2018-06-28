@@ -36,7 +36,7 @@
 						</form>
 					</ul>
 					<ul>
-						<a th:href="@{/film/film/filmList}" class="btn btn-default">All Films List</a>
+						<a th:href="@{/film/film/filmList?page=1&size=12}" class="btn btn-default">All Films List</a>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}"><span class="red-label">ADMIN</span></a></li>

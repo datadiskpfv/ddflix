@@ -1,5 +1,7 @@
 package uk.co.datadisk.ddflix.services.film;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import uk.co.datadisk.ddflix.dto.models.film.FilmFormDTO;
 import uk.co.datadisk.ddflix.entities.film.Film;
@@ -16,6 +18,7 @@ public interface FilmService {
 
     FilmFormDTO findFilmDTO(Long id);
     List<Film> findAll();
+    Page<Film> findAll(Pageable page);
     Film findFilm(Long id);
 
     List<FilmFormDTO> latestFilms();
