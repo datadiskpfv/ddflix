@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorator="common/dataTables"
+<html lang="en" layout:decorator="common/mainBlank"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
@@ -9,7 +9,7 @@
 </head>
 <body>
 <!--/*@thymesVar id="film" type="uk.co.datadisk.ddflix.entities.film.Film"*/-->
-<div layout:fragment="list_content" style="margin-top: 20px">
+<div layout:fragment="content" style="margin-top: 20px">
     <div class="row">
 
         <div class="col-md-2">
@@ -20,11 +20,15 @@
             <div th:each="film : ${page.content}">
                 <th:block th:replace="film/film/fragments/filmListInfo :: filmListInfo (film = ${film})"/>
             </div>
+
+            <div class="col-md-10 col-md-offset-2">
+                <a href="/film/film/carousel" class="btn btn-sm btn-info">Return to carousel</a>
+                <th:block th:replace="film/film/fragments/pagnationBar :: paginationbar (page = ${page})"/>
+            </div>
+
         </div>
 
-        <th:block th:replace="film/film/fragments/pagnationBar :: paginationbar (page = ${page})"/>
 
-        <a href="/film/film/carousel" class="btn btn-sm btn-info">Return to carousel</a>
     </div>
 </div>
 
