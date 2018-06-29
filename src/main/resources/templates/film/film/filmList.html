@@ -15,16 +15,18 @@
         <div class="col-md-2">
             nav bar
         </div>
+        <!--/*@thymesVar id="page" type="uk.co.datadisk.ddflix.util.PageWrapper"*/-->
         <div class="col-md-10 col-md-offset-2">
-            <div th:each="film : ${allFilmsList}">
+            <div th:each="film : ${page.content}">
                 <th:block th:replace="film/film/fragments/filmListInfo :: filmListInfo (film = ${film})"/>
             </div>
         </div>
 
-        <a href="/film/film/carousel" class="btn btn-sm btn-info">Return to carousel</a>
+        <th:block th:replace="film/film/fragments/pagnationBar :: paginationbar (page = ${page})"/>
 
-        <div>
-        </div>
+        <a href="/film/film/carousel" class="btn btn-sm btn-info">Return to carousel</a>
+    </div>
+</div>
 
 </body>
 </html>

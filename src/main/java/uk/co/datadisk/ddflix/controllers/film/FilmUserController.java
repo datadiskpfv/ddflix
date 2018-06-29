@@ -18,6 +18,7 @@ import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.services.UserService;
 import uk.co.datadisk.ddflix.services.film.FilmService;
 import uk.co.datadisk.ddflix.services.film.GenreService;
+import uk.co.datadisk.ddflix.util.PageWrapper;
 
 @Controller
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))  // will autowire the NonNull attributes
@@ -51,8 +52,9 @@ public class FilmUserController {
 
     @GetMapping("filmList")
     public String filmList(Model model, Pageable pageable){
+        PageWrapper<Film> page = new PageWrapper<>(filmService.findAll(pageable), "/film/film/filmList");
         System.out.println("Pageable: " + pageable.toString());
-        model.addAttribute("allFilmsList", filmService.findAll(pageable));
+        model.addAttribute("page", page);
         return "/film/film/filmList";
     }
 
