@@ -20,15 +20,11 @@
             <div th:each="film : ${page.content}">
                 <th:block th:replace="film/film/fragments/filmListInfo :: filmListInfo (film = ${film})"/>
             </div>
-
             <div class="col-md-10 col-md-offset-2">
-                <a href="/film/film/carousel" class="btn btn-sm btn-info">Return to carousel</a>
+                <!--<a href="/film/film/carousel" class="btn btn-sm btn-info">Return to carousel</a>-->
                 <th:block th:replace="film/film/fragments/pagnationBar :: paginationbar (page = ${page})"/>
             </div>
-
         </div>
-
-
     </div>
 </div>
 

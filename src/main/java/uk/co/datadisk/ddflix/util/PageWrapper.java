@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PageWrapper<T> {
-    public static final int MAX_PAGE_ITEM_DISPLAY = 5;
+    public static final int MAX_PAGE_ITEM_DISPLAY = 12;
     private Page<T> page;
     private List<PageItem> items;
     private int currentNumber;
@@ -23,7 +23,7 @@ public class PageWrapper<T> {
     public PageWrapper(Page<T> page, String url){
         this.page = page;
         this.url = url;
-        items = new ArrayList<PageItem>();
+        items = new ArrayList<>();
 
         currentNumber = page.getNumber() + 1; //start from 1 to match page.page
 
