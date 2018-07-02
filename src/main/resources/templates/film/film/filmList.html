@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorator="common/mainBlank"
+<html lang="en" layout:decorator="common/mainScripts"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
@@ -17,6 +17,15 @@
         </div>
         <!--/*@thymesVar id="page" type="uk.co.datadisk.ddflix.util.PageWrapper"*/-->
         <div class="col-md-10 col-md-offset-2">
+            <div>
+                <label for="pageSize">Page Size</label>
+                <select onchange="changePageSize()" id="pageSize">
+                    <option th:value="5" th:selected="(${page.size} == 5)">5</option>
+                    <option th:value="10" th:selected="(${page.size} == 10)">10</option>
+                    <option th:value="15" th:selected="(${page.size} == 15)">15</option>
+                </select>
+            </div>
+
             <div th:each="film : ${page.content}">
                 <th:block th:replace="film/film/fragments/filmListInfo :: filmListInfo (film = ${film})"/>
             </div>

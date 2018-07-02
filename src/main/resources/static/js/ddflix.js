@@ -96,3 +96,10 @@ $(document).ready(function () {
         self.location = "http://localhost:8080" + path;
     });
 });
+
+function changePageSize() {
+    // should probably use ajax just to change the only the film content part
+    var pageSize = document.getElementById("pageSize").value;
+    var action = "http://localhost:8080/film/film/filmList?size=" + pageSize;
+    $(location).attr('href', action)
+}

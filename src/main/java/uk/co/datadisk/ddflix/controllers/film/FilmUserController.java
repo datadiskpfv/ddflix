@@ -8,10 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import uk.co.datadisk.ddflix.dto.models.film.FilmFormDTO;
 import uk.co.datadisk.ddflix.entities.user.User;
 import uk.co.datadisk.ddflix.entities.film.Film;
@@ -53,7 +50,7 @@ public class FilmUserController {
     @GetMapping("filmList")
     public String filmList(Model model, Pageable pageable){
         PageWrapper<Film> page = new PageWrapper<>(filmService.findAll(pageable), "/film/film/filmList");
-        //System.out.println("Pageable: " + pageable.toString());
+        System.out.println("Pageable: " + pageable.toString());
         model.addAttribute("page", page);
         return "/film/film/filmList";
     }
