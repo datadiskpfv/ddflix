@@ -69,6 +69,12 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
+    public Page<Film> findAllByGenre(String genre, Pageable page) {
+        Genre find_genre = genreService.findByName(genre);
+        return filmRepository.findByGenres(find_genre, page);
+    }
+
+    @Override
     public Film findFilm(Long id) {
         return filmRepository.findById(id).get();
     }

@@ -1,5 +1,7 @@
 package uk.co.datadisk.ddflix.repositories.film;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.film.Genre;
@@ -18,5 +20,7 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
 
   // latest films by Genre
   List<Film> findFirst20ByGenresOrderByReleaseDateDesc(Genre genre);
+
+  Page<Film> findByGenres(Genre genre, Pageable page);
 
 }

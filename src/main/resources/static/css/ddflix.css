@@ -28,3 +28,32 @@
     color: red;
     padding-left: 10px;
 }
+
+.film_panel_title {
+    font-size: larger;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 5px;
+    height: 50px;
+}
+
+.film_panel_section {
+    margin-bottom: 5px;
+}
+
+.film_panel_footer {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.panel_height {
+    height: 150px;
+}
+
+.panel_description_height {
+    height: 100px;
+}
+
+.film_panel_section_text {
+    font-size: smaller;
+}

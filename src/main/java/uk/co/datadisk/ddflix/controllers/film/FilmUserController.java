@@ -48,8 +48,17 @@ public class FilmUserController {
     }
 
     @GetMapping("filmList")
-    public String filmList(Model model, Pageable pageable){
-        PageWrapper<Film> page = new PageWrapper<>(filmService.findAll(pageable), "/film/film/filmList");
+    public String filmList(@RequestParam(value = "genre", required = false) String genre, Model model, Pageable pageable){
+        PageWrapper<Film> page;
+
+        if (genre != null){
+            System.out.println("Finding films by Genre: " + genre);
+            page = new PageWrapper<>(filmService.findAllByGenre(genre, pageable), "/film/film/filmList");
+        } else {
+            System.out.println("Finding ALL films");
+            page = new PageWrapper<>(filmService.findAll(pageable), "/film/film/filmList");
+        }
+
         System.out.println("Pageable: " + pageable.toString());
         model.addAttribute("page", page);
         return "/film/film/filmList";

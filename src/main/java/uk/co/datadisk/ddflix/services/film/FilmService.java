@@ -19,6 +19,7 @@ public interface FilmService {
     FilmFormDTO findFilmDTO(Long id);
     List<Film> findAll();
     Page<Film> findAll(Pageable page);
+    Page<Film> findAllByGenre(String genre, Pageable page);
     Film findFilm(Long id);
 
     List<FilmFormDTO> latestFilms();

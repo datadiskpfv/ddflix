@@ -13,8 +13,25 @@
                 <img class="center-block" width=100 height=150 th:src="@{'/images/film/' + ${#strings.substring(film.title,0,1)} + '/' + ${film.getCoverImage()}}">
             </div>
             <div class="panel-footer">
-                <div class="show-title">
-                    <h5 th:text="${film.title}">Title</h5>
+                <div class="film_panel_title center-block">
+                    <span th:text="${film.title}">Title</span>
+                </div>
+                <div class="film_panel_section">
+                    <div>Rating: <span><img width="20" height="20" th:src="@{'/images/classification/' + ${film.classification.image_name}}"></span></div>
+                </div>
+                <div class="film_panel_section">
+                    <div>Genre:
+                        <span th:each="genre : ${film.genres}" class="film_panel_section_text">
+                            <span th:text="${genre.name} + ', '"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="film_panel_section panel_description_height">
+                    <div>Description: <span th:text="${film.description}" class="film_panel_section_text"></span></div>
+                </div>
+                <div class="row center-block film_panel_footer">
+                    <a th:href="@{'/film/film/' + ${film.id} + '/addToWishlist?userId=' + ${session.id}}" class="btn btn-xs btn-primary">Add to Wish List</a>
+                    <a th:href="@{'/film/film/' + ${session.id} + '/wishlist'}" class="btn btn-xs btn-warning">Go to Wish List</a>
                 </div>
             </div>
         </div>
