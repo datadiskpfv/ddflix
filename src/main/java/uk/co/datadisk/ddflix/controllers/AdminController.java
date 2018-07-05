@@ -81,7 +81,6 @@ public class AdminController {
         System.out.println("ACTION: " + action);
 
         if(action.equals("save")) {
-
             userEditFormDTOValidator.validate(userEditFormDTO, result);
             if(result.hasErrors()){
                 return "/admin/user/userEditForm";

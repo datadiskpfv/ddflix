@@ -11,7 +11,6 @@ public class DataLoaderController {
 
     @GetMapping({"/",""})
     public String registration(UserRegisterDTO userRegisterDTO){
-
         return "dataloader/dataloader";
     }
 }
