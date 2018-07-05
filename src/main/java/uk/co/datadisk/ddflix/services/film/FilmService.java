@@ -8,7 +8,6 @@ import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.film.Genre;
 
 import java.util.List;
-import java.util.Set;
 
 public interface FilmService {
 
@@ -27,8 +26,6 @@ public interface FilmService {
     List<FilmFormDTO> latestFilms();
     List<FilmFormDTO> oldestFilms();
     List<FilmFormDTO> latestGenreFilms(Genre genre);
-
-    //Genre saveGenre(Genre Genre);
 
     void deleteFilmById(Long id);
 
