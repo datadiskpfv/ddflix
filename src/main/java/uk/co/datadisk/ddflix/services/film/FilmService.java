@@ -20,6 +20,8 @@ public interface FilmService {
     List<Film> findAll();
     Page<Film> findAll(Pageable page);
     Page<Film> findAllByGenre(String genre, Pageable page);
+    Page<Film> findFilmOptions(String action, Pageable pageable);
+    Page<Film> FindFilmBySearchString(String searchString, Pageable pageable);
     Film findFilm(Long id);
 
     List<FilmFormDTO> latestFilms();
@@ -31,4 +33,6 @@ public interface FilmService {
     void deleteFilmById(Long id);
 
     void uploader(MultipartFile filmFile);
+
+
 }

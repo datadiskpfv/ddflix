@@ -57,3 +57,11 @@
 .film_panel_section_text {
     font-size: smaller;
 }
+
+.film_list_nav {
+    margin-left: 10px;
+}
+
+.film_list_nav_1 {
+    margin-bottom: 10px;
+}

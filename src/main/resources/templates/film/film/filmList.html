@@ -13,10 +13,23 @@
     <div class="row">
 
         <div class="col-md-2">
-            <a href="/film/film/list?size=4&genre=horror"></a>
+            <div class="film_list_nav">
+                <div class="film_list_nav_1">
+                    <a th:href="@{/film/film/carousel}">Return to Film Carousel</a>
+                </div>
+                <!--/*@thymesVar id="genre" type="uk.co.datadisk.ddflix.entities.film.Genre"*/-->
+                <div th:each="genre : ${genreList}" class="film_list_nav_2">
+                    <a th:href="@{'/film/film/filmList?size=12&genre=' + ${genre.name}}" th:text="${genre.name}"></a>
+                </div><br>
+                <div class="film_list_nav_3">
+                    <a th:href="@{'/film/film/filmList?size=12&action=top20Films'}">Top 20 Films</a><br>
+                    <a th:href="@{'/film/film/filmList?size=12&action=trendingFilms'}">Trending Films</a><br>
+                    <a th:href="@{'/film/film/filmList?size=12&action=latestFilms'}">Latest Films</a>
+                </div>
+            </div>
         </div>
         <!--/*@thymesVar id="page" type="uk.co.datadisk.ddflix.util.PageWrapper"*/-->
-        <div class="col-md-10 col-md-offset-2">
+        <div class="col-md-8">
             <div class="row">
                 <div class="col-sm-6 form-inline">
                     <label style="font-weight: normal;">Show

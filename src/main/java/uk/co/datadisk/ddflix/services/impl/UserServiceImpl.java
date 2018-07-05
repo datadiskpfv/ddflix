@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
         Film film = filmService.findFilm(filmId);
         User user = userRepository.findById(userId).get();
 
-        if(!user.getWishlists().contains(film)){
+        if(!user.checkFilmInWishlist(film)){
             user.addFilmToWishList(film);
         }
     }
@@ -195,7 +195,8 @@ public class UserServiceImpl implements UserService {
         Film film = filmService.findFilm(filmId);
         User user = userRepository.findById(userId).get();
 
-        if(user.getWishlists().contains(film)){
+        if(user.checkFilmInWishlist(film)){
+            System.out.println("Removing " + film.getTitle() + " from " + user.getEmail() + " wishlist");
             user.removeFilmFromWishlist(film);
         }
     }

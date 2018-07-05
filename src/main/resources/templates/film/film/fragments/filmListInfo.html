@@ -20,6 +20,9 @@
                     <div>Rating: <span><img width="20" height="20" th:src="@{'/images/classification/' + ${film.classification.image_name}}"></span></div>
                 </div>
                 <div class="film_panel_section">
+                    <div>Release Date: <span th:text="${#dates.format(film.releaseDate, 'dd MMM yyyy')}" class="film_panel_section_text"></span></div>
+                </div>
+                <div class="film_panel_section">
                     <div>Genre:
                         <span th:each="genre : ${film.genres}" class="film_panel_section_text">
                             <span th:text="${genre.name} + ', '"></span>

@@ -16,6 +16,7 @@ import uk.co.datadisk.ddflix.repositories.film.FilmRepository;
 import uk.co.datadisk.ddflix.services.film.ClassificationService;
 import uk.co.datadisk.ddflix.services.film.FilmService;
 import uk.co.datadisk.ddflix.services.film.GenreService;
+import uk.co.datadisk.ddflix.util.PageWrapper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,6 +73,28 @@ public class FilmServiceImpl implements FilmService {
     public Page<Film> findAllByGenre(String genre, Pageable page) {
         Genre find_genre = genreService.findByName(genre);
         return filmRepository.findByGenres(find_genre, page);
+    }
+
+    @Override
+    public Page<Film> findFilmOptions(String action, Pageable pageable) {
+
+        switch (action){
+            case "top20Films":
+                return filmRepository.findFirst20ByOrderByReleaseDateAsc(pageable);
+            case "trendingFilms":
+                return filmRepository.findFirst20ByOrderByReleaseDateDesc(pageable);
+            case "latestFilms":
+                return filmRepository.findFirst20ByOrderByReleaseDateDesc(pageable);
+            default:
+                return filmRepository.findFirst20ByOrderByReleaseDateDesc(pageable);
+        }
+    }
+
+    @Override
+    public Page<Film> FindFilmBySearchString(String searchString, Pageable pageable) {
+        Genre filmGenre = genreService.findByName(searchString);
+        //return filmRepository.findByTitleContainingOrGenresContaining(searchString, filmGenre, pageable);
+        return filmRepository.findDistinctByTitleContainingOrGenresNameContaining(searchString, searchString, pageable);
     }
 
     @Override

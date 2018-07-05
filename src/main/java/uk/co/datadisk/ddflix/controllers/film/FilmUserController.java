@@ -32,7 +32,7 @@ public class FilmUserController {
     @NonNull
     private final UserService userService;
 
-    // Get the value from the application property file
+    // Get the value from the application property file, default is 3
     @Value("${film.wishlist.limit}")
     private Integer WISHLIST_LIMIT;
 
@@ -48,7 +48,8 @@ public class FilmUserController {
     }
 
     @GetMapping("filmList")
-    public String filmList(@RequestParam(value = "genre", required = false) String genre, Model model, Pageable pageable){
+    public String filmList(@RequestParam(value = "genre", required = false) String genre,
+                           @RequestParam(value = "action", required = false) String action ,Model model, Pageable pageable){
         PageWrapper<Film> page;
 
         if (genre != null){
@@ -59,7 +60,22 @@ public class FilmUserController {
             page = new PageWrapper<>(filmService.findAll(pageable), "/film/film/filmList");
         }
 
+        if (action != null) {
+            page = new PageWrapper<>(filmService.findFilmOptions(action, pageable), "/film/film/filmList");
+        }
+
         System.out.println("Pageable: " + pageable.toString());
+        model.addAttribute("genreList", genreService.findAll());
+        model.addAttribute("page", page);
+        return "/film/film/filmList";
+    }
+
+    @PostMapping("search")
+    public String filmSearch(@ModelAttribute("keyword") String keyword,
+                                 Model model, Pageable pageable){
+
+        System.out.println("Search keyword: " + keyword);
+        PageWrapper<Film> page = new PageWrapper<>(filmService.FindFilmBySearchString(keyword, pageable), "/film/film/filmList");
         model.addAttribute("page", page);
         return "/film/film/filmList";
     }
@@ -116,13 +132,7 @@ public class FilmUserController {
     // DELETE
     @GetMapping("{filmId}/wishlistDelete")
     public String wishlistDelete(@PathVariable Long filmId, @RequestParam("userId") Long userId){
-
-        Film film = filmService.findFilm(filmId);
-        User user = userService.findUser(userId);
-
-        user.removeFilmFromWishlist(film);
-        userService.saveUser(user);
-
+        userService.removeFilmFromWishlist(userId, filmId);
         return "redirect:/film/film/" + userId + "/wishlist";
     }
 }
