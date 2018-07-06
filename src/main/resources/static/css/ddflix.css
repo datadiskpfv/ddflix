@@ -1,3 +1,7 @@
+body {
+    width: 1500px;
+}
+
 /* used by jquery validation */
 .error {
     color: red;

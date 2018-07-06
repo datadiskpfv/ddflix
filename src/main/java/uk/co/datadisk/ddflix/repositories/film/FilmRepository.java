@@ -14,17 +14,18 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
 
   // oldest films
   List<Film> findFirst20ByOrderByReleaseDateAsc();
-  Page<Film> findFirst20ByOrderByReleaseDateAsc(Pageable pageable);
+  Page<Film> findFirst12ByOrderByReleaseDateAsc(Pageable pageable);
 
   // newest films
   List<Film> findFirst20ByOrderByReleaseDateDesc();
-  Page<Film> findFirst20ByOrderByReleaseDateDesc(Pageable pageable);
+  Page<Film> findFirst12ByOrderByReleaseDateDesc(Pageable pageable);
 
   // latest films by Genre
   List<Film> findFirst20ByGenresOrderByReleaseDateDesc(Genre genre);
 
-  Page<Film> findByGenres(Genre genre, Pageable page);
+  // Find films by specific Genre
   Page<Film> findByGenresNameContaining(String genre, Pageable page);
 
+  // Find films using a search string, looking at film title and any genres that it has
   Page<Film> findDistinctByTitleContainingOrGenresNameContaining(String title, String name, Pageable page);
 }

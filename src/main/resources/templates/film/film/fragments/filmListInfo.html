@@ -33,8 +33,8 @@
                     <div>Description: <span th:text="${film.description}" class="film_panel_section_text"></span></div>
                 </div>
                 <div class="row center-block film_panel_footer">
-                    <a th:href="@{'/film/film/' + ${film.id} + '/addToWishlist?userId=' + ${session.id}}" class="btn btn-xs btn-primary">Add to Wish List</a>
-                    <a th:href="@{'/film/film/' + ${session.id} + '/wishlist'}" class="btn btn-xs btn-warning">Go to Wish List</a>
+                    <a th:href="@{'/film/film/' + ${film.id} + '/addToWishlist?userId=' + ${session.id}}" class="btn btn-xs btn-primary">Add to Wishlist</a>
+                    <a th:href="@{'/film/film/' + ${session.id} + '/wishlist'}" class="btn btn-xs btn-warning">Go to Wishlist</a>
                 </div>
             </div>
         </div>

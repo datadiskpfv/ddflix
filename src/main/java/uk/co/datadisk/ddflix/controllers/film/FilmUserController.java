@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,19 +50,19 @@ public class FilmUserController {
 
     @GetMapping("filmList")
     public String filmList(@RequestParam(value = "genre", required = false) String genre,
-                           @RequestParam(value = "action", required = false) String action ,Model model, Pageable pageable){
+                           @RequestParam(value = "action", required = false) String action,
+                           Model model, @PageableDefault(size = 12) Pageable pageable){
         PageWrapper<Film> page;
 
         if (genre != null){
             System.out.println("Finding films by Genre: " + genre);
             page = new PageWrapper<>(filmService.findAllByGenre(genre, pageable), "/film/film/filmList");
+        } else if (action != null) {
+            System.out.println("Finding films by via film action: " + action);
+            page = new PageWrapper<>(filmService.findFilmOptions(action, pageable), "/film/film/filmList");
         } else {
             System.out.println("Finding ALL films");
             page = new PageWrapper<>(filmService.findAll(pageable), "/film/film/filmList");
-        }
-
-        if (action != null) {
-            page = new PageWrapper<>(filmService.findFilmOptions(action, pageable), "/film/film/filmList");
         }
 
         System.out.println("Pageable: " + pageable.toString());
@@ -76,6 +77,7 @@ public class FilmUserController {
 
         System.out.println("Search keyword: " + keyword);
         PageWrapper<Film> page = new PageWrapper<>(filmService.FindFilmBySearchString(keyword, pageable), "/film/film/filmList");
+        model.addAttribute("genreList", genreService.findAll());
         model.addAttribute("page", page);
         return "/film/film/filmList";
     }

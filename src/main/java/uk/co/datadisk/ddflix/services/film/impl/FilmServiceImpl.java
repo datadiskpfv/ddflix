@@ -71,8 +71,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Page<Film> findAllByGenre(String genre, Pageable page) {
-        Genre find_genre = genreService.findByName(genre);
-        return filmRepository.findByGenres(find_genre, page);
+        return filmRepository.findByGenresNameContaining(genre, page);
     }
 
     @Override
@@ -80,13 +79,13 @@ public class FilmServiceImpl implements FilmService {
 
         switch (action){
             case "top20Films":
-                return filmRepository.findFirst20ByOrderByReleaseDateAsc(pageable);
+                return filmRepository.findFirst12ByOrderByReleaseDateAsc(pageable);
             case "trendingFilms":
-                return filmRepository.findFirst20ByOrderByReleaseDateDesc(pageable);
+                return filmRepository.findFirst12ByOrderByReleaseDateDesc(pageable);
             case "latestFilms":
-                return filmRepository.findFirst20ByOrderByReleaseDateDesc(pageable);
+                return filmRepository.findFirst12ByOrderByReleaseDateDesc(pageable);
             default:
-                return filmRepository.findFirst20ByOrderByReleaseDateDesc(pageable);
+                return filmRepository.findFirst12ByOrderByReleaseDateDesc(pageable);
         }
     }
 
