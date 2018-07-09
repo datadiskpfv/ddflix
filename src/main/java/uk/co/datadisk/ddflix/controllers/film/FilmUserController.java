@@ -71,9 +71,10 @@ public class FilmUserController {
         return "/film/film/filmList";
     }
 
+    // you can also set default page size in application.properties file as well
     @PostMapping("search")
     public String filmSearch(@ModelAttribute("keyword") String keyword,
-                                 Model model, Pageable pageable){
+                                 Model model, @PageableDefault(size = 12) Pageable pageable){
 
         System.out.println("Search keyword: " + keyword);
         PageWrapper<Film> page = new PageWrapper<>(filmService.FindFilmBySearchString(keyword, pageable), "/film/film/filmList");

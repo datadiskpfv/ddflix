@@ -29,6 +29,8 @@
                     <tr>
                         <th>Film Title</th>
                         <th>Rating</th>
+                        <th>Format</th>
+                        <th>Date Sent</th>
                         <th>Options</th>
                     </tr>
                     </thead>
@@ -37,6 +39,8 @@
                     <tr data-th-each="fah : ${filmsAtHome}">
                         <td th:text="${fah.getDisc().getFilm().title}"></td>
                         <td th:text="${fah.getDisc().getFilm().classification}"></td>
+                        <td th:text="${fah.getDisc().discFormat}"></td>
+                        <td th:text="${#dates.format(fah.id.sentDate, 'dd-MMM-yyyy')}"></td>
                         <td>
                             <a th:href="@{'/film/film/' + ${fah.getDisc().getFilm().id} + '/infoUser'}" class="btn btn-info btn-xs">Information</a>
                         </td>
@@ -54,6 +58,8 @@
                 <tr>
                     <th>Film Title</th>
                     <th>Rating</th>
+                    <th>Format</th>
+                    <th>Requested On</th>
                     <th>Options</th>
                 </tr>
                 </thead>
@@ -62,6 +68,8 @@
                 <tr data-th-each="wishlist : ${wishlists}">
                     <td th:text="${wishlist.film.title}"></td>
                     <td th:text="${wishlist.film.classification.rating}"></td>
+                    <td th:text="${wishlist.user.userProfile.preferred_disc_format}"></td>
+                    <td th:text="${#dates.format(wishlist.wishedOn, 'dd-MMM-yyyy')}"></td>
                     <td>
                         <a th:href="@{'/film/film/' + ${wishlist.film.id} + '/infoUser'}" class="btn btn-info btn-xs">Information</a>
                         <a th:href="@{'/film/film/' + ${wishlist.film.id} + '/wishlistDelete?userId=' + ${session.id}}" class="btn btn-danger btn-xs">Remove from Wishlist</a>
