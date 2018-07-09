@@ -3,10 +3,12 @@ package uk.co.datadisk.ddflix.controllers.film;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import uk.co.datadisk.ddflix.dto.models.film.ActorFormDTO;
 import uk.co.datadisk.ddflix.repositories.user.CountryRepository;
@@ -15,6 +17,8 @@ import uk.co.datadisk.ddflix.services.film.ActorService;
 import uk.co.datadisk.ddflix.validators.ActorFormDTOValidator;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))  // will autowire the NonNull attributes
@@ -33,6 +37,12 @@ public class ActorAdminController {
 
     @NonNull
     private final ActorFormDTOValidator actorFormDTOValidator;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+        binder.registerCustomEditor(Date.class, editor);
+    }
 
     // READ
     @GetMapping("list")
@@ -54,7 +64,7 @@ public class ActorAdminController {
 
     // CREATE, UPDATE
     @RequestMapping(value = "form", method = {RequestMethod.GET, RequestMethod.POST})
-    public String createActor(@RequestParam("action") String action, @RequestParam(value = "actorId", required = false) Long actorId, Model model, @Valid ActorFormDTO actorFormDTO, BindingResult result){
+    public String createActor(@RequestParam("action") String action, @RequestParam(value = "actorId", required = false) Long actorId, Model model, ActorFormDTO actorFormDTO, BindingResult result){
 
         model.addAttribute("countries", countryRepository.findAll());
 

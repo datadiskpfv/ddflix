@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import uk.co.datadisk.ddflix.entities.film.*;
 import uk.co.datadisk.ddflix.entities.user.Country;
 
@@ -29,6 +30,7 @@ public class ActorFormDTO {
     @Size(min = 1, max = 30)
     private String lastName;
 
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     private Gender gender;

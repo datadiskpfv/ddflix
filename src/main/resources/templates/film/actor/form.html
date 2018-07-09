@@ -48,18 +48,18 @@
                 </div>
 
                 <!--/*@thymesVar id="country" type="uk.co.datadisk.ddflix.entities.user.Country"*/-->
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Birth Country:</label>
-                    <div class="col-sm-8">
-                        <select class="form-control col-sm-3 col-sm-offset-3" th:field="*{birthCountry}" id="birthCountry">
-                            <option th:each="country : ${countries}"
-                                    th:value="${country.country}"
-                                    th:selected="${actorFormDTO.getBirthCountry() == country}"
-                                    th:text="${country.name}">
-                            </option>
-                        </select>
-                    </div>
-                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-3 control-label">Birth Country:</label>-->
+                    <!--<div class="col-sm-8">-->
+                        <!--<select class="form-control col-sm-3 col-sm-offset-3" th:field="*{birthCountry}" id="birthCountry">-->
+                            <!--<option th:each="country : ${countries}"-->
+                                    <!--th:value="${country}"-->
+                                    <!--th:selected="${actorFormDTO.getBirthCountry() == country}"-->
+                                    <!--th:text="${country.name}">-->
+                            <!--</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <div class="form-group" th:class="${#fields.hasErrors('gender')} ? 'form-group has-error' : 'form-group'">
                     <label class="col-sm-3 control-label">Gender:</label>

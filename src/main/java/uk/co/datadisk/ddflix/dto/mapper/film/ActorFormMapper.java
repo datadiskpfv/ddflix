@@ -17,10 +17,12 @@ public interface ActorFormMapper {
 
     // Actor -> ActorFormDTO (the mappings is for the conversion from String to Date format - MySQL format)
     @Mapping(target="dateCreated", source="dateCreated", dateFormat="yyyy-MM-dd HH:mm:ss")
+    @Mapping(target="birthDate", source="birthDate", dateFormat="yyyy-MM-dd HH:mm:ss")
     ActorFormDTO ActorToActorFormDTO(Actor actor);
 
     // ActorFormDTO -> Actor (the mappings is for the conversion from String to Date format - MySQL format)
     @Mapping(source = "dateCreated", target = "dateCreated", dateFormat="yyyy-MM-dd HH:mm:ss")
+    @Mapping(target="birthDate", source="birthDate", dateFormat="yyyy-MM-dd HH:mm:ss")
     Actor ActorFormDTOToActor(ActorFormDTO actorFormDTO);
 
     // No ordering on SETS
