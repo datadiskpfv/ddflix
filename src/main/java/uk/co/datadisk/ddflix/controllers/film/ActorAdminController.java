@@ -8,16 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import uk.co.datadisk.ddflix.dto.models.disc.DiscFormDTO;
-import uk.co.datadisk.ddflix.dto.models.film.FilmFormDTO;
-import uk.co.datadisk.ddflix.entities.film.Film;
+import uk.co.datadisk.ddflix.dto.models.film.ActorFormDTO;
+import uk.co.datadisk.ddflix.repositories.user.CountryRepository;
 import uk.co.datadisk.ddflix.services.ImageService;
-import uk.co.datadisk.ddflix.services.disc.DiscService;
-import uk.co.datadisk.ddflix.services.film.ClassificationService;
-import uk.co.datadisk.ddflix.services.film.FilmService;
-import uk.co.datadisk.ddflix.services.film.GenreService;
-import uk.co.datadisk.ddflix.validators.FilmFormDTOValidator;
+import uk.co.datadisk.ddflix.services.film.ActorService;
+import uk.co.datadisk.ddflix.validators.ActorFormDTOValidator;
 
 import javax.validation.Valid;
 
@@ -32,6 +27,12 @@ public class ActorAdminController {
 
     @NonNull
     private final ImageService imageService;
+
+    @NonNull
+    private final CountryRepository countryRepository;
+
+    @NonNull
+    private final ActorFormDTOValidator actorFormDTOValidator;
 
     // READ
     @GetMapping("list")
@@ -54,6 +55,28 @@ public class ActorAdminController {
     // CREATE, UPDATE
     @RequestMapping(value = "form", method = {RequestMethod.GET, RequestMethod.POST})
     public String createActor(@RequestParam("action") String action, @RequestParam(value = "actorId", required = false) Long actorId, Model model, @Valid ActorFormDTO actorFormDTO, BindingResult result){
+
+        model.addAttribute("countries", countryRepository.findAll());
+
+        if(action.equals("save")){
+            System.out.println("Saving Actor");
+
+            // lets perform some validation
+            actorFormDTOValidator.validate(actorFormDTO, result);
+            if(result.hasErrors()){
+                return "/film/actor/form";
+            }
+
+            // everything should be validated so lets save and return back to the film list
+            actorService.createActor(actorFormDTO);
+
+            return "redirect:/film/actor/list";
+        } else if (action.equals("edit")){
+            // get actor in a actorFormDTO
+            actorFormDTO = actorService.findActorDTO(actorId);
+        }
+
+        model.addAttribute("actorFormDTO", actorFormDTO);
         return "/film/actor/form";
     }
 

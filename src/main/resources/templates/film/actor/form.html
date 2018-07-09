@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/formLayout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Actor Create/Edit Form</title>
+</head>
+<body>
+<!--/*@thymesVar id="actorFormDTO" type="uk.co.datadisk.ddflix.dto.models.film.ActorFormDTO"*/-->
+<div layout:fragment="content" class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h2>Actor Create/Edit Form</h2>
+            <br/>
+
+            <form id="filmForm" class="form-horizontal" th:object="${actorFormDTO}" th:action="@{/film/actor/form(action=save)} "
+                  method="post">
+
+                <input hidden="hidden" name="id" th:value="*{id}"/>
+                <input hidden="hidden" name="dateCreated" th:value="*{dateCreated}" />
+
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+                    </ul>
+                </div>
+
+                <div class="form-group" th:class="${#fields.hasErrors('firstName')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-3 control-label">First Name:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{firstName}" th:errorclass="has-error" data-validation="length" data-validation-length="1-50"/>
+                    </div>
+                </div>
+
+                <div class="form-group" th:class="${#fields.hasErrors('lastName')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-3 control-label">Last Name:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{lastName}" th:errorclass="has-error" data-validation="length" data-validation-length="1-50"/>
+                    </div>
+                </div>
+
+                <div class="form-group" th:class="${#fields.hasErrors('birthDate')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-3 control-label">Birth Date:</label>
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control birthDate" id="birthDate" th:field="*{birthDate}" th:errorclass="has-error" th:placeholder="DD-MMM-YYYY"/>
+                    </div>
+                </div>
+
+                <!--/*@thymesVar id="country" type="uk.co.datadisk.ddflix.entities.user.Country"*/-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Birth Country:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control col-sm-3 col-sm-offset-3" th:field="*{birthCountry}" id="birthCountry">
+                            <option th:each="country : ${countries}"
+                                    th:value="${country.country}"
+                                    th:selected="${actorFormDTO.getBirthCountry() == country}"
+                                    th:text="${country.name}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" th:class="${#fields.hasErrors('gender')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-3 control-label">Gender:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" th:field="*{gender}">
+                            <option th:value="MALE" data-th-field="*{gender}" th:selected="*{gender} == 'MALE' ? 'select' : ''">MALE</option>
+                            <option th:value="FEMALE" data-th-field="*{gender}" th:selected="*{gender} == 'FEMALE' ? 'select' : ''">FEMALE</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <a href="/film/actor/list" class="btn btn-info">Return to Actor List</a>
+                    <button type="submit" id="submitButton" class="btn btn-success">Save Actor</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

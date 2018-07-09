@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/dataTables"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Actor List</title>
+</head>
+<body>
+<!--/*@thymesVar id="actor" type="uk.co.datadisk.ddflix.entities.film.Actor"*/-->
+<div layout:fragment="list_content" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>Actor List</h2>
+            <br/>
+            <table id="ListTable" class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Actor</th>
+                    <th>Country</th>
+                    <th>DOB</th>
+                    <th>Date Created</th>
+                    <th>Last Updated</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-th-each="actor : ${actors}">
+                    <td th:text="${actor.firstName} + ' ' + ${actor.lastName}"></td>
+
+                    <td>
+                        <a th:href="@{'/film/actor/' + ${actor.id} + '/info'}" class="btn btn-info btn-xs">Information</a>
+                        <a th:href="@{'/film/actor/' + ${actor.id} + '/imagesUpload'}" class="btn btn-warning btn-xs">Images Upload</a>
+                        <a th:href="@{/film/actor/form(action='edit',actorId=${actor.id})}" class="btn btn-primary btn-xs">Edit</a>
+                        <a th:href="@{'/film/actor/' + ${actor.id} + '/delete'}" class="btn btn-danger btn-xs">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a href="/film/film/list" class="btn btn-sm btn-info">Return to Actor List</a>
+            <a href="/film/actor/form?action=new&actorId=0" class="btn btn-sm btn-primary">Create New Actor</a>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
