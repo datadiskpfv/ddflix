@@ -108,6 +108,34 @@ public class ImageServiceImpl implements ImageService {
         return newFileName;
     }
 
+    public String storeActorImage(MultipartFile file, String firstLetter){
+
+        String filename = file.getOriginalFilename();
+        String fileExtension = filename.substring(filename.lastIndexOf(".") + 1);
+
+        System.out.println("Filename: " + filename + "  First letter: " + firstLetter + "  Extension: " + fileExtension);
+
+        Path path = Paths.get("C://java_projects/ddflix/images/actor/" + firstLetter);
+
+        if(!Files.exists(path)){
+            System.out.println("Create new directory");
+            try {
+                Files.createDirectory(path);
+            } catch (IOException e) {
+                //something else went wrong
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            Files.copy(file.getInputStream(), path.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            throw new RuntimeException("FAIL!");
+        }
+
+        return filename;
+    }
+
     public void init() {
         try {
             Files.createDirectory(rootLocation);

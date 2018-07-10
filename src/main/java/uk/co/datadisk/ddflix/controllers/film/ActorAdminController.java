@@ -104,23 +104,15 @@ public class ActorAdminController {
 
     @PostMapping("{actorId}/imagesUpload")
     public String imagesUploadPost(@RequestParam("action") String action, @PathVariable Long actorId, @RequestParam("file") MultipartFile file){
-
         Actor actor = actorService.findActor(actorId);
+        String firstLetter = actor.getFirstName().substring(0, 1).toUpperCase();
 
-        String filename = imageService.storeFilmImages(file, actorId, action);
+        // save the image
+        String filename = imageService.storeActorImage(file, firstLetter);
         System.out.println("Filename: " + filename);
 
+        // link the actor to the image
         actorService.imageUpload(actorId, action, filename);
-
-        if(action.equals("cover")){
-            System.out.println("Cover Image: " + file);
-            actor.setCoverImage(filename);
-        } else if(action.equals("background")){
-            System.out.println("Background Image: " + file);
-            //film.setBgImage1(filename);
-        }
-
-        actorService.saveActor(actor);
 
         return "/film/film/list";
     }

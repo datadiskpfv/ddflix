@@ -9,6 +9,7 @@ import uk.co.datadisk.ddflix.entities.film.Actor;
 import uk.co.datadisk.ddflix.entities.film.ActorImage;
 import uk.co.datadisk.ddflix.repositories.film.ActorImageRepository;
 import uk.co.datadisk.ddflix.repositories.film.ActorRepository;
+import uk.co.datadisk.ddflix.services.ImageService;
 import uk.co.datadisk.ddflix.services.film.ActorService;
 
 import java.util.List;
@@ -69,6 +70,7 @@ public class ActorServiceImpl implements ActorService {
     public void imageUpload(Long actorId, String action, String filename) {
         Actor actor = actorRepository.findById(actorId).orElse(null);
         ActorImage actorImage;
+
 
         if( actor != null){
             if( action.equals("cover")){

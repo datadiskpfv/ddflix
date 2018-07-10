@@ -10,6 +10,7 @@ public interface ImageService {
     String store(MultipartFile file);
 
     String storeFilmImages(MultipartFile file, Long id, String action);
+    String storeActorImage(MultipartFile file, String firstLetter);
 
     void init();
 }
