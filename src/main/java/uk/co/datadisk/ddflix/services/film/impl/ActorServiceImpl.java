@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import uk.co.datadisk.ddflix.dto.models.film.ActorFormDTO;
 import uk.co.datadisk.ddflix.dto.mapper.actor.ActorFormMapper;
 import uk.co.datadisk.ddflix.entities.film.Actor;
+import uk.co.datadisk.ddflix.entities.film.ActorImage;
+import uk.co.datadisk.ddflix.repositories.film.ActorImageRepository;
 import uk.co.datadisk.ddflix.repositories.film.ActorRepository;
 import uk.co.datadisk.ddflix.services.film.ActorService;
 
@@ -16,10 +18,12 @@ public class ActorServiceImpl implements ActorService {
 
     private final ActorRepository actorRepository;
     private final ActorFormMapper actorFormMapper;
+    private final ActorImageRepository actorImageRepository;
 
-    public ActorServiceImpl(ActorRepository actorRepository, ActorFormMapper actorFormMapper) {
+    public ActorServiceImpl(ActorRepository actorRepository, ActorFormMapper actorFormMapper, ActorImageRepository actorImageRepository) {
         this.actorRepository = actorRepository;
         this.actorFormMapper = actorFormMapper;
+        this.actorImageRepository = actorImageRepository;
     }
 
     @Override
@@ -59,6 +63,27 @@ public class ActorServiceImpl implements ActorService {
     @Override
     public Actor findActor(Long id) {
         return actorRepository.findById(id).get();
+    }
+
+    @Override
+    public void imageUpload(Long actorId, String action, String filename) {
+        Actor actor = actorRepository.findById(actorId).orElse(null);
+        ActorImage actorImage;
+
+        if( actor != null){
+            if( action.equals("cover")){
+                actor.setCoverImage(filename);
+            } else if (action.equals("background")){
+
+                actorImage = actorImageRepository.findByImageName(filename);
+
+                // if image does not exists lets create a new one
+                if( actorImage == null ){
+                    actorImage = new ActorImage(filename);
+                }
+                actorImage.addActorImage(actor);
+            }
+        }
     }
 
     @Override

@@ -24,4 +24,10 @@ public class ActorImage extends AbstractDomainClass {
 
     @ManyToMany(mappedBy = "actorImages")
     private Set<Actor> actors = new HashSet<>();
+
+    public ActorImage(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public void addActorImage(Actor actor) { this.actors.add(actor);}
 }

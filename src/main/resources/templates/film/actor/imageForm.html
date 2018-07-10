@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/formLayout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII"/>
+    <title th:text="#{message.uploadFilmImages}">Upload Film Images</title>
+    <link rel="stylesheet" th:href="@{/css/dropzone.css}">
+</head>
+<body>
+<!--/*@thymesVar id="spreadsheet" type="java.lang.String"*/-->
+<!--/*@thymesVar id="actorFormDTO" type="uk.co.datadisk.ddflix.dto.models.film.ActorFormDTO"*/-->
+<div layout:fragment="content" class="container-fluid" style="margin-top: 20px">
+    <h2 class="form-heading">Upload Actor Images for <span th:text="${actorFormDTO.firstName} + ' ' + ${actorFormDTO.lastName}">???</span></h2>
+
+    <h3>Cover Image File</h3>
+    <div class="col-md-2" >
+        <img width=100 height=100 th:src="@{'/images/actor/' + ${#strings.substring(actorFormDTO.firstName,0,1)} + '/' + ${actorFormDTO.getCoverImage()}}">
+    </div>
+    <div id="dropzone1" class="col-md-10">
+        <form th:action="@{'/film/actor/' + ${actorFormDTO.id} + '/imagesUpload?action=cover'}"
+              class="dropzone needsclick" id="dropzone-upload" method="post" enctype="multipart/form-data">
+
+            <div class=" dz-message needsclick">
+                Drop Cover Image file here<br/>
+                <span class="note needsclick">Image files will automatically be uploaded</span>
+            </div>
+
+        </form>
+        <br>
+    </div>
+
+    <h3>Background Image File</h3>
+    <div id="dropzone2" class="col-md-10">
+        <form th:action="@{'/film/actor/' + ${actorFormDTO.id} + '/imagesUpload'}"
+              class="dropzone needsclick" id="dropzone-upload" method="post" enctype="multipart/form-data">
+
+            <div class="dz-message needsclick">
+                Drop Background Image file here<br/>
+                <span class="note needsclick">Image files will automatically be uploaded</span>
+            </div>
+
+        </form>
+        <br>
+    </div>
+</div>
+
+
+</div>
+</body>
+
+</html>

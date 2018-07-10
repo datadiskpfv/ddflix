@@ -19,6 +19,8 @@ public interface ActorService {
     //Page<Actor> FindActorBySearchString(String searchString, Pageable pageable);
     Actor findActor(Long id);
 
+    void imageUpload(Long actorId, String action, String filename);
+
     void deleteActorById(Long id);
 
 }

@@ -35,6 +35,8 @@ public class ActorFormDTO {
 
     private Country birthCountry;
 
+    private String coverImage;
+
     // define a default create date
     private String dateCreated = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 

@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import uk.co.datadisk.ddflix.dto.models.film.ActorFormDTO;
+import uk.co.datadisk.ddflix.entities.film.Actor;
 import uk.co.datadisk.ddflix.entities.user.Country;
 import uk.co.datadisk.ddflix.repositories.user.CountryRepository;
 import uk.co.datadisk.ddflix.services.ImageService;
@@ -55,6 +57,7 @@ public class ActorAdminController {
 
     @GetMapping("{actorId}/info")
     public String infoFilm(Model model, @PathVariable Long actorId){
+        model.addAttribute("actorFormDTO", actorService.findActorDTO(actorId));
         return "/film/actor/info";
     }
 
@@ -97,5 +100,28 @@ public class ActorAdminController {
     public String deleteActor(@PathVariable Long actorId){
         actorService.deleteActorById(actorId);
         return "redirect:/film/actor/list";
+    }
+
+    @PostMapping("{actorId}/imagesUpload")
+    public String imagesUploadPost(@RequestParam("action") String action, @PathVariable Long actorId, @RequestParam("file") MultipartFile file){
+
+        Actor actor = actorService.findActor(actorId);
+
+        String filename = imageService.storeFilmImages(file, actorId, action);
+        System.out.println("Filename: " + filename);
+
+        actorService.imageUpload(actorId, action, filename);
+
+        if(action.equals("cover")){
+            System.out.println("Cover Image: " + file);
+            actor.setCoverImage(filename);
+        } else if(action.equals("background")){
+            System.out.println("Background Image: " + file);
+            //film.setBgImage1(filename);
+        }
+
+        actorService.saveActor(actor);
+
+        return "/film/film/list";
     }
 }

@@ -8,7 +8,6 @@
     <title>Actor List</title>
 </head>
 <body>
-<!--/*@thymesVar id="actor" type="uk.co.datadisk.ddflix.entities.film.Actor"*/-->
 <div layout:fragment="list_content" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -26,9 +25,13 @@
                 </tr>
                 </thead>
                 <tbody>
+                <!--/*@thymesVar id="actor" type="uk.co.datadisk.ddflix.entities.film.Actor"*/-->
                 <tr data-th-each="actor : ${actors}">
                     <td th:text="${actor.firstName} + ' ' + ${actor.lastName}"></td>
-
+                    <td th:text="${actor.birthCountry.country}"></td>
+                    <td th:text="${#dates.format(actor.birthDate, 'dd-MMM-yyyy')}"></td>
+                    <td th:text="${actor.dateCreated}"></td>
+                    <td th:text="${actor.lastUpdated}"></td>
                     <td>
                         <a th:href="@{'/film/actor/' + ${actor.id} + '/info'}" class="btn btn-info btn-xs">Information</a>
                         <a th:href="@{'/film/actor/' + ${actor.id} + '/imagesUpload'}" class="btn btn-warning btn-xs">Images Upload</a>

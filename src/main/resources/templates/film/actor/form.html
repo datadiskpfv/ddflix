@@ -51,7 +51,7 @@
                 <div class="form-group">
                 <label class="col-sm-3 control-label">Birth Country:</label>
                 <div class="col-sm-8">
-                    <select class="form-control col-sm-3 col-sm-offset-3" th:field="*{birthCountry}" id="birthCountry">
+                    <select class="form-control col-sm-3" th:field="*{birthCountry}" id="birthCountry">
                         <option th:each="country : ${countries}"
                                 th:value="${country.name}"
                                 th:selected="${actorFormDTO.birthCountry == country}"

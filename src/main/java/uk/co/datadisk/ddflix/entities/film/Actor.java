@@ -37,6 +37,9 @@ public class Actor extends AbstractDomainClass {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @Column(name = "cover_image")
+    private String coverImage;
+
     @OneToOne
     @JoinColumn(name = "country")
     private Country birthCountry;
