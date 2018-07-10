@@ -104,11 +104,9 @@ public class ActorAdminController {
 
     @PostMapping("{actorId}/imagesUpload")
     public String imagesUploadPost(@RequestParam("action") String action, @PathVariable Long actorId, @RequestParam("file") MultipartFile file){
-        Actor actor = actorService.findActor(actorId);
-        String firstLetter = actor.getFirstName().substring(0, 1).toUpperCase();
 
-        // save the image
-        String filename = imageService.storeActorImage(file, firstLetter);
+        // save the image to the filesystem
+        String filename = imageService.storeActorImage(file);
         System.out.println("Filename: " + filename);
 
         // link the actor to the image

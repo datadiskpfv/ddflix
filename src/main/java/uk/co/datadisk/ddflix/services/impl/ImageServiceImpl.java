@@ -108,10 +108,12 @@ public class ImageServiceImpl implements ImageService {
         return newFileName;
     }
 
-    public String storeActorImage(MultipartFile file, String firstLetter){
+    public String storeActorImage(MultipartFile file){
 
         String filename = file.getOriginalFilename();
         String fileExtension = filename.substring(filename.lastIndexOf(".") + 1);
+
+        String firstLetter = filename.substring(0, 1).toUpperCase();
 
         System.out.println("Filename: " + filename + "  First letter: " + firstLetter + "  Extension: " + fileExtension);
 
