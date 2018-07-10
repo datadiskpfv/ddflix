@@ -109,7 +109,7 @@ public class ActorAdminController {
 
         // save the image to the filesystem
         String filename = imageService.storeActorImage(file);
-        System.out.println("Filename: " + filename);
+        System.out.println("Saving Actor Filename: " + filename);
 
         // link the actor to the image
         actorService.imageUpload(actorId, action, filename);

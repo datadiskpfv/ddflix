@@ -133,7 +133,7 @@ public class FilmAdminController {
         Film film = filmService.findFilm(filmId);
 
         String filename = imageService.storeFilmImages(file, filmId, action);
-        System.out.println("Filename: " + filename);
+        System.out.println("Saving film Filename: " + filename);
 
         if(action.equals("cover")){
             System.out.println("Cover Image: " + file);
