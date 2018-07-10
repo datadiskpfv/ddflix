@@ -61,11 +61,6 @@ public class ActorAdminController {
         return "/film/actor/info";
     }
 
-    @GetMapping("{actorId}/imagesUpload")
-    public String imagesUpload(Model model, @PathVariable Long filmId){
-        return "/film/actor/imageForm";
-    }
-
 
     // CREATE, UPDATE
     @RequestMapping(value = "form", method = {RequestMethod.GET, RequestMethod.POST})
@@ -102,6 +97,12 @@ public class ActorAdminController {
         return "redirect:/film/actor/list";
     }
 
+    // ACTOR IMAGES
+    @GetMapping("{actorId}/imagesUpload")
+    public String imagesUpload(Model model, @PathVariable Long actorId){
+        return "/film/actor/imageForm";
+    }
+
     @PostMapping("{actorId}/imagesUpload")
     public String imagesUploadPost(@RequestParam("action") String action, @PathVariable Long actorId, @RequestParam("file") MultipartFile file){
 
@@ -112,6 +113,6 @@ public class ActorAdminController {
         // link the actor to the image
         actorService.imageUpload(actorId, action, filename);
 
-        return "/film/film/list";
+        return "/film/actor/list";
     }
 }

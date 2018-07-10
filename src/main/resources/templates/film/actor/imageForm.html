@@ -32,7 +32,7 @@
 
     <h3>Background Image File</h3>
     <div id="dropzone2" class="col-md-10">
-        <form th:action="@{'/film/actor/' + ${actorFormDTO.id} + '/imagesUpload'}"
+        <form th:action="@{'/film/actor/' + ${actorFormDTO.id} + '/imagesUpload?action=background'}"
               class="dropzone needsclick" id="dropzone-upload" method="post" enctype="multipart/form-data">
 
             <div class="dz-message needsclick">
