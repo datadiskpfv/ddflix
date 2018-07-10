@@ -4,6 +4,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import uk.co.datadisk.ddflix.dto.models.film.ActorFormDTO;
+import uk.co.datadisk.ddflix.entities.user.Country;
 import uk.co.datadisk.ddflix.repositories.user.CountryRepository;
 import uk.co.datadisk.ddflix.services.ImageService;
 import uk.co.datadisk.ddflix.services.film.ActorService;
@@ -38,10 +40,10 @@ public class ActorAdminController {
     @NonNull
     private final ActorFormDTOValidator actorFormDTOValidator;
 
+    // this is used to convert the String passed from the DTO form into a Date object
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
-        binder.registerCustomEditor(Date.class, editor);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
     }
 
     // READ
