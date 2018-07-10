@@ -100,6 +100,7 @@ public class ActorAdminController {
     // ACTOR IMAGES
     @GetMapping("{actorId}/imagesUpload")
     public String imagesUpload(Model model, @PathVariable Long actorId){
+        model.addAttribute("actorFormDTO", actorService.findActorDTO(actorId));
         return "/film/actor/imageForm";
     }
 
