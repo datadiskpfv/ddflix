@@ -79,7 +79,6 @@ public class ActorAdminController {
 
             // everything should be validated so lets save and return back to the film list
             actorService.createActor(actorFormDTO);
-
             return "redirect:/film/actor/list";
         } else if (action.equals("edit")){
             // get actor in a actorFormDTO
