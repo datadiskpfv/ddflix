@@ -19,6 +19,7 @@
 
                 <input hidden="hidden" name="id" th:value="*{id}"/>
                 <input hidden="hidden" name="dateCreated" th:value="*{dateCreated}" />
+                <input hidden="hidden" name="coverImage" th:value="*{coverImage}" />
 
                 <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
                     <ul>
