@@ -15,6 +15,7 @@ import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.film.Genre;
 import uk.co.datadisk.ddflix.services.ImageService;
 import uk.co.datadisk.ddflix.services.disc.DiscService;
+import uk.co.datadisk.ddflix.services.film.ActorService;
 import uk.co.datadisk.ddflix.services.film.ClassificationService;
 import uk.co.datadisk.ddflix.services.film.FilmService;
 import uk.co.datadisk.ddflix.services.film.GenreService;
@@ -45,6 +46,9 @@ public class FilmAdminController {
 
     @NonNull
     private final DiscService discService;
+
+    @NonNull
+    private final ActorService actorService;
 
     // READ
     @GetMapping("list")
@@ -162,5 +166,17 @@ public class FilmAdminController {
         model.addAttribute("film_title", discFormDTO.getFilm().getTitle());
         model.addAttribute("discFormDTO", discFormDTO);
         return "/film/disc/discEditForm";
+    }
+
+    // ADD ACTOR TO FILM
+    @RequestMapping(value = "{filmId}/searchActorToFilm", method = {RequestMethod.GET, RequestMethod.POST})
+    public String searchActorToFilm(@RequestParam("action") String action, @PathVariable Long filmId, Model model, @ModelAttribute("search") String search) {
+        model.addAttribute("film", filmService.findFilmDTO(filmId));
+
+        if (action.equals("post")) {
+            System.out.println("Searching for actors with " + search + " in first and last name");
+            model.addAttribute("actors", actorService.FindActorBySearchString(search));
+        }
+        return "/film/actor/searchActorToFilm";
     }
 }

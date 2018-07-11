@@ -16,7 +16,7 @@ public interface ActorService {
     ActorFormDTO findActorDTO(Long id);
     List<Actor> findAll();
     Page<Actor> findAll(Pageable page);
-    //Page<Actor> FindActorBySearchString(String searchString, Pageable pageable);
+    List<Actor> FindActorBySearchString(String searchString);
     Actor findActor(Long id);
 
     void imageUpload(Long actorId, String action, String filename);

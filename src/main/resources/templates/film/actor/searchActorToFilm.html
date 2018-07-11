@@ -1,0 +1,37 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="common/mainBlankNoNav"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layoutDialect" >
+<head>
+    <meta charset="UTF-8"/>
+    <title>Search for Actor</title>
+</head>
+<body>
+<!--/*@thymesVar id="filmFormDTO" type="uk.co.datadisk.ddflix.dto.models.film.FilmFormDTO"*/-->
+<div class="container" layout:fragment="content">
+    <div class="col-md-6 col-md-offset-3">
+        <form th:action="@{'/film/film/' + ${filmFormDTO.id} + '/searchActorToFilm?action=post'}" method="POST">
+            <div class="panel-body">
+                <h1 class="form-heading" th:text="Search For Actor">Search For Actor</h1>
+
+                <div class="form-group ${error != null ? 'has-error' : ''}">
+                    <input id="search" name="search" type="text" class="form-control" placeholder="Search for Actor"
+                           autofocus="true"/><br/>
+                    <button id="submit" class="btn btn-lg btn-success btn-block" type="submit"
+                            th:text="search">Search
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div th:if="${actors}">
+            found actors
+        </div>
+
+        <div class="row">
+            <a href="/film/film/list" class="btn btn-sm btn-info">Return to Film List</a>
+            <a href="/film/admin" class="btn btn-sm btn-info">Return to Admin Page</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

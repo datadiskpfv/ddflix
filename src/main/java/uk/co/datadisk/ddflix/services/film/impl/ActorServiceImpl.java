@@ -56,10 +56,10 @@ public class ActorServiceImpl implements ActorService {
         return actorRepository.findAll(page);
     }
 
-//    @Override
-//    public Page<Actor> FindActorBySearchString(String searchString, Pageable pageable) {
-//        return actorRepository.findDistinctByTitleContainingOrGenresNameContaining(searchString, searchString, pageable);
-//    }
+    @Override
+    public List<Actor> FindActorBySearchString(String searchString) {
+        return actorRepository.findByFirstNameContainsOrLastNameContains(searchString);
+    }
 
     @Override
     public Actor findActor(Long id) {
@@ -71,7 +71,6 @@ public class ActorServiceImpl implements ActorService {
         Actor actor = actorRepository.findById(actorId).orElse(null);
         ActorImage actorImage;
 
-
         if( actor != null){
             if( action.equals("cover")){
                 System.out.println("Cover image " + filename + " for actor " + actor.getFirstName() + ' ' + actor.getLastName());
@@ -79,7 +78,7 @@ public class ActorServiceImpl implements ActorService {
                 actorRepository.saveAndFlush(actor);
             } else if (action.equals("background")){
 
-                System.out.println("Linking image" + filename + " to actor " + actor.getFirstName() + ' ' + actor.getLastName());
+                System.out.println("Linking background image " + filename + " to actor " + actor.getFirstName() + ' ' + actor.getLastName());
                 actorImage = actorImageRepository.findByImageName(filename);
 
                 // if image does not exists lets create a new one
@@ -87,6 +86,8 @@ public class ActorServiceImpl implements ActorService {
                     actorImage = new ActorImage(filename);
                 }
                 actorImage.addActorImage(actor);
+                actor.addActorImage(actorImage);
+                actorRepository.saveAndFlush(actor);
             }
         }
     }
