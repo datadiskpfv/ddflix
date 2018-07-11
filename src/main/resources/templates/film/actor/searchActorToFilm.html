@@ -8,23 +8,8 @@
 <body>
 <!--/*@thymesVar id="filmFormDTO" type="uk.co.datadisk.ddflix.dto.models.film.FilmFormDTO"*/-->
 <div class="container" layout:fragment="content">
-    <div>
-        Searching for Actors for film <span th:text="${filmFormDTO.title}"></span>
-    </div>
     <div class="col-md-6 col-md-offset-3">
-        <form th:action="@{'/film/film/' + ${filmFormDTO.id} + '/searchActorToFilm?action=post'}" method="POST">
-            <div class="panel-body">
-                <h1 class="form-heading" th:text="${'Search For Actor/s for film '} + ${filmFormDTO.title}">Search For Actor</h1>
-
-                <div class="form-group ${error != null ? 'has-error' : ''}">
-                    <input id="search" name="search" type="text" class="form-control" placeholder="Search for Actor"
-                           autofocus="true"/><br/>
-                    <button id="submit" class="btn btn-lg btn-success btn-block" type="submit"
-                            th:text="search">Search
-                    </button>
-                </div>
-            </div>
-        </form>
+        <h1 class="form-heading" th:text="${'Search For Actor/s for film '} + ${filmFormDTO.title}">Search For Actor</h1>
 
         <table class="table table-bordered">
             <thead>
@@ -36,12 +21,30 @@
             <tr>
                 <td>
                     <div data-th-each="actor : ${filmFormDTO.getActors()}">
-                      <span th:text="${actor.firstName} + ' ' + ${actor.lastName}"></span>
+                        <span th:text="${actor.firstName} + ' ' + ${actor.lastName}"></span>
                     </div>
                 </td>
             </tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="col-md-6 col-md-offset-3">
+        <form th:action="@{'/film/film/' + ${filmFormDTO.id} + '/searchActorToFilm?action=post'}" method="POST">
+            <div class="panel-body">
+
+
+                <div class="form-group ${error != null ? 'has-error' : ''}">
+                    <input id="search" name="search" type="text" class="form-control" placeholder="Search for Actor"
+                           autofocus="true"/><br/>
+                    <button id="submit" class="btn btn-sm btn-success btn-block" type="submit"
+                            th:text="search">Search
+                    </button>
+                </div>
+            </div>
+        </form>
+
+
 
         <div th:if="${actors}">
             <table id="ListTable" class="table table-bordered table-hover table-striped">
@@ -58,10 +61,10 @@
                 <tr data-th-each="actor : ${actors}">
                     <td>
                         <span th:if="${actor.coverImage != null}">
-                          <img width=40 height=40 th:src="@{'/images/actor/' + ${#strings.substring(actor.coverImage,0,1).toUpperCase()} + '/' + ${actor.getCoverImage()}}">
+                          <img width=30 height=30 th:src="@{'/images/actor/' + ${#strings.substring(actor.coverImage,0,1).toUpperCase()} + '/' + ${actor.getCoverImage()}}">
                         </span>
                         <span th:if="${actor.coverImage == null}">
-                          <img width=40 height=40 th:src="@{/images/common/Placeholder.jpg}">
+                          <img width=30 height=30 th:src="@{/images/common/Placeholder.jpg}">
                         </span>
                     </td>
                     <td th:text="${actor.firstName} + ' ' + ${actor.lastName}"></td>
