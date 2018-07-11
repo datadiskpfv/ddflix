@@ -74,9 +74,12 @@ public class ActorServiceImpl implements ActorService {
 
         if( actor != null){
             if( action.equals("cover")){
+                System.out.println("Cover image " + filename + " for actor " + actor.getFirstName() + ' ' + actor.getLastName());
                 actor.setCoverImage(filename);
+                actorRepository.saveAndFlush(actor);
             } else if (action.equals("background")){
 
+                System.out.println("Linking image" + filename + " to actor " + actor.getFirstName() + ' ' + actor.getLastName());
                 actorImage = actorImageRepository.findByImageName(filename);
 
                 // if image does not exists lets create a new one

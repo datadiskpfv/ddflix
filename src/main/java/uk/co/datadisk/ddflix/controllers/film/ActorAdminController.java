@@ -107,10 +107,12 @@ public class ActorAdminController {
     public String imagesUploadPost(@RequestParam("action") String action, @PathVariable Long actorId, @RequestParam("file") MultipartFile file){
 
         // save the image to the filesystem
+        System.out.println("Saving actor Image (controller)");
         String filename = imageService.storeActorImage(file);
         System.out.println("Saving Actor Filename: " + filename);
 
         // link the actor to the image
+        System.out.println("Link image to Actor (controller)");
         actorService.imageUpload(actorId, action, filename);
 
         return "/film/actor/list";

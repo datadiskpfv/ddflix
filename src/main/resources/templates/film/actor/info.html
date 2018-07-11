@@ -30,7 +30,7 @@
                             <td>
                                 <!--/*@thymesVar id="firstLetter" type="java.util.String"*/-->
                               <!--<img width=100 height=150 th:src="@{'/images/film/' + ${firstLetter} + '/' + ${filmFormDTO.getCoverImage()}}">-->
-                                <img width=100 height=100 th:src="@{'/images/actor/' + ${#strings.substring(actorFormDTO.firstName,0,1)} + '/' + ${actorFormDTO.getCoverImage()}}">
+                                <img width=100 height=100 th:src="@{'/images/actor/' + ${#strings.substring(actorFormDTO.coverImage,0,1).toUpperCase()} + '/' + ${actorFormDTO.getCoverImage()}}">
                             </td>
                         </tr>
                         <tr>
