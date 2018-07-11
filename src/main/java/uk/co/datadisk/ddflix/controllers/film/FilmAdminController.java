@@ -157,7 +157,7 @@ public class FilmAdminController {
 
     // CREATE - disc form
     @GetMapping("{filmId}/addDisc")
-    public String addDisc(@PathVariable Long filmId, Model model, DiscFormDTO discFormDTO){
+    public String addDisc(@PathVariable Long filmId, Model model, DiscFormDTO discFormDTO) {
 
         Film film = filmService.findFilm(filmId);
         discFormDTO.setFilm(film);
