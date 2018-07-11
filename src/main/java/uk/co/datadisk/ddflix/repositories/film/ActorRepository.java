@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ActorRepository extends JpaRepository<Actor, Long> {
     Actor findByFirstNameAndLastName(String first_name, String last_name);
-    List<Actor> findByFirstNameContainsOrLastNameContains(String search);
+    List<Actor> findByFirstNameContainsOrLastNameContains(String searchFirstName, String searchLastName);
 }

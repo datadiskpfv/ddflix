@@ -58,7 +58,7 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public List<Actor> FindActorBySearchString(String searchString) {
-        return actorRepository.findByFirstNameContainsOrLastNameContains(searchString);
+        return actorRepository.findByFirstNameContainsOrLastNameContains(searchString, searchString);
     }
 
     @Override

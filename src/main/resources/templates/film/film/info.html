@@ -65,6 +65,15 @@
                                 </p>
                             </td>
                         </tr>
+                        <tr>
+                            <td><strong>Actors: </strong></td>
+                            <td>
+                                <!--/*@thymesVar id="actor" type="uk.co.datadisk.ddflix.entities.film.Actor"*/-->
+                                <p th:each="actor : ${filmFormDTO.getActors()}">
+                                    <a th:href="@{'/film/actor/' + ${actor.id} + '/info'}"><span th:text="${actor.firstName} + ' ' + ${actor.lastName}"></span></a>
+                                </p>
+                            </td>
+                        </tr>
                     </table>
 
                     <div sec:authorize="hasAuthority('ADMIN')">

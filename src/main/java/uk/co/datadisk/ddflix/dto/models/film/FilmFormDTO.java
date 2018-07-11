@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import uk.co.datadisk.ddflix.entities.film.Actor;
 import uk.co.datadisk.ddflix.entities.film.Classification;
 import uk.co.datadisk.ddflix.entities.film.Genre;
 
@@ -49,4 +50,6 @@ public class FilmFormDTO {
     private String dateCreated = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
     private Set<Genre> genres = new HashSet<>();
+
+    private Set<Actor> actors = new HashSet<>();
 }

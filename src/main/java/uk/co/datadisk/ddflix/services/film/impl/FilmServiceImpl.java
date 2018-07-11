@@ -9,14 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import uk.co.datadisk.ddflix.dto.mapper.film.FilmFormMapper;
 import uk.co.datadisk.ddflix.dto.models.film.FilmFormDTO;
+import uk.co.datadisk.ddflix.entities.film.Actor;
 import uk.co.datadisk.ddflix.entities.film.Classification;
 import uk.co.datadisk.ddflix.entities.film.Film;
 import uk.co.datadisk.ddflix.entities.film.Genre;
 import uk.co.datadisk.ddflix.repositories.film.FilmRepository;
+import uk.co.datadisk.ddflix.services.film.ActorService;
 import uk.co.datadisk.ddflix.services.film.ClassificationService;
 import uk.co.datadisk.ddflix.services.film.FilmService;
 import uk.co.datadisk.ddflix.services.film.GenreService;
-import uk.co.datadisk.ddflix.util.PageWrapper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,12 +33,14 @@ public class FilmServiceImpl implements FilmService {
     private final FilmFormMapper filmFormMapper;
     private final GenreService genreService;
     private final ClassificationService classificationService;
+    private final ActorService actorService;
 
-    public FilmServiceImpl(FilmRepository filmRepository, FilmFormMapper filmFormMapper, GenreService genreService, ClassificationService classificationService) {
+    public FilmServiceImpl(FilmRepository filmRepository, FilmFormMapper filmFormMapper, GenreService genreService, ClassificationService classificationService, ActorService actorService) {
         this.filmRepository = filmRepository;
         this.filmFormMapper = filmFormMapper;
         this.genreService = genreService;
         this.classificationService = classificationService;
+        this.actorService = actorService;
     }
 
     @Override
@@ -117,6 +120,17 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public void deleteFilmById(Long id) {
         filmRepository.deleteById(id);
+    }
+
+    @Override
+    public void addActorToFilm(Long actorId, Long filmId) {
+        Film film = filmRepository.findById(filmId).orElse(null);
+        Actor actor = actorService.findActor(actorId);
+
+        if(actor != null && film != null){
+            film.addActor(actor);
+            filmRepository.saveAndFlush(film);
+        }
     }
 
     @Override

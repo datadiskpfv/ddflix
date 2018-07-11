@@ -13,5 +13,6 @@ public class DDFlixResourceConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/images/classification/**").addResourceLocations("file:C://java_projects/ddflix/images/classification/");
         registry.addResourceHandler("/images/film/**").addResourceLocations("file:C://java_projects/ddflix/images/film/");
         registry.addResourceHandler("/images/actor/**").addResourceLocations("file:C://java_projects/ddflix/images/actor/");
+        registry.addResourceHandler("/images/common/**").addResourceLocations("file:C://java_projects/ddflix/images/common/");
     }
 }

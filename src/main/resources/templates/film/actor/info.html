@@ -41,6 +41,15 @@
                             <td><strong>Birth Country </strong></td>
                             <td><span th:text="${actorFormDTO.birthCountry.name}"></span></td>
                         </tr>
+                        <tr>
+                            <td><strong>Films: </strong></td>
+                            <td>
+                                <!--/*@thymesVar id="film" type="uk.co.datadisk.ddflix.entities.film.Film"*/-->
+                                <p th:each="film : ${actorFormDTO.getFilms()}">
+                                    <a th:href="@{'/film/film/' + ${film.id} + '/info'}"><span th:text="${film.title}"></span></a>
+                                </p>
+                            </td>
+                        </tr>
 
                     </table>
 

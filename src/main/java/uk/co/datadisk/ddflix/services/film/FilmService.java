@@ -29,6 +29,8 @@ public interface FilmService {
 
     void deleteFilmById(Long id);
 
+    void addActorToFilm(Long actorId, Long filmId);
+
     void uploader(MultipartFile filmFile);
 
 

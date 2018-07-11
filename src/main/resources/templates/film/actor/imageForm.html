@@ -13,8 +13,13 @@
     <h2 class="form-heading">Upload Actor Images for <span th:text="${actorFormDTO.firstName} + ' ' + ${actorFormDTO.lastName}">???</span></h2>
 
     <h3>Cover Image File</h3>
-    <div class="col-md-2" >
-        <img width=100 height=100 th:src="@{'/images/actor/' + ${#strings.substring(actorFormDTO.coverImage,0,1).toUpperCase()} + '/' + ${actorFormDTO.getCoverImage()}}">
+    <div class="col-md-2">
+        <span th:if="${actorFormDTO.coverImage != null}">
+           <img width=40 height=40 th:src="@{'/images/actor/' + ${#strings.substring(actor.coverImage,0,1).toUpperCase()} + '/' + ${actor.getCoverImage()}}">
+        </span>
+        <span th:if="${actorFormDTO.coverImage == null}">
+            <img width=40 height=40 th:src="@{/images/common/Placeholder.jpg}">
+        </span>
     </div>
     <div id="dropzone1" class="col-md-10">
         <form th:action="@{'/film/actor/' + ${actorFormDTO.id} + '/imagesUpload?action=cover'}"

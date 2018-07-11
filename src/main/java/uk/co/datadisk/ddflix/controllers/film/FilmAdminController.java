@@ -171,12 +171,19 @@ public class FilmAdminController {
     // ADD ACTOR TO FILM
     @RequestMapping(value = "{filmId}/searchActorToFilm", method = {RequestMethod.GET, RequestMethod.POST})
     public String searchActorToFilm(@RequestParam("action") String action, @PathVariable Long filmId, Model model, @ModelAttribute("search") String search) {
-        model.addAttribute("film", filmService.findFilmDTO(filmId));
+        model.addAttribute("filmFormDTO", filmService.findFilmDTO(filmId));
 
         if (action.equals("post")) {
             System.out.println("Searching for actors with " + search + " in first and last name");
             model.addAttribute("actors", actorService.FindActorBySearchString(search));
         }
+        return "/film/actor/searchActorToFilm";
+    }
+
+    @GetMapping("{filmId}/addActorToFilm")
+    public String addActorToFilm(@RequestParam("actorId") Long actorId, @PathVariable Long filmId, Model model){
+        filmService.addActorToFilm(actorId, filmId);
+        model.addAttribute("filmFormDTO", filmService.findFilmDTO(filmId));
         return "/film/actor/searchActorToFilm";
     }
 }
