@@ -29,7 +29,12 @@
             <hr style="color:lightgrey;">
             <div th:text="${filmFormDTO.title}"><span>Rating</span></div>
             <div>Description</div>
-            <div>Staring: Actors</div>
+            <!--/*@thymesVar id="actor" type="uk.co.datadisk.ddflix.entities.film.Actor"*/-->
+            <div>Staring:
+                <span th:each="actor : ${filmFormDTO.getActors()}">
+                    <a th:href="@{'/film/actor/' + ${actor.id} + '/infoUser'}"><span th:text="${actor.firstName} + ' ' + ${actor.lastName} + ','"></span></a>
+                </span>
+            </div>
             <div>Runtime: 120 minutes</div>
             <div>User Comments:</div>
             <a th:href="@{/film/film/carousel}" class="btn btn-info">Return to Film Carousel</a>

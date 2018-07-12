@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="common/mainScripts"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Actor Information</title>
+</head>
+<body th:style="'background-color:black;'">
+<!--/*@thymesVar id="actorFormDTO" type="uk.co.datadisk.ddflix.dto.models.film.ActorFormDTO"*/-->
+<div layout:fragment="content" class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h2 th:style="'color: red;'">Actor Information</h2>
+            <br/>
+
+            <div class="row">
+                <div class="col-xs-5 actorTable">
+                    <table class="table table-bordered table-responsive">
+
+                        <tr>
+                            <td><strong>Name </strong></td>
+                            <td><span th:text="${actorFormDTO.firstName} + ' ' + ${actorFormDTO.lastName}" style="font-weight: bold;font-size: medium"></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cover Image </strong></td>
+                            <td>
+                                <!--/*@thymesVar id="firstLetter" type="java.util.String"*/-->
+                              <!--<img width=100 height=150 th:src="@{'/images/film/' + ${firstLetter} + '/' + ${filmFormDTO.getCoverImage()}}">-->
+                                <img width=100 height=100 th:src="@{'/images/actor/' + ${#strings.substring(actorFormDTO.coverImage,0,1).toUpperCase()} + '/' + ${actorFormDTO.getCoverImage()}}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>DOB </strong></td>
+                            <td><span th:text="${#dates.format(actorFormDTO.birthDate, 'dd-MMM-yyyy')}"></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Birth Country </strong></td>
+                            <td><span th:text="${actorFormDTO.birthCountry.name}"></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Films: </strong></td>
+                            <td>
+                                <!--/*@thymesVar id="film" type="uk.co.datadisk.ddflix.entities.film.Film"*/-->
+                                <p th:each="film : ${actorFormDTO.getFilms()}">
+                                    <a th:href="@{'/film/film/' + ${film.id} + '/infoUser'}"><span th:text="${film.title}"></span></a>
+                                </p>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <div class="row">
+                        <a th:href="@{/film/film/carousel}" class="btn btn-info">Return to Film Carousel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

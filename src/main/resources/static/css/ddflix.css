@@ -69,3 +69,8 @@ body {
 .film_list_nav_1 {
     margin-bottom: 10px;
 }
+
+.actorTable > .table-bordered > tbody > tr > td {
+    border: 2px solid red;
+    color: white;
+}
