@@ -27,5 +27,5 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
   Page<Film> findByGenresNameContaining(String genre, Pageable page);
 
   // Find films using a search string, looking at film title and any genres that it has
-  Page<Film> findDistinctByTitleContainingOrGenresNameContaining(String title, String name, Pageable page);
+  Page<Film> findDistinctByTitleContainingOrGenresNameContainingOrActorsFirstNameOrActorsLastName(String title, String name, String firstName, String lastName, Pageable page);
 }

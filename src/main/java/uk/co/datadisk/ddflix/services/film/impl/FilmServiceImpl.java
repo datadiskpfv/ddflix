@@ -94,7 +94,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Page<Film> FindFilmBySearchString(String searchString, Pageable pageable) {
-        return filmRepository.findDistinctByTitleContainingOrGenresNameContaining(searchString, searchString, pageable);
+        return filmRepository.findDistinctByTitleContainingOrGenresNameContainingOrActorsFirstNameOrActorsLastName(searchString, searchString, searchString, searchString, pageable);
     }
 
     @Override
